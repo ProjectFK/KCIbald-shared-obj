@@ -1,6 +1,7 @@
 package com.kcibald.objects
 
 import com.kcibald.objects.impl.now
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.math.abs
 
@@ -66,4 +67,15 @@ internal class PostInterfaceTest {
     fun defaultComment() {
         assert(postDefaultyCreated.comments.isEmpty())
     }
+
+    @Test
+    fun commentsSpec() {
+        assertEquals(Post.PostJsonKeySpec.comments, "comments")
+    }
+
+    @Test
+    fun idSpec() {
+        assertEquals(Post.PostJsonKeySpec.id, "post_id")
+    }
+
 }

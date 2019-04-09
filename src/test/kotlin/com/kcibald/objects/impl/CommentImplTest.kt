@@ -28,11 +28,11 @@ internal class CommentImplTest {
         attachment2
     )
 
-    val reply1 = Reply.createDefault(
-        author, ts, ts, HTMLContent.createDefault("reply1"), listOf()
+    val reply1 = Comment.createDefault(
+        author, HTMLContent.createDefault("reply1"), ts, ts
     )
-    val reply2 = Reply.createDefault(
-        author, ts, ts, HTMLContent.createDefault("reply1"), listOf()
+    val reply2 = Comment.createDefault(
+        author, HTMLContent.createDefault("reply1"), ts, ts
     )
     val replies = listOf(
         reply1,

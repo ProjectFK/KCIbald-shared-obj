@@ -12,7 +12,7 @@ internal class UserImplTest {
 
     val signature = HTMLContent.createDefault("signature")
     val avatar = AttachmentURL.createDefault("url")
-    val userId = "id"
+    val userId = "user_id"
     val userName = "name"
     val user = UserImpl(userId, userName, avatar, signature)
 

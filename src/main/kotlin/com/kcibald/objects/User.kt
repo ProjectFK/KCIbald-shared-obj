@@ -35,7 +35,7 @@ interface User : PubliclySerializable {
     }
 
     object UserJsonKeySpec {
-        const val userId = "id"
+        const val userId = "user_id"
         const val userName = "user_name"
         const val avatar = "avatar"
         const val signature = "signature"

@@ -10,16 +10,8 @@ internal data class CommentImpl(
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp,
     override val attachments: List<AttachmentURL>,
-    override val replies: List<Reply>
+    override val replies: List<Comment>
 ) : Comment
-
-internal data class ReplyImpl(
-    override val author: User,
-    override val createTimeStamp: Timestamp,
-    override val updateTimestamp: Timestamp,
-    override val content: HTMLContent,
-    override val attachments: List<AttachmentURL>
-) : Reply
 
 internal data class PostImpl(
     override val id: String,

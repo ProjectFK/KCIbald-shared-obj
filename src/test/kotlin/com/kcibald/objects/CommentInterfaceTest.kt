@@ -2,6 +2,7 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.now
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.math.abs
 
@@ -24,11 +25,11 @@ internal class CommentInterfaceTest {
         attachment2
     )
 
-    val reply1 = Reply.createDefault(
-        author, ts, ts, HTMLContent.createDefault("reply1"), listOf()
+    val reply1 = Comment.createDefault(
+        author, HTMLContent.createDefault("reply1"), ts, ts
     )
-    val reply2 = Reply.createDefault(
-        author, ts, ts, HTMLContent.createDefault("reply1"), listOf()
+    val reply2 = Comment.createDefault(
+        author, HTMLContent.createDefault("reply1"), ts, ts
     )
     val replies = listOf(
         reply1,
@@ -70,6 +71,11 @@ internal class CommentInterfaceTest {
     @Test
     fun defaultReplies() {
         assert(defaultComment.replies.isEmpty())
+    }
+
+    @Test
+    fun repliesSpec() {
+        assertEquals(Comment.Companion.CommentJsonKeySpec.replies, "replies")
     }
 
 }

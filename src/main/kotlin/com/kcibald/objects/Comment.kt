@@ -6,7 +6,7 @@ import com.kcibald.serilization.serializePublicJson
 import io.vertx.core.json.JsonObject
 
 interface Comment : ContentBased {
-    val replies: List<Reply>
+    val replies: List<Comment>
 
     override fun asPublicJson(): JsonObject = super
         .asPublicJson()
@@ -19,7 +19,7 @@ interface Comment : ContentBased {
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp = now,
             attachments: List<AttachmentURL> = listOf(),
-            replies: List<Reply> = listOf()
+            replies: List<Comment> = listOf()
         ): Comment = CommentImpl(author, content, createTimeStamp, updateTimestamp, attachments, replies)
 
         object CommentJsonKeySpec {
