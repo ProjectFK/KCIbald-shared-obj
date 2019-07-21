@@ -11,6 +11,8 @@ interface User : JsonSerializable {
 
     val userName: String
 
+    val urlKey: String
+
     val avatar: AttachmentURL
 
     val signature: String
@@ -19,6 +21,7 @@ interface User : JsonSerializable {
         jsonObjectOf(
             UserJsonKeySpec.userId to userId,
             UserJsonKeySpec.userName to userName,
+            UserJsonKeySpec.urlKey to urlKey,
             UserJsonKeySpec.avatar to avatar.asString(),
             UserJsonKeySpec.signature to signature
         )
@@ -27,14 +30,16 @@ interface User : JsonSerializable {
         fun createDefault(
             userId: String,
             userName: String,
+            urlKey: String,
             avatar: AttachmentURL,
             signature: String
-        ): User = UserImpl(userId, userName, avatar, signature)
+        ): User = UserImpl(userId, userName, urlKey, avatar, signature)
     }
 
     object UserJsonKeySpec {
         const val userId = "user_id"
         const val userName = "user_name"
+        const val urlKey = "url_key"
         const val avatar = "avatar"
         const val signature = "signature"
     }

@@ -1,6 +1,9 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.*
+import com.kcibald.objects.AttachmentURL
+import com.kcibald.objects.Comment
+import com.kcibald.objects.ContentBased
+import com.kcibald.objects.User
 import com.kcibald.serilization.serializeString
 import com.kcibald.serilization.serializeToJson
 import io.vertx.kotlin.core.json.json
@@ -12,6 +15,7 @@ internal class CommentImplTest {
 
     val author = User.createDefault(
         "Id",
+        "name",
         "name",
         AttachmentURL.createDefault("url"),
         "signature"

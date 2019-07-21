@@ -14,6 +14,7 @@ internal class PostInterfaceTest {
         User.createDefault(
             "id",
             "name",
+            "name",
             AttachmentURL.createDefault("avatar"),
             "signature"
         ),
@@ -28,6 +29,7 @@ internal class PostInterfaceTest {
             "title",
             User.createDefault(
                 "id",
+                "name",
                 "name",
                 AttachmentURL.createDefault("avatar"),
                 "signature"
@@ -47,6 +49,7 @@ internal class PostInterfaceTest {
             "title",
             User.createDefault(
                 "id",
+                "name",
                 "name",
                 AttachmentURL.createDefault("avatar"),
                 "signature"

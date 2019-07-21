@@ -13,6 +13,7 @@ internal class PostImplTest {
     val author = User.createDefault(
         "userId",
         "user name",
+        "user_name",
         AttachmentURL.createDefault("avatar"),
         "signature"
     )

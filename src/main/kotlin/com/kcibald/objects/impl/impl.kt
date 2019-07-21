@@ -27,6 +27,7 @@ internal data class PostImpl(
 internal data class UserImpl(
     override val userId: String,
     override val userName: String,
+    override val urlKey: String,
     override val avatar: AttachmentURL,
     override val signature: String
 ) : User

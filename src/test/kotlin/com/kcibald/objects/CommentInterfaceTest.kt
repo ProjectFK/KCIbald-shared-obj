@@ -10,6 +10,7 @@ internal class CommentInterfaceTest {
     val author = User.createDefault(
         "Id",
         "name",
+        "name",
         AttachmentURL.createDefault("url"),
         "signature"
     )

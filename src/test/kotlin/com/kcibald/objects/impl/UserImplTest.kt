@@ -13,7 +13,8 @@ internal class UserImplTest {
     val avatar = AttachmentURL.createDefault("url")
     val userId = "user_id"
     val userName = "name"
-    val user = UserImpl(userId, userName, avatar, signature)
+    val urlKey = "name"
+    val user = UserImpl(userId, userName, urlKey, avatar, signature)
 
     @Test
     fun getUserId() {
@@ -23,6 +24,11 @@ internal class UserImplTest {
     @Test
     fun getUserName() {
         assertEquals(userName, user.userName)
+    }
+
+    @Test
+    fun getUrlKey() {
+        assertEquals(urlKey, user.urlKey)
     }
 
     @Test
@@ -37,7 +43,7 @@ internal class UserImplTest {
 
     @Test
     fun equals() {
-        assertEquals(user, UserImpl(userId, userName, avatar, signature))
+        assertEquals(user, UserImpl(userId, userName, urlKey, avatar, signature))
     }
 
     @Test
@@ -47,6 +53,7 @@ internal class UserImplTest {
                 User.UserJsonKeySpec.signature to signature,
                 User.UserJsonKeySpec.avatar to avatar.asString(),
                 User.UserJsonKeySpec.userName to userName,
+                User.UserJsonKeySpec.urlKey to urlKey,
                 User.UserJsonKeySpec.userId to userId
             )
         }
