@@ -14,7 +14,7 @@ interface Post : MinimizedPost {
             author: User,
             content: String,
             createTimeStamp: Timestamp = now,
-            updateTimestamp: Timestamp = now,
+            updateTimestamp: Timestamp? = null,
             attachments: List<Attachment> = listOf(),
             comments: List<Comment> = listOf(),
             urlKey: String,

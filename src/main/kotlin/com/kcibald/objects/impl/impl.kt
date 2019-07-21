@@ -8,7 +8,7 @@ internal data class CommentImpl(
     override val author: User,
     override val content: String,
     override val createTimeStamp: Timestamp,
-    override val updateTimestamp: Timestamp,
+    override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
     override val replies: List<Comment>
 ) : Comment
@@ -19,7 +19,7 @@ internal data class PostImpl(
     override val author: User,
     override val content: String,
     override val createTimeStamp: Timestamp,
-    override val updateTimestamp: Timestamp,
+    override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
     override val comments: List<Comment>,
     override val urlKey: String,

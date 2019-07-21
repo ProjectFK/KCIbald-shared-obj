@@ -5,13 +5,9 @@ import com.kcibald.objects.impl.UserImpl
 interface User {
 
     val userId: String
-
     val userName: String
-
     val urlKey: String
-
     val avatar: Attachment
-
     val signature: String
 
     companion object {
@@ -21,7 +17,13 @@ interface User {
             urlKey: String,
             avatar: Attachment,
             signature: String
-        ): User = UserImpl(userId, userName, urlKey, avatar, signature)
+        ): User = UserImpl(
+            userId,
+            userName,
+            urlKey,
+            avatar,
+            signature
+        )
     }
 
 }
