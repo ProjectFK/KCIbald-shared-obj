@@ -3,7 +3,9 @@ package com.kcibald.objects.impl
 import com.kcibald.objects.Comment
 import com.kcibald.objects.Post
 import com.kcibald.objects.User
+import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 
 internal class PostImplTest {
@@ -49,13 +51,19 @@ internal class PostImplTest {
         comment2
     )
 
+    val urlKey = title.toURLKey()
+
     val target = Post.createDefault(
         id,
         title,
         author,
         content,
         "",
-        ts
+        ts,
+        ts,
+        attachments,
+        comments,
+        urlKey
     )
 
 
@@ -96,7 +104,19 @@ internal class PostImplTest {
 
     @Test
     fun getComments() {
-        assertEquals(comments, target.comments)
+        val comm = target.comments
+        assertFalse(comm.hasNextPage)
+        assertEquals(comments, comm.currentContent)
+    }
+
+    @Test
+    fun getUrlKey() {
+        assertEquals(urlKey, target.urlKey)
+    }
+
+    @Test
+    fun getCommentSize() {
+        assertEquals(comments.size, target.comments.totalSize)
     }
 
 }
