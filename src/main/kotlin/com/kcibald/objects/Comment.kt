@@ -15,7 +15,7 @@ interface Comment : ContentBased {
     companion object {
         fun createDefault(
             author: User,
-            content: HTMLContent,
+            content: String,
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp = now,
             attachments: List<AttachmentURL> = listOf(),

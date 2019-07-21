@@ -20,7 +20,7 @@ internal class PostImplTest {
 
     val id = "post-id"
     val title = "title"
-    val content = HTMLContent.createDefault("content")
+    val content = "content"
     val ts = now
 
     val attachment1 = AttachmentURL.createDefault("attachment1")
@@ -32,7 +32,7 @@ internal class PostImplTest {
 
     val comment1 = Comment.createDefault(
         author,
-        HTMLContent.createDefault("content1"),
+        "content1",
         ts,
         ts,
         listOf(),
@@ -40,7 +40,7 @@ internal class PostImplTest {
     )
     val comment2 = Comment.createDefault(
         author,
-        HTMLContent.createDefault("content2"),
+        "content2",
         ts,
         ts,
         listOf(),
@@ -61,7 +61,7 @@ internal class PostImplTest {
         val json = json {
             obj(
                 ContentBased.JsonKeySpec.author to author.asJson(),
-                ContentBased.JsonKeySpec.content to content.asString(),
+                ContentBased.JsonKeySpec.content to content,
                 ContentBased.JsonKeySpec.createTimeStamp to ts,
                 ContentBased.JsonKeySpec.updateTimestamp to ts,
                 ContentBased.JsonKeySpec.attachments to attachments.serializeString(),

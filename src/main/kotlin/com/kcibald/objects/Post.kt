@@ -20,7 +20,7 @@ interface Post : ContentBased {
             id: String,
             title: String,
             author: User,
-            content: HTMLContent,
+            content: String,
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp = now,
             attachments: List<AttachmentURL> = listOf(),

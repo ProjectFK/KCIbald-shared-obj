@@ -6,7 +6,7 @@ import java.time.ZoneOffset
 
 internal data class CommentImpl(
     override val author: User,
-    override val content: HTMLContent,
+    override val content: String,
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp,
     override val attachments: List<AttachmentURL>,
@@ -17,7 +17,7 @@ internal data class PostImpl(
     override val id: String,
     override val title: String,
     override val author: User,
-    override val content: HTMLContent,
+    override val content: String,
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp,
     override val attachments: List<AttachmentURL>,
@@ -33,9 +33,6 @@ internal data class UserImpl(
 ) : User
 
 internal data class AttachmentURLImpl(override val url: String) : AttachmentURL
-internal data class HTMLContentImpl(val content: String) : HTMLContent {
-    override fun asString(): String = content
-}
 
 internal val now: Timestamp
     get() = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)

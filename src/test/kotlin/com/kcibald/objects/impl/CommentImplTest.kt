@@ -21,7 +21,7 @@ internal class CommentImplTest {
         "signature"
     )
 
-    val content = HTMLContent.createDefault("content")
+    val content = "content"
 
     val ts = now
 
@@ -33,10 +33,10 @@ internal class CommentImplTest {
     )
 
     val reply1 = Comment.createDefault(
-        author, HTMLContent.createDefault("reply1"), ts, ts
+        author, "reply1", ts, ts
     )
     val reply2 = Comment.createDefault(
-        author, HTMLContent.createDefault("reply1"), ts, ts
+        author, "reply1", ts, ts
     )
     val replies = listOf(
         reply1,
@@ -88,7 +88,7 @@ internal class CommentImplTest {
             obj(
                 ContentBased.JsonKeySpec.attachments to attachments.serializeString(),
                 ContentBased.JsonKeySpec.author to author.asJson(),
-                ContentBased.JsonKeySpec.content to content.asString(),
+                ContentBased.JsonKeySpec.content to content,
                 ContentBased.JsonKeySpec.createTimeStamp to now,
                 ContentBased.JsonKeySpec.updateTimestamp to now,
                 Comment.Companion.CommentJsonKeySpec.replies to replies.serializeToJson()

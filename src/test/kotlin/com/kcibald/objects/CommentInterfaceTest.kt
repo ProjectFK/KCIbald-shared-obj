@@ -15,7 +15,7 @@ internal class CommentInterfaceTest {
         "signature"
     )
 
-    val content = HTMLContent.createDefault("content")
+    val content = "content"
 
     val ts = now
 
@@ -27,10 +27,10 @@ internal class CommentInterfaceTest {
     )
 
     val reply1 = Comment.createDefault(
-        author, HTMLContent.createDefault("reply1"), ts, ts
+        author, "reply1", ts, ts
     )
     val reply2 = Comment.createDefault(
-        author, HTMLContent.createDefault("reply1"), ts, ts
+        author, "reply1", ts, ts
     )
     val replies = listOf(
         reply1,

@@ -18,7 +18,7 @@ internal class PostInterfaceTest {
             AttachmentURL.createDefault("avatar"),
             "signature"
         ),
-        HTMLContent.createDefault("content")
+        "content"
     )
 
     @Test
@@ -34,7 +34,7 @@ internal class PostInterfaceTest {
                 AttachmentURL.createDefault("avatar"),
                 "signature"
             ),
-            HTMLContent.createDefault("content")
+            "content"
         )
 
         val n = now
@@ -54,7 +54,7 @@ internal class PostInterfaceTest {
                 AttachmentURL.createDefault("avatar"),
                 "signature"
             ),
-            HTMLContent.createDefault("content")
+            "content"
         )
 
         val n = now
