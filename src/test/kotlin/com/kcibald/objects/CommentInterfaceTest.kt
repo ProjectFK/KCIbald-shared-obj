@@ -27,10 +27,10 @@ internal class CommentInterfaceTest {
     )
 
     val reply1 = Comment.createDefault(
-        author, "reply1", ts, ts
+        1, author, "reply1", ts, ts
     )
     val reply2 = Comment.createDefault(
-        author, "reply1", ts, ts
+        2, author, "reply1", ts, ts
     )
     val replies = listOf(
         reply1,
@@ -38,6 +38,7 @@ internal class CommentInterfaceTest {
     )
 
     val target = CommentImpl(
+        3,
         author,
         content,
         ts,
@@ -48,20 +49,20 @@ internal class CommentInterfaceTest {
 
     @Test
     fun defaultUpdateTimes() {
-        val target = Comment.createDefault(author, content)
+        val target = Comment.createDefault(1, author, content)
 
         assertEquals(null, target.updateTimestamp)
     }
 
     @Test
     fun defaultCreateTimes() {
-        val target = Comment.createDefault(author, content)
+        val target = Comment.createDefault(1, author, content)
 
         val n = now
         assert(abs(target.createTimestamp - n) < 5)
     }
 
-    val defaultComment = Comment.createDefault(author, content)
+    val defaultComment = Comment.createDefault(1, author, content)
 
     @Test
     fun defaultAttachment() {

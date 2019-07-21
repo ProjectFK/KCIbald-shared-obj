@@ -27,17 +27,20 @@ internal class CommentImplTest {
     )
 
     val reply1 = Comment.createDefault(
-        author, "reply1", ts, ts
+        1, author, "reply1", ts, ts
     )
     val reply2 = Comment.createDefault(
-        author, "reply1", ts, ts
+        2, author, "reply1", ts, ts
     )
     val replies = listOf(
         reply1,
         reply2
     )
 
+    val id = 3
+
     val target = CommentImpl(
+        id,
         author,
         content,
         ts,
@@ -45,6 +48,11 @@ internal class CommentImplTest {
         attachments,
         replies
     )
+
+    @Test
+    fun getId() {
+        assertEquals(id, target.id)
+    }
 
     @Test
     fun getAuthor() {

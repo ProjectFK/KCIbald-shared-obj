@@ -8,6 +8,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 internal data class CommentImpl(
+    override val id: Int,
     override val author: User,
     override val content: String,
     override val createTimestamp: Timestamp,

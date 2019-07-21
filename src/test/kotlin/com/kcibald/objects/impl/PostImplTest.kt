@@ -31,6 +31,7 @@ internal class PostImplTest {
     )
 
     val comment1 = Comment.createDefault(
+        1,
         author,
         "content1",
         ts,
@@ -39,6 +40,7 @@ internal class PostImplTest {
         listOf()
     )
     val comment2 = Comment.createDefault(
+        2,
         author,
         "content2",
         ts,

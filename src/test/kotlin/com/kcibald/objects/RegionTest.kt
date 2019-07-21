@@ -11,6 +11,7 @@ internal class RegionTest {
 
     val comment = listOf<Comment>(
         CommentImpl(
+            1,
             User.createDefault(
                 "Id",
                 "name",
@@ -27,6 +28,7 @@ internal class RegionTest {
             ),
             listOf(
                 Comment.createDefault(
+                    2,
                     User.createDefault(
                         "Id",
                         "name",
@@ -36,6 +38,7 @@ internal class RegionTest {
                     ), "reply1", now, now
                 ),
                 Comment.createDefault(
+                    3,
                     User.createDefault(
                         "Id",
                         "name",
