@@ -2,6 +2,7 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.now
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.math.abs
 
@@ -49,8 +50,7 @@ internal class CommentInterfaceTest {
     fun defaultUpdateTimes() {
         val target = Comment.createDefault(author, content)
 
-        val n = now
-        assert(abs(target.updateTimestamp!! - n) < 5)
+        assertEquals(null, target.updateTimestamp)
     }
 
     @Test
