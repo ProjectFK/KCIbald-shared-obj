@@ -58,7 +58,7 @@ internal class CommentInterfaceTest {
         val target = Comment.createDefault(author, content)
 
         val n = now
-        assert(abs(target.createTimeStamp - n) < 5)
+        assert(abs(target.createTimestamp - n) < 5)
     }
 
     val defaultComment = Comment.createDefault(author, content)

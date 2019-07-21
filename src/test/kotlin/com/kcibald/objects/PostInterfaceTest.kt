@@ -9,7 +9,6 @@ internal class PostInterfaceTest {
 
 
     val postDefaultyCreated = Post.createDefault(
-        "id",
         "title",
         User.createDefault(
             "id",
@@ -19,15 +18,13 @@ internal class PostInterfaceTest {
             "signature"
         ),
         "content",
-        urlKey = "",
-        parentRegionKey = ""
+        ""
     )
 
     @Test
     fun defaultUpdateTimes() {
 
         val target = Post.createDefault(
-            "id",
             "title",
             User.createDefault(
                 "id",
@@ -37,8 +34,7 @@ internal class PostInterfaceTest {
                 "signature"
             ),
             "content",
-            urlKey = "",
-            parentRegionKey = ""
+            ""
         )
 
         assertEquals(null, target.updateTimestamp)
@@ -48,7 +44,6 @@ internal class PostInterfaceTest {
     fun defaultCreateTimes() {
 
         val target = Post.createDefault(
-            "id",
             "title",
             User.createDefault(
                 "id",
@@ -63,7 +58,7 @@ internal class PostInterfaceTest {
         )
 
         val n = now
-        assert(abs(target.createTimeStamp - n) < 5)
+        assert(abs(target.createTimestamp - n) < 5)
     }
 
     @Test

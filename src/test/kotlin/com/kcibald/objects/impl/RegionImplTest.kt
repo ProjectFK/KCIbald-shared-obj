@@ -52,7 +52,6 @@ internal class RegionImplTest {
 
     val posts = listOf(
         Post.createDefault(
-            "id",
             "title",
             User.createDefault(
                 "Id",

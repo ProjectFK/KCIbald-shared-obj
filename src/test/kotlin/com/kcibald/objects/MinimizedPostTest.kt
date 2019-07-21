@@ -9,7 +9,6 @@ internal class MinimizedPostTest {
 
     @Test
     fun createDefault() {
-        val id = "kxkjalkdjf"
         val title = "title"
         val urlKey = "title"
         val parentRegionUrlKey = "DP"
@@ -26,7 +25,6 @@ internal class MinimizedPostTest {
         val content = "blah"
 
         val expected = MinimizedPostImpl(
-            id,
             title,
             urlKey,
             parentRegionUrlKey,
@@ -40,7 +38,6 @@ internal class MinimizedPostTest {
         assertEquals(
             expected,
             MinimizedPost.createDefault(
-                id,
                 title,
                 urlKey,
                 content,
@@ -54,7 +51,6 @@ internal class MinimizedPostTest {
 
     @Test
     fun createDefault_with_default_para_updateTimeStamp() {
-        val id = "kxkjalkdjf"
         val title = "title"
         val urlKey = "title"
         val parentRegionUrlKey = "DP"
@@ -69,7 +65,6 @@ internal class MinimizedPostTest {
         val content = "blah"
 
         val created = MinimizedPost.createDefault(
-            id,
             title,
             urlKey,
             content,
@@ -85,7 +80,6 @@ internal class MinimizedPostTest {
 
     @Test
     fun createDefault_with_default_para_creationTimeStamp() {
-        val id = "kxkjalkdjf"
         val title = "title"
         val urlKey = "title"
         val parentRegionUrlKey = "DP"
@@ -100,7 +94,6 @@ internal class MinimizedPostTest {
         val content = "blah"
 
         val created = MinimizedPost.createDefault(
-            id,
             title,
             urlKey,
             content,
@@ -110,7 +103,7 @@ internal class MinimizedPostTest {
         )
 
         assert(
-            (now.minus(created.createTimeStamp)) < 5
+            (now.minus(created.createTimestamp)) < 5
         )
     }
 

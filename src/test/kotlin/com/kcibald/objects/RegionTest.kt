@@ -50,7 +50,6 @@ internal class RegionTest {
 
     val posts = listOf(
         Post.createDefault(
-            "id",
             "title",
             User.createDefault(
                 "Id",

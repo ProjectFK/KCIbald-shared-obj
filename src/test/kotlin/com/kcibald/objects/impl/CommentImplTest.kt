@@ -58,7 +58,7 @@ internal class CommentImplTest {
 
     @Test
     fun getCreateTimeStamp() {
-        assertEquals(ts, target.createTimeStamp)
+        assertEquals(ts, target.createTimestamp)
     }
 
     @Test

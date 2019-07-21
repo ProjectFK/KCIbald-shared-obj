@@ -11,7 +11,6 @@ interface Post : MinimizedPost {
 
     companion object {
         fun createDefault(
-            id: String,
             title: String,
             author: User,
             content: String,
@@ -22,7 +21,6 @@ interface Post : MinimizedPost {
             comments: List<Comment> = listOf(),
             urlKey: String = title.toURLKey()
         ): Post = PostImpl(
-            id,
             title,
             author,
             content,

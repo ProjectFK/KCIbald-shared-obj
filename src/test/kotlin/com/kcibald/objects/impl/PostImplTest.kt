@@ -54,7 +54,6 @@ internal class PostImplTest {
     val urlKey = title.toURLKey()
 
     val target = Post.createDefault(
-        id,
         title,
         author,
         content,
@@ -65,12 +64,6 @@ internal class PostImplTest {
         comments,
         urlKey
     )
-
-
-    @Test
-    fun getId() {
-        assertEquals(id, target.id)
-    }
 
     @Test
     fun getTitle() {
@@ -89,7 +82,7 @@ internal class PostImplTest {
 
     @Test
     fun getCreateTimeStamp() {
-        assertEquals(ts, target.createTimeStamp)
+        assertEquals(ts, target.createTimestamp)
     }
 
     @Test

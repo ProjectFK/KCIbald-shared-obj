@@ -5,15 +5,13 @@ import com.kcibald.objects.impl.now
 import com.kcibald.utils.toURLKey
 
 interface MinimizedPost : ContentBased {
-    val id: String
     val title: String
     val urlKey: String
-    val parentRegionUrlKey: String
+    val sourceRegionURLKey: String
     val commentCount: Int
 
     companion object {
         fun createDefault(
-            id: String,
             title: String,
             urlKey: String,
             content: String,
@@ -23,7 +21,6 @@ interface MinimizedPost : ContentBased {
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp? = null
         ): MinimizedPost = MinimizedPostImpl(
-            id,
             title,
             urlKey,
             parentRegionUrlKey,

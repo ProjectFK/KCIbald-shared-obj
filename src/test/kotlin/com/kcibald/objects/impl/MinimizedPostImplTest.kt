@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 
 internal class MinimizedPostImplTest {
 
-    val id = "kxkjalkdjf"
     val title = "title"
     val urlKey = "title"
     val parentRegionUrlKey = "DP"
@@ -24,7 +23,6 @@ internal class MinimizedPostImplTest {
     val content = "blah"
 
     val target = MinimizedPostImpl(
-        id,
         title,
         urlKey,
         parentRegionUrlKey,
@@ -34,11 +32,6 @@ internal class MinimizedPostImplTest {
         updateTimeStamp,
         content
     )
-
-    @Test
-    fun id() {
-        assertEquals(id, target.id)
-    }
 
     @Test
     fun title() {
@@ -52,7 +45,7 @@ internal class MinimizedPostImplTest {
 
     @Test
     fun parentRegionKey() {
-        assertEquals(parentRegionUrlKey, target.parentRegionUrlKey)
+        assertEquals(parentRegionUrlKey, target.sourceRegionURLKey)
     }
 
     @Test
@@ -67,7 +60,7 @@ internal class MinimizedPostImplTest {
 
     @Test
     fun createTimeStamp() {
-        assertEquals(createTimeStamp, target.createTimeStamp)
+        assertEquals(createTimeStamp, target.createTimestamp)
     }
 
     @Test

@@ -10,35 +10,33 @@ import java.time.ZoneOffset
 internal data class CommentImpl(
     override val author: User,
     override val content: String,
-    override val createTimeStamp: Timestamp,
+    override val createTimestamp: Timestamp,
     override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
     override val replies: List<Comment>
 ) : Comment
 
 internal data class MinimizedPostImpl(
-    override val id: String,
     override val title: String,
     override val urlKey: String,
-    override val parentRegionUrlKey: String,
+    override val sourceRegionURLKey: String,
     override val commentCount: Int,
     override val author: User,
-    override val createTimeStamp: Timestamp,
+    override val createTimestamp: Timestamp,
     override val updateTimestamp: Timestamp?,
     override val content: String
 ) : MinimizedPost
 
 internal data class PostImpl(
-    override val id: String,
     override val title: String,
     override val author: User,
     override val content: String,
-    override val createTimeStamp: Timestamp,
+    override val createTimestamp: Timestamp,
     override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
     val comments_collection: List<Comment>,
     override val urlKey: String,
-    override val parentRegionUrlKey: String,
+    override val sourceRegionURLKey: String,
     override val commentCount: Int
 ) : Post {
     override val comments: KnownSizePageableCollection<Comment>
