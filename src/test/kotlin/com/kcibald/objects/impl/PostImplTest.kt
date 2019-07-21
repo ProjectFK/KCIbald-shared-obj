@@ -3,11 +3,6 @@ package com.kcibald.objects.impl
 import com.kcibald.objects.Comment
 import com.kcibald.objects.Post
 import com.kcibald.objects.User
-import com.kcibald.serilization.keyspecs.ContentBasedKeySpec
-import com.kcibald.serilization.keyspecs.PostJsonKeySpec
-import com.kcibald.serilization.serializeToJson
-import io.vertx.kotlin.core.json.json
-import io.vertx.kotlin.core.json.obj
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -55,25 +50,18 @@ internal class PostImplTest {
     )
 
     val target = Post.createDefault(
-        id, title, author, content, ts, ts, attachments, comments
+        id,
+        title,
+        author,
+        content,
+        ts,
+        ts,
+        attachments,
+        comments,
+        urlKey = "",
+        parentRegionKey = ""
     )
 
-
-    @Test
-    fun asJson() {
-        val json = json {
-            obj(
-                ContentBasedKeySpec.author to author.asJson(),
-                ContentBasedKeySpec.content to content,
-                ContentBasedKeySpec.createTimeStamp to ts,
-                ContentBasedKeySpec.updateTimestamp to ts,
-                ContentBasedKeySpec.attachments to attachments,
-                PostJsonKeySpec.comments to comments.serializeToJson(),
-                PostJsonKeySpec.id to id
-            )
-        }
-        assertEquals(json, target.asJson())
-    }
 
     @Test
     fun getId() {

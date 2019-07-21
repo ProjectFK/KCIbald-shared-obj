@@ -1,8 +1,5 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.serilization.keyspecs.UserJsonKeySpec
-import io.vertx.kotlin.core.json.json
-import io.vertx.kotlin.core.json.obj
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -43,20 +40,6 @@ internal class UserImplTest {
     @Test
     fun equals() {
         assertEquals(user, UserImpl(userId, userName, urlKey, avatar, signature))
-    }
-
-    @Test
-    fun asJson() {
-        val json = json {
-            obj(
-                UserJsonKeySpec.signature to signature,
-                UserJsonKeySpec.avatar to avatar,
-                UserJsonKeySpec.userName to userName,
-                UserJsonKeySpec.urlKey to urlKey,
-                UserJsonKeySpec.userId to userId
-            )
-        }
-        assertEquals(json, user.asJson())
     }
 
 }

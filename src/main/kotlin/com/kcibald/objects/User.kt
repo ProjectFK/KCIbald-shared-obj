@@ -1,12 +1,8 @@
 package com.kcibald.objects
 
 import com.kcibald.objects.impl.UserImpl
-import com.kcibald.serilization.json.JsonSerializable
-import com.kcibald.serilization.keyspecs.UserJsonKeySpec
-import io.vertx.core.json.JsonObject
-import io.vertx.kotlin.core.json.jsonObjectOf
 
-interface User : JsonSerializable {
+interface User {
 
     val userId: String
 
@@ -17,15 +13,6 @@ interface User : JsonSerializable {
     val avatar: Attachment
 
     val signature: String
-
-    override fun asJson(): JsonObject =
-        jsonObjectOf(
-            UserJsonKeySpec.userId to userId,
-            UserJsonKeySpec.userName to userName,
-            UserJsonKeySpec.urlKey to urlKey,
-            UserJsonKeySpec.avatar to avatar,
-            UserJsonKeySpec.signature to signature
-        )
 
     companion object {
         fun createDefault(

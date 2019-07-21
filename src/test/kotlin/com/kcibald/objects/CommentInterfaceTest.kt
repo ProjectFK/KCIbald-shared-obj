@@ -2,8 +2,6 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.serilization.keyspecs.CommentJsonKeySpec
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.math.abs
 
@@ -73,11 +71,6 @@ internal class CommentInterfaceTest {
     @Test
     fun defaultReplies() {
         assert(defaultComment.replies.isEmpty())
-    }
-
-    @Test
-    fun repliesSpec() {
-        assertEquals(CommentJsonKeySpec.replies, "replies")
     }
 
 }

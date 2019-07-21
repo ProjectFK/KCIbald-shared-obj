@@ -21,7 +21,10 @@ internal data class PostImpl(
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp,
     override val attachments: List<Attachment>,
-    override val comments: List<Comment>
+    override val comments: List<Comment>,
+    override val urlKey: String,
+    override val parentRegionUrlKey: String,
+    override val commentCount: Int
 ) : Post
 
 internal data class UserImpl(

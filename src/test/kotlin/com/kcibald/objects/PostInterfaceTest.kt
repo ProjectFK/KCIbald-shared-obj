@@ -1,8 +1,6 @@
 package com.kcibald.objects
 
 import com.kcibald.objects.impl.now
-import com.kcibald.serilization.keyspecs.PostJsonKeySpec
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.math.abs
 
@@ -19,7 +17,9 @@ internal class PostInterfaceTest {
             "avatar",
             "signature"
         ),
-        "content"
+        "content",
+        urlKey = "",
+        parentRegionKey = ""
     )
 
     @Test
@@ -35,7 +35,9 @@ internal class PostInterfaceTest {
                 "avatar",
                 "signature"
             ),
-            "content"
+            "content",
+            urlKey = "",
+            parentRegionKey = ""
         )
 
         val n = now
@@ -55,7 +57,9 @@ internal class PostInterfaceTest {
                 "avatar",
                 "signature"
             ),
-            "content"
+            "content",
+            urlKey = "",
+            parentRegionKey = ""
         )
 
         val n = now
@@ -70,16 +74,6 @@ internal class PostInterfaceTest {
     @Test
     fun defaultComment() {
         assert(postDefaultyCreated.comments.isEmpty())
-    }
-
-    @Test
-    fun commentsSpec() {
-        assertEquals(PostJsonKeySpec.comments, "comments")
-    }
-
-    @Test
-    fun idSpec() {
-        assertEquals(PostJsonKeySpec.id, "post_id")
     }
 
 }
