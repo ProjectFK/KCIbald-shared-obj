@@ -2,6 +2,7 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.MinimizedPostImpl
 import com.kcibald.objects.impl.now
+import com.kcibald.utils.toURLKey
 
 interface MinimizedPost : ContentBased {
     val id: String
@@ -17,8 +18,8 @@ interface MinimizedPost : ContentBased {
             urlKey: String,
             content: String,
             author: User,
-            parentRegionUrlKey: String,
             commentCount: Int,
+            parentRegionUrlKey: String = title.toURLKey(),
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp? = null
         ): MinimizedPost = MinimizedPostImpl(

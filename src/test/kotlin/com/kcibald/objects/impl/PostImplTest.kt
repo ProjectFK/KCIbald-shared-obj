@@ -54,12 +54,8 @@ internal class PostImplTest {
         title,
         author,
         content,
-        ts,
-        ts,
-        attachments,
-        comments,
-        urlKey = "",
-        parentRegionKey = ""
+        "",
+        ts
     )
 
 

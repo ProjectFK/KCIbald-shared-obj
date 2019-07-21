@@ -45,8 +45,8 @@ internal class MinimizedPostTest {
                 urlKey,
                 content,
                 author,
-                parentRegionUrlKey,
                 commentCount,
+                parentRegionUrlKey,
                 createTimeStamp
             )
         )
@@ -69,7 +69,13 @@ internal class MinimizedPostTest {
         val content = "blah"
 
         val created = MinimizedPost.createDefault(
-            id, title, urlKey, content, author, parentRegionUrlKey, commentCount
+            id,
+            title,
+            urlKey,
+            content,
+            author,
+            commentCount,
+            parentRegionUrlKey
         )
 
         assertEquals(
@@ -94,7 +100,13 @@ internal class MinimizedPostTest {
         val content = "blah"
 
         val created = MinimizedPost.createDefault(
-            id, title, urlKey, content, author, parentRegionUrlKey, commentCount
+            id,
+            title,
+            urlKey,
+            content,
+            author,
+            commentCount,
+            parentRegionUrlKey
         )
 
         assert(

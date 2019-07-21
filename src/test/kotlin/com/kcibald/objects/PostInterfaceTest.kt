@@ -73,7 +73,7 @@ internal class PostInterfaceTest {
 
     @Test
     fun defaultComment() {
-        assert(postDefaultyCreated.comments.isEmpty())
+        assert(postDefaultyCreated.comments.totalSize == 0)
     }
 
 }

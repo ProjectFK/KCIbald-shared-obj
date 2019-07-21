@@ -1,6 +1,8 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.*
+import com.kcibald.utils.DirectCollection
+import com.kcibald.utils.KnownSizePageableCollection
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -33,11 +35,17 @@ internal data class PostImpl(
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
-    override val comments: List<Comment>,
+    val comments_collection: List<Comment>,
     override val urlKey: String,
     override val parentRegionUrlKey: String,
     override val commentCount: Int
-) : Post
+) : Post {
+    override val comments: KnownSizePageableCollection<Comment>
+
+    init {
+        comments = DirectCollection(comments_collection)
+    }
+}
 
 internal data class UserImpl(
     override val userId: String,
