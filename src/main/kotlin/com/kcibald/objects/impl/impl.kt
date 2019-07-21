@@ -9,7 +9,7 @@ internal data class CommentImpl(
     override val content: String,
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp,
-    override val attachments: List<AttachmentURL>,
+    override val attachments: List<Attachment>,
     override val replies: List<Comment>
 ) : Comment
 
@@ -20,7 +20,7 @@ internal data class PostImpl(
     override val content: String,
     override val createTimeStamp: Timestamp,
     override val updateTimestamp: Timestamp,
-    override val attachments: List<AttachmentURL>,
+    override val attachments: List<Attachment>,
     override val comments: List<Comment>
 ) : Post
 
@@ -28,11 +28,9 @@ internal data class UserImpl(
     override val userId: String,
     override val userName: String,
     override val urlKey: String,
-    override val avatar: AttachmentURL,
+    override val avatar: Attachment,
     override val signature: String
 ) : User
-
-internal data class AttachmentURLImpl(override val url: String) : AttachmentURL
 
 internal val now: Timestamp
     get() = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)

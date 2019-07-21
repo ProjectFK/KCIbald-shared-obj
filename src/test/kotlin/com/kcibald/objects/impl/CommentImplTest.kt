@@ -1,10 +1,8 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.AttachmentURL
 import com.kcibald.objects.Comment
 import com.kcibald.objects.ContentBased
 import com.kcibald.objects.User
-import com.kcibald.serilization.serializeString
 import com.kcibald.serilization.serializeToJson
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
@@ -17,7 +15,7 @@ internal class CommentImplTest {
         "Id",
         "name",
         "name",
-        AttachmentURL.createDefault("url"),
+        "url",
         "signature"
     )
 
@@ -25,8 +23,8 @@ internal class CommentImplTest {
 
     val ts = now
 
-    val attachment1 = AttachmentURL.createDefault("attachment1")
-    val attachment2 = AttachmentURL.createDefault("attachment2")
+    val attachment1 = "attachment1"
+    val attachment2 = "attachment2"
     val attachments = listOf(
         attachment1,
         attachment2
@@ -86,7 +84,7 @@ internal class CommentImplTest {
     fun asJson() {
         val json = json {
             obj(
-                ContentBased.JsonKeySpec.attachments to attachments.serializeString(),
+                ContentBased.JsonKeySpec.attachments to attachments,
                 ContentBased.JsonKeySpec.author to author.asJson(),
                 ContentBased.JsonKeySpec.content to content,
                 ContentBased.JsonKeySpec.createTimeStamp to now,

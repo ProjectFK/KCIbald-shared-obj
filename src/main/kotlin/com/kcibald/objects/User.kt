@@ -13,7 +13,7 @@ interface User : JsonSerializable {
 
     val urlKey: String
 
-    val avatar: AttachmentURL
+    val avatar: Attachment
 
     val signature: String
 
@@ -22,7 +22,7 @@ interface User : JsonSerializable {
             UserJsonKeySpec.userId to userId,
             UserJsonKeySpec.userName to userName,
             UserJsonKeySpec.urlKey to urlKey,
-            UserJsonKeySpec.avatar to avatar.asString(),
+            UserJsonKeySpec.avatar to avatar,
             UserJsonKeySpec.signature to signature
         )
 
@@ -31,7 +31,7 @@ interface User : JsonSerializable {
             userId: String,
             userName: String,
             urlKey: String,
-            avatar: AttachmentURL,
+            avatar: Attachment,
             signature: String
         ): User = UserImpl(userId, userName, urlKey, avatar, signature)
     }

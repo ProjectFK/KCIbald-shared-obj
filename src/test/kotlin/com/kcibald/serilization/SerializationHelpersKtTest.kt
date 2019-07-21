@@ -1,7 +1,6 @@
 package com.kcibald.serilization
 
 import com.kcibald.serilization.json.JsonSerializable
-import com.kcibald.serilization.string.StringSerializable
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.jsonArrayOf
 import io.vertx.kotlin.core.json.jsonObjectOf
@@ -30,21 +29,6 @@ internal class SerializationHelpersKtTest {
         }
 
         assertEquals(jArray, listOf(obj1, obj2).serializeToJson())
-    }
-
-    @Test
-    fun serializeStringCollection() {
-        val s1 = "s1"
-        val s2 = "s2"
-        val jArray = jsonArrayOf(s1, s2)
-
-        val obj1 = object : StringSerializable {
-            override fun asString(): String = s1
-        }
-        val obj2 = object : StringSerializable {
-            override fun asString(): String = s2
-        }
-        assertEquals(jArray, listOf(obj1, obj2).serializeString())
     }
 
 }

@@ -18,7 +18,7 @@ interface Comment : ContentBased {
             content: String,
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp = now,
-            attachments: List<AttachmentURL> = listOf(),
+            attachments: List<Attachment> = listOf(),
             replies: List<Comment> = listOf()
         ): Comment = CommentImpl(author, content, createTimeStamp, updateTimestamp, attachments, replies)
 

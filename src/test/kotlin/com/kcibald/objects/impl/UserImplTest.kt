@@ -1,6 +1,5 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.AttachmentURL
 import com.kcibald.objects.User
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
@@ -10,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class UserImplTest {
 
     val signature = "signature"
-    val avatar = AttachmentURL.createDefault("url")
+    val avatar = "url"
     val userId = "user_id"
     val userName = "name"
     val urlKey = "name"
@@ -51,7 +50,7 @@ internal class UserImplTest {
         val json = json {
             obj(
                 User.UserJsonKeySpec.signature to signature,
-                User.UserJsonKeySpec.avatar to avatar.asString(),
+                User.UserJsonKeySpec.avatar to avatar,
                 User.UserJsonKeySpec.userName to userName,
                 User.UserJsonKeySpec.urlKey to urlKey,
                 User.UserJsonKeySpec.userId to userId

@@ -1,7 +1,6 @@
 package com.kcibald.objects
 
 import com.kcibald.serilization.json.JsonSerializable
-import com.kcibald.serilization.serializeString
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.jsonObjectOf
 
@@ -10,7 +9,7 @@ interface ContentBased : JsonSerializable {
     val createTimeStamp: Timestamp
     val updateTimestamp: Timestamp
     val content: String
-    val attachments: List<AttachmentURL>
+    val attachments: List<Attachment>
 
 
     override fun asJson(): JsonObject =
@@ -19,7 +18,7 @@ interface ContentBased : JsonSerializable {
             JsonKeySpec.content to content,
             JsonKeySpec.createTimeStamp to createTimeStamp,
             JsonKeySpec.updateTimestamp to updateTimestamp,
-            JsonKeySpec.attachments to attachments.serializeString()
+            JsonKeySpec.attachments to attachments
         )
 
     object JsonKeySpec {

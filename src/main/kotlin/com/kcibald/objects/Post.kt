@@ -23,7 +23,7 @@ interface Post : ContentBased {
             content: String,
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp = now,
-            attachments: List<AttachmentURL> = listOf(),
+            attachments: List<Attachment> = listOf(),
             comments: List<Comment> = listOf()
         ): Post = PostImpl(id, title, author, content, createTimeStamp, updateTimestamp, attachments, comments)
     }

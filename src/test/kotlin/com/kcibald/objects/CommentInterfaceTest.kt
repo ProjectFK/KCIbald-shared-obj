@@ -11,7 +11,7 @@ internal class CommentInterfaceTest {
         "Id",
         "name",
         "name",
-        AttachmentURL.createDefault("url"),
+        "url",
         "signature"
     )
 
@@ -19,8 +19,8 @@ internal class CommentInterfaceTest {
 
     val ts = now
 
-    val attachment1 = AttachmentURL.createDefault("attachment1")
-    val attachment2 = AttachmentURL.createDefault("attachment2")
+    val attachment1 = "attachment1"
+    val attachment2 = "attachment2"
     val attachments = listOf(
         attachment1,
         attachment2

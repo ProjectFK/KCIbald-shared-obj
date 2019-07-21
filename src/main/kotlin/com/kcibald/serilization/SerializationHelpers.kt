@@ -1,7 +1,6 @@
 package com.kcibald.serilization
 
 import com.kcibald.serilization.json.JsonSerializable
-import com.kcibald.serilization.string.StringSerializable
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.util.function.BiConsumer
@@ -12,14 +11,6 @@ fun Collection<JsonSerializable>.serializeToJson(): JsonArray = stream()
     .collect(
         Supplier(::JsonArray),
         BiConsumer { t: JsonArray, u: JsonObject -> t.add(u) },
-        emptyBiConsumer
-    )
-
-fun Collection<StringSerializable>.serializeString(): JsonArray = stream()
-    .map(StringSerializable::asString)
-    .collect(
-        Supplier(::JsonArray),
-        BiConsumer { t: JsonArray, u: String -> t.add(u) },
         emptyBiConsumer
     )
 
