@@ -41,7 +41,7 @@ internal class PostInterfaceTest {
         )
 
         val n = now
-        assert(abs(target.updateTimestamp - n) < 5)
+        assert(abs(target.updateTimestamp!! - n) < 5)
     }
 
     @Test
