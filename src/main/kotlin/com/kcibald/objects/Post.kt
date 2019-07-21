@@ -20,8 +20,7 @@ interface Post : MinimizedPost {
             updateTimestamp: Timestamp? = null,
             attachments: List<Attachment> = listOf(),
             comments: List<Comment> = listOf(),
-            urlKey: String = title.toURLKey(),
-            commentSize: Int = comments.size
+            urlKey: String = title.toURLKey()
         ): Post = PostImpl(
             id,
             title,
@@ -33,7 +32,7 @@ interface Post : MinimizedPost {
             comments,
             urlKey,
             parentRegionKey,
-            commentSize
+            comments.size
         )
     }
 

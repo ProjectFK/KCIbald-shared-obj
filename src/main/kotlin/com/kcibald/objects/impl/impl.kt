@@ -3,6 +3,7 @@ package com.kcibald.objects.impl
 import com.kcibald.objects.*
 import com.kcibald.utils.DirectCollection
 import com.kcibald.utils.KnownSizePageableCollection
+import com.kcibald.utils.PageableCollection
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -54,6 +55,23 @@ internal data class UserImpl(
     override val avatar: Attachment,
     override val signature: String
 ) : User
+
+internal data class RegionImpl(
+    override val name: String,
+    override val urlKey: String,
+    override val parent: Region?,
+    override val description: String,
+    override val avatar: Attachment,
+    val topPosts_collection: List<Post>,
+    override val childRegion: List<Region>
+) : Region {
+    override val topPosts: PageableCollection<Post>
+
+    init {
+        topPosts = DirectCollection(topPosts_collection)
+    }
+
+}
 
 internal val now: Timestamp
     get() = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
