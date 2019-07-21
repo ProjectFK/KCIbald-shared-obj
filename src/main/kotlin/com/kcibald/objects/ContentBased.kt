@@ -10,16 +10,13 @@ interface ContentBased : JsonSerializable {
     val createTimeStamp: Timestamp
     val updateTimestamp: Timestamp
     val content: String
-    val attachments: List<Attachment>
-
 
     override fun asJson(): JsonObject =
         jsonObjectOf(
             ContentBasedKeySpec.author to author.asJson(),
             ContentBasedKeySpec.content to content,
             ContentBasedKeySpec.createTimeStamp to createTimeStamp,
-            ContentBasedKeySpec.updateTimestamp to updateTimestamp,
-            ContentBasedKeySpec.attachments to attachments
+            ContentBasedKeySpec.updateTimestamp to updateTimestamp
         )
 
 }

@@ -6,15 +6,14 @@ import com.kcibald.serilization.keyspecs.PostJsonKeySpec
 import com.kcibald.serilization.serializeToJson
 import io.vertx.core.json.JsonObject
 
-interface Post : ContentBased {
-    val id: String
-    val title: String
+interface Post : MinimizedPost {
     val comments: List<Comment>
+    val attachments: List<Attachment>
 
     override fun asJson(): JsonObject  = super
         .asJson()
         .put(PostJsonKeySpec.comments, comments.serializeToJson())
-        .put(PostJsonKeySpec.id, id)
+        .put(PostJsonKeySpec.attachments, attachments)
 
     companion object {
         fun createDefault(

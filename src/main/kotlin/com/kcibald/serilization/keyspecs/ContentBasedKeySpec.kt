@@ -5,5 +5,4 @@ object ContentBasedKeySpec {
     const val createTimeStamp = "create_time_stamp"
     const val updateTimestamp = "update_time_stamp"
     const val content = "content"
-    const val attachments = "attachments"
 }
