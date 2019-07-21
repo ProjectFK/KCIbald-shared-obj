@@ -14,7 +14,7 @@ internal class PostImplTest {
         "userId",
         "user name",
         AttachmentURL.createDefault("avatar"),
-        HTMLContent.createDefault("signature")
+        "signature"
     )
 
     val id = "post-id"

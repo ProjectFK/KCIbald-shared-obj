@@ -11,7 +11,7 @@ internal class CommentInterfaceTest {
         "Id",
         "name",
         AttachmentURL.createDefault("url"),
-        HTMLContent.createDefault("signature")
+        "signature"
     )
 
     val content = HTMLContent.createDefault("content")

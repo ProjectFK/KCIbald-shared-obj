@@ -28,11 +28,11 @@ internal data class UserImpl(
     override val userId: String,
     override val userName: String,
     override val avatar: AttachmentURL,
-    override val signature: HTMLContent
+    override val signature: String
 ) : User
 
 internal data class AttachmentURLImpl(override val url: String) : AttachmentURL
-internal data class HTMLContentImpl(val content: String): HTMLContent {
+internal data class HTMLContentImpl(val content: String) : HTMLContent {
     override fun asString(): String = content
 }
 

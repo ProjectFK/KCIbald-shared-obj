@@ -13,14 +13,14 @@ interface User : JsonSerializable {
 
     val avatar: AttachmentURL
 
-    val signature: HTMLContent
+    val signature: String
 
     override fun asJson(): JsonObject =
         jsonObjectOf(
             UserJsonKeySpec.userId to userId,
             UserJsonKeySpec.userName to userName,
             UserJsonKeySpec.avatar to avatar.asString(),
-            UserJsonKeySpec.signature to signature.asString()
+            UserJsonKeySpec.signature to signature
         )
 
     companion object {
@@ -28,7 +28,7 @@ interface User : JsonSerializable {
             userId: String,
             userName: String,
             avatar: AttachmentURL,
-            signature: HTMLContent
+            signature: String
         ): User = UserImpl(userId, userName, avatar, signature)
     }
 

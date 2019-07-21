@@ -15,7 +15,7 @@ internal class PostInterfaceTest {
             "id",
             "name",
             AttachmentURL.createDefault("avatar"),
-            HTMLContent.createDefault("signature")
+            "signature"
         ),
         HTMLContent.createDefault("content")
     )
@@ -30,7 +30,7 @@ internal class PostInterfaceTest {
                 "id",
                 "name",
                 AttachmentURL.createDefault("avatar"),
-                HTMLContent.createDefault("signature")
+                "signature"
             ),
             HTMLContent.createDefault("content")
         )
@@ -49,7 +49,7 @@ internal class PostInterfaceTest {
                 "id",
                 "name",
                 AttachmentURL.createDefault("avatar"),
-                HTMLContent.createDefault("signature")
+                "signature"
             ),
             HTMLContent.createDefault("content")
         )
