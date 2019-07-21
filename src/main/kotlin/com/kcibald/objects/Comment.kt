@@ -2,15 +2,15 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.serilization.serializePublicJson
+import com.kcibald.serilization.serializeToJson
 import io.vertx.core.json.JsonObject
 
 interface Comment : ContentBased {
     val replies: List<Comment>
 
-    override fun asPublicJson(): JsonObject = super
-        .asPublicJson()
-        .put(CommentJsonKeySpec.replies, replies.serializePublicJson())
+    override fun asJson(): JsonObject  = super
+        .asJson()
+        .put(CommentJsonKeySpec.replies, replies.serializeToJson())
 
     companion object {
         fun createDefault(

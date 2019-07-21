@@ -42,7 +42,7 @@ internal class UserImplTest {
     }
 
     @Test
-    fun asPublicJson() {
+    fun asJson() {
         val json = json {
             obj(
                 User.UserJsonKeySpec.signature to signature.asString(),
@@ -51,7 +51,7 @@ internal class UserImplTest {
                 User.UserJsonKeySpec.userId to userId
             )
         }
-        assertEquals(json, user.asPublicJson())
+        assertEquals(json, user.asJson())
     }
 
 }

@@ -1,5 +1,6 @@
 package com.kcibald.serilization
 
+import com.kcibald.serilization.json.JsonSerializable
 import com.kcibald.serilization.string.StringSerializable
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.jsonArrayOf
@@ -21,14 +22,14 @@ internal class SerializationHelpersKtTest {
         )
         val jArray = jsonArrayOf(jobj1, jobj2)
 
-        val obj1 = object : PubliclySerializable {
-            override fun asPublicJson(): JsonObject = jobj1
+        val obj1 = object : JsonSerializable {
+            override fun asJson(): JsonObject = jobj1
         }
-        val obj2 = object : PubliclySerializable {
-            override fun asPublicJson(): JsonObject = jobj2
+        val obj2 = object : JsonSerializable {
+            override fun asJson(): JsonObject = jobj2
         }
 
-        assertEquals(jArray, listOf(obj1, obj2).serializePublicJson())
+        assertEquals(jArray, listOf(obj1, obj2).serializeToJson())
     }
 
     @Test
@@ -45,13 +46,5 @@ internal class SerializationHelpersKtTest {
         }
         assertEquals(jArray, listOf(obj1, obj2).serializeString())
     }
-
-    @Test
-    fun emptyBiConsumer() {
-        val c = emptyBiConsumer
-//        should not have any result
-        c.accept(jsonArrayOf(), jsonArrayOf())
-    }
-
 
 }

@@ -2,16 +2,17 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.PostImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.serilization.serializePublicJson
+import com.kcibald.serilization.serializeToJson
 import io.vertx.core.json.JsonObject
 
 interface Post : ContentBased {
     val id: String
     val title: String
     val comments: List<Comment>
-    override fun asPublicJson(): JsonObject = super
-        .asPublicJson()
-        .put(PostJsonKeySpec.comments, comments.serializePublicJson())
+
+    override fun asJson(): JsonObject  = super
+        .asJson()
+        .put(PostJsonKeySpec.comments, comments.serializeToJson())
         .put(PostJsonKeySpec.id, id)
 
     companion object {

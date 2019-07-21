@@ -1,8 +1,8 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.*
-import com.kcibald.serilization.serializePublicJson
 import com.kcibald.serilization.serializeString
+import com.kcibald.serilization.serializeToJson
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -56,19 +56,19 @@ internal class PostImplTest {
 
 
     @Test
-    fun asPublicJson() {
+    fun asJson() {
         val json = json {
             obj(
-                ContentBased.JsonKeySpec.author to author.asPublicJson(),
+                ContentBased.JsonKeySpec.author to author.asJson(),
                 ContentBased.JsonKeySpec.content to content.asString(),
                 ContentBased.JsonKeySpec.createTimeStamp to ts,
                 ContentBased.JsonKeySpec.updateTimestamp to ts,
                 ContentBased.JsonKeySpec.attachments to attachments.serializeString(),
-                Post.PostJsonKeySpec.comments to comments.serializePublicJson(),
+                Post.PostJsonKeySpec.comments to comments.serializeToJson(),
                 Post.PostJsonKeySpec.id to id
             )
         }
-        assertEquals(json, target.asPublicJson())
+        assertEquals(json, target.asJson())
     }
 
     @Test

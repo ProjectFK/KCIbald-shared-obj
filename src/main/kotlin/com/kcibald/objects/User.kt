@@ -1,12 +1,11 @@
 package com.kcibald.objects
 
 import com.kcibald.objects.impl.UserImpl
-import com.kcibald.serilization.PubliclySerializable
+import com.kcibald.serilization.json.JsonSerializable
 import io.vertx.core.json.JsonObject
-import io.vertx.kotlin.core.json.json
-import io.vertx.kotlin.core.json.obj
+import io.vertx.kotlin.core.json.jsonObjectOf
 
-interface User : PubliclySerializable {
+interface User : JsonSerializable {
 
     val userId: String
 
@@ -16,14 +15,13 @@ interface User : PubliclySerializable {
 
     val signature: HTMLContent
 
-    override fun asPublicJson(): JsonObject = json {
-        obj(
+    override fun asJson(): JsonObject =
+        jsonObjectOf(
             UserJsonKeySpec.userId to userId,
             UserJsonKeySpec.userName to userName,
             UserJsonKeySpec.avatar to avatar.asString(),
             UserJsonKeySpec.signature to signature.asString()
         )
-    }
 
     companion object {
         fun createDefault(

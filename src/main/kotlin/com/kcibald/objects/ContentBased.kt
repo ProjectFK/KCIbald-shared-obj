@@ -1,26 +1,26 @@
 package com.kcibald.objects
 
-import com.kcibald.serilization.PubliclySerializable
+import com.kcibald.serilization.json.JsonSerializable
 import com.kcibald.serilization.serializeString
-import io.vertx.kotlin.core.json.json
-import io.vertx.kotlin.core.json.obj
+import io.vertx.core.json.JsonObject
+import io.vertx.kotlin.core.json.jsonObjectOf
 
-interface ContentBased : PubliclySerializable {
+interface ContentBased : JsonSerializable {
     val author: User
     val createTimeStamp: Timestamp
     val updateTimestamp: Timestamp
     val content: HTMLContent
     val attachments: List<AttachmentURL>
 
-    override fun asPublicJson() = json {
-        obj(
-            JsonKeySpec.author to author.asPublicJson(),
+
+    override fun asJson(): JsonObject =
+        jsonObjectOf(
+            JsonKeySpec.author to author.asJson(),
             JsonKeySpec.content to content.asString(),
             JsonKeySpec.createTimeStamp to createTimeStamp,
             JsonKeySpec.updateTimestamp to updateTimestamp,
             JsonKeySpec.attachments to attachments.serializeString()
         )
-    }
 
     object JsonKeySpec {
         const val author = "author"
