@@ -2,6 +2,7 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.UserImpl
 import com.kcibald.serilization.json.JsonSerializable
+import com.kcibald.serilization.keyspecs.UserJsonKeySpec
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.jsonObjectOf
 
@@ -34,14 +35,6 @@ interface User : JsonSerializable {
             avatar: Attachment,
             signature: String
         ): User = UserImpl(userId, userName, urlKey, avatar, signature)
-    }
-
-    object UserJsonKeySpec {
-        const val userId = "user_id"
-        const val userName = "user_name"
-        const val urlKey = "url_key"
-        const val avatar = "avatar"
-        const val signature = "signature"
     }
 
 }

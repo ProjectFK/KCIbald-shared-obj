@@ -1,6 +1,7 @@
 package com.kcibald.objects
 
 import com.kcibald.serilization.json.JsonSerializable
+import com.kcibald.serilization.keyspecs.ContentBasedKeySpec
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.jsonObjectOf
 
@@ -14,19 +15,11 @@ interface ContentBased : JsonSerializable {
 
     override fun asJson(): JsonObject =
         jsonObjectOf(
-            JsonKeySpec.author to author.asJson(),
-            JsonKeySpec.content to content,
-            JsonKeySpec.createTimeStamp to createTimeStamp,
-            JsonKeySpec.updateTimestamp to updateTimestamp,
-            JsonKeySpec.attachments to attachments
+            ContentBasedKeySpec.author to author.asJson(),
+            ContentBasedKeySpec.content to content,
+            ContentBasedKeySpec.createTimeStamp to createTimeStamp,
+            ContentBasedKeySpec.updateTimestamp to updateTimestamp,
+            ContentBasedKeySpec.attachments to attachments
         )
-
-    object JsonKeySpec {
-        const val author = "author"
-        const val createTimeStamp = "create_time_stamp"
-        const val updateTimestamp = "update_time_stamp"
-        const val content = "content"
-        const val attachments = "attachments"
-    }
 
 }

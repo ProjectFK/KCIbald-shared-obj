@@ -1,8 +1,9 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.Comment
-import com.kcibald.objects.ContentBased
 import com.kcibald.objects.User
+import com.kcibald.serilization.keyspecs.CommentJsonKeySpec
+import com.kcibald.serilization.keyspecs.ContentBasedKeySpec
 import com.kcibald.serilization.serializeToJson
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
@@ -84,12 +85,12 @@ internal class CommentImplTest {
     fun asJson() {
         val json = json {
             obj(
-                ContentBased.JsonKeySpec.attachments to attachments,
-                ContentBased.JsonKeySpec.author to author.asJson(),
-                ContentBased.JsonKeySpec.content to content,
-                ContentBased.JsonKeySpec.createTimeStamp to now,
-                ContentBased.JsonKeySpec.updateTimestamp to now,
-                Comment.Companion.CommentJsonKeySpec.replies to replies.serializeToJson()
+                ContentBasedKeySpec.attachments to attachments,
+                ContentBasedKeySpec.author to author.asJson(),
+                ContentBasedKeySpec.content to content,
+                ContentBasedKeySpec.createTimeStamp to now,
+                ContentBasedKeySpec.updateTimestamp to now,
+                CommentJsonKeySpec.replies to replies.serializeToJson()
             )
         }
         assertEquals(json, target.asJson())

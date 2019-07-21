@@ -2,6 +2,7 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.PostImpl
 import com.kcibald.objects.impl.now
+import com.kcibald.serilization.keyspecs.PostJsonKeySpec
 import com.kcibald.serilization.serializeToJson
 import io.vertx.core.json.JsonObject
 
@@ -28,8 +29,4 @@ interface Post : ContentBased {
         ): Post = PostImpl(id, title, author, content, createTimeStamp, updateTimestamp, attachments, comments)
     }
 
-    object PostJsonKeySpec {
-        const val comments = "comments"
-        const val id = "post_id"
-    }
 }

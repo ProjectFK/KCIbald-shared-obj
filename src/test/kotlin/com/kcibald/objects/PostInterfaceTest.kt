@@ -1,6 +1,7 @@
 package com.kcibald.objects
 
 import com.kcibald.objects.impl.now
+import com.kcibald.serilization.keyspecs.PostJsonKeySpec
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.math.abs
@@ -73,12 +74,12 @@ internal class PostInterfaceTest {
 
     @Test
     fun commentsSpec() {
-        assertEquals(Post.PostJsonKeySpec.comments, "comments")
+        assertEquals(PostJsonKeySpec.comments, "comments")
     }
 
     @Test
     fun idSpec() {
-        assertEquals(Post.PostJsonKeySpec.id, "post_id")
+        assertEquals(PostJsonKeySpec.id, "post_id")
     }
 
 }
