@@ -9,7 +9,7 @@ interface Region {
     val urlKey: String
     val parent: Region?
     val description: String
-    val avatar: Attachment
+    val avatar: File
     val topPosts: PageableCollection<Post>
     val childRegion: List<Region>
 
@@ -17,7 +17,7 @@ interface Region {
         fun createDefault(
             name: String,
             description: String,
-            avatar: Attachment,
+            avatar: File,
             urlKey: String = name.toURLKey(),
             parent: Region? = null,
             topPosts: List<Post> = emptyList(),

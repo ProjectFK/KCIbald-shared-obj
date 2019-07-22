@@ -1,5 +1,6 @@
 package com.kcibald.objects.impl
 
+import com.kcibald.objects.Attachment
 import com.kcibald.objects.Comment
 import com.kcibald.objects.Post
 import com.kcibald.objects.User
@@ -23,13 +24,12 @@ internal class PostImplTest {
     val content = "content"
     val ts = now
 
-    val attachment1 = "attachment1"
-    val attachment2 = "attachment2"
+    val attachment1 = Attachment.createDefault("attachment1", "attachment_name1")
+    val attachment2 = Attachment.createDefault("attachment2", "attachment_name2")
     val attachments = listOf(
         attachment1,
         attachment2
     )
-
     val comment1 = Comment.createDefault(
         1,
         author,

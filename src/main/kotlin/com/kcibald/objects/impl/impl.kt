@@ -51,7 +51,7 @@ internal data class UserImpl(
     override val userId: String,
     override val userName: String,
     override val urlKey: String,
-    override val avatar: Attachment,
+    override val avatar: File,
     override val signature: String
 ) : User
 
@@ -60,7 +60,7 @@ internal data class RegionImpl(
     override val urlKey: String,
     override val parent: Region?,
     override val description: String,
-    override val avatar: Attachment,
+    override val avatar: File,
     val topPosts_collection: List<Post>,
     override val childRegion: List<Region>
 ) : Region {
@@ -71,6 +71,11 @@ internal data class RegionImpl(
     }
 
 }
+
+internal data class AttachmentImpl(
+    override val file: File,
+    override val name: String
+) : Attachment
 
 internal val now: Timestamp
     get() = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)

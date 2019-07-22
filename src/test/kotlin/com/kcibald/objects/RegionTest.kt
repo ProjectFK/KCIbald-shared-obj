@@ -23,8 +23,8 @@ internal class RegionTest {
             now,
             now,
             listOf(
-                "attachment1",
-                "attachment2"
+                Attachment.createDefault("attachment1", "attachment_name1"),
+                Attachment.createDefault("attachment2", "attachment_name2")
             ),
             listOf(
                 Comment.createDefault(

@@ -7,7 +7,7 @@ interface User {
     val userId: String
     val userName: String
     val urlKey: String
-    val avatar: Attachment
+    val avatar: File
     val signature: String
 
     companion object {
@@ -15,7 +15,7 @@ interface User {
             userId: String,
             userName: String,
             urlKey: String,
-            avatar: Attachment,
+            avatar: File,
             signature: String
         ): User = UserImpl(
             userId,

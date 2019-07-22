@@ -19,8 +19,8 @@ internal class CommentInterfaceTest {
 
     val ts = now
 
-    val attachment1 = "attachment1"
-    val attachment2 = "attachment2"
+    val attachment1 = Attachment.createDefault("attachment1", "attachment_name1")
+    val attachment2 = Attachment.createDefault("attachment2", "attachment_name2")
     val attachments = listOf(
         attachment1,
         attachment2

@@ -1,9 +1,6 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.Comment
-import com.kcibald.objects.Post
-import com.kcibald.objects.Region
-import com.kcibald.objects.User
+import com.kcibald.objects.*
 import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -25,8 +22,8 @@ internal class RegionImplTest {
             now,
             now,
             listOf(
-                "attachment1",
-                "attachment2"
+                Attachment.createDefault("attachment1", "attachment_name1"),
+                Attachment.createDefault("attachment2", "attachment_name2")
             ),
             listOf(
                 Comment.createDefault(
