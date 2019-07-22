@@ -1,6 +1,6 @@
 package com.kcibald.services.user.proto
 
-data class Empty(
+internal data class Empty(
     val unknownFields: Map<Int, pbandk.UnknownField> = emptyMap()
 ) : pbandk.Message<Empty> {
     override operator fun plus(other: Empty?) = protoMergeImpl(other)
@@ -11,7 +11,7 @@ data class Empty(
     }
 }
 
-data class User(
+internal data class User(
     val userId: String = "",
     val userName: String = "",
     val urlKey: String = "",
@@ -27,7 +27,7 @@ data class User(
     }
 }
 
-data class SafeUpdateOperation(
+internal data class SafeUpdateOperation(
     val previous: String = "",
     val after: String = "",
     val unknownFields: Map<Int, pbandk.UnknownField> = emptyMap()

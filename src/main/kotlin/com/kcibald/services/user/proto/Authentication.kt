@@ -2,7 +2,7 @@
 
 package com.kcibald.services.user.proto
 
-data class AuthenticationRequest(
+internal data class AuthenticationRequest(
     val userEmail: String = "",
     val plainPassword: String = "",
     val unknownFields: Map<Int, pbandk.UnknownField> = emptyMap()
@@ -15,15 +15,15 @@ data class AuthenticationRequest(
     }
 }
 
-data class AuthenticationResponse(
+internal data class AuthenticationResponse(
     val result: Result? = null,
     val unknownFields: Map<Int, pbandk.UnknownField> = emptyMap()
 ) : pbandk.Message<AuthenticationResponse> {
     sealed class Result {
-        data class SuccessUser(val successUser: com.kcibald.services.user.proto.User) : Result()
-        data class CommonAuthenticationError(val commonAuthenticationError: com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType = com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType.fromValue(0)) : Result()
-        data class BannedInfo(val bannedInfo: com.kcibald.services.user.proto.AuthenticationResponse.BannedInfo) : Result()
-        data class SystemErrorMessage(val systemErrorMessage: String = "") : Result()
+        internal data class SuccessUser(val successUser: com.kcibald.services.user.proto.User) : Result()
+        internal data class CommonAuthenticationError(val commonAuthenticationError: com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType = com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType.fromValue(0)) : Result()
+        internal data class BannedInfo(val bannedInfo: com.kcibald.services.user.proto.AuthenticationResponse.BannedInfo) : Result()
+        internal data class SystemErrorMessage(val systemErrorMessage: String = "") : Result()
     }
 
     override operator fun plus(other: AuthenticationResponse?) = protoMergeImpl(other)
@@ -33,7 +33,7 @@ data class AuthenticationResponse(
         override fun protoUnmarshal(u: pbandk.Unmarshaller) = AuthenticationResponse.protoUnmarshalImpl(u)
     }
 
-    data class AuthenticationErrorType(override val value: Int) : pbandk.Message.Enum {
+    internal data class AuthenticationErrorType(override val value: Int) : pbandk.Message.Enum {
         companion object : pbandk.Message.Enum.Companion<AuthenticationErrorType> {
             val USER_NOT_FOUND = AuthenticationErrorType(0)
             val INVALID_CREDENTIAL = AuthenticationErrorType(1)
@@ -46,7 +46,7 @@ data class AuthenticationResponse(
         }
     }
 
-    data class BannedInfo(
+    internal data class BannedInfo(
         val timeBanned: Int = 0,
         val duration: Int = 0,
         val message: String = "",
