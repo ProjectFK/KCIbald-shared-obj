@@ -1,10 +1,8 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.*
-import com.kcibald.serilization.serializeString
-import com.kcibald.serilization.serializeToJson
-import io.vertx.kotlin.core.json.json
-import io.vertx.kotlin.core.json.obj
+import com.kcibald.objects.Attachment
+import com.kcibald.objects.Comment
+import com.kcibald.objects.User
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -13,33 +11,37 @@ internal class CommentImplTest {
     val author = User.createDefault(
         "Id",
         "name",
-        AttachmentURL.createDefault("url"),
-        HTMLContent.createDefault("signature")
+        "name",
+        "url",
+        "signature"
     )
 
-    val content = HTMLContent.createDefault("content")
+    val content = "content"
 
     val ts = now
 
-    val attachment1 = AttachmentURL.createDefault("attachment1")
-    val attachment2 = AttachmentURL.createDefault("attachment2")
+    val attachment1 = Attachment.createDefault("attachment1", "attachment_name1")
+    val attachment2 = Attachment.createDefault("attachment2", "attachment_name2")
     val attachments = listOf(
         attachment1,
         attachment2
     )
 
     val reply1 = Comment.createDefault(
-        author, HTMLContent.createDefault("reply1"), ts, ts
+        1, author, "reply1", ts, ts
     )
     val reply2 = Comment.createDefault(
-        author, HTMLContent.createDefault("reply1"), ts, ts
+        2, author, "reply1", ts, ts
     )
     val replies = listOf(
         reply1,
         reply2
     )
 
+    val id = 3
+
     val target = CommentImpl(
+        id,
         author,
         content,
         ts,
@@ -47,6 +49,11 @@ internal class CommentImplTest {
         attachments,
         replies
     )
+
+    @Test
+    fun getId() {
+        assertEquals(id, target.id)
+    }
 
     @Test
     fun getAuthor() {
@@ -60,7 +67,7 @@ internal class CommentImplTest {
 
     @Test
     fun getCreateTimeStamp() {
-        assertEquals(ts, target.createTimeStamp)
+        assertEquals(ts, target.createTimestamp)
     }
 
     @Test
@@ -76,21 +83,6 @@ internal class CommentImplTest {
     @Test
     fun getReplies() {
         assertEquals(replies, target.replies)
-    }
-
-    @Test
-    fun asJson() {
-        val json = json {
-            obj(
-                ContentBased.JsonKeySpec.attachments to attachments.serializeString(),
-                ContentBased.JsonKeySpec.author to author.asJson(),
-                ContentBased.JsonKeySpec.content to content.asString(),
-                ContentBased.JsonKeySpec.createTimeStamp to now,
-                ContentBased.JsonKeySpec.updateTimestamp to now,
-                Comment.Companion.CommentJsonKeySpec.replies to replies.serializeToJson()
-            )
-        }
-        assertEquals(json, target.asJson())
     }
 
 }
