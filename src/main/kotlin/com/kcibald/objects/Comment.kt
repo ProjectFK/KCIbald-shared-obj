@@ -2,29 +2,31 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.serilization.serializeToJson
-import io.vertx.core.json.JsonObject
 
 interface Comment : ContentBased {
+    val id: Int
     val replies: List<Comment>
-
-    override fun asJson(): JsonObject  = super
-        .asJson()
-        .put(CommentJsonKeySpec.replies, replies.serializeToJson())
+    val attachments: List<Attachment>
 
     companion object {
         fun createDefault(
+            id: Int,
             author: User,
-            content: HTMLContent,
+            content: String,
             createTimeStamp: Timestamp = now,
-            updateTimestamp: Timestamp = now,
-            attachments: List<AttachmentURL> = listOf(),
+            updateTimestamp: Timestamp? = null,
+            attachments: List<Attachment> = listOf(),
             replies: List<Comment> = listOf()
-        ): Comment = CommentImpl(author, content, createTimeStamp, updateTimestamp, attachments, replies)
+        ): Comment = CommentImpl(
+            id,
+            author,
+            content,
+            createTimeStamp,
+            updateTimestamp,
+            attachments,
+            replies
+        )
 
-        object CommentJsonKeySpec {
-            const val replies = "replies"
-        }
     }
 
 }

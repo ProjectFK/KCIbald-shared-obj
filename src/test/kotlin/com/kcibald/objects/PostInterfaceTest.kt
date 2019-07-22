@@ -9,53 +9,56 @@ internal class PostInterfaceTest {
 
 
     val postDefaultyCreated = Post.createDefault(
-        "id",
         "title",
         User.createDefault(
             "id",
             "name",
-            AttachmentURL.createDefault("avatar"),
-            HTMLContent.createDefault("signature")
+            "name",
+            "avatar",
+            "signature"
         ),
-        HTMLContent.createDefault("content")
+        "content",
+        ""
     )
 
     @Test
     fun defaultUpdateTimes() {
 
         val target = Post.createDefault(
-            "id",
             "title",
             User.createDefault(
                 "id",
                 "name",
-                AttachmentURL.createDefault("avatar"),
-                HTMLContent.createDefault("signature")
+                "name",
+                "avatar",
+                "signature"
             ),
-            HTMLContent.createDefault("content")
+            "content",
+            ""
         )
 
-        val n = now
-        assert(abs(target.updateTimestamp - n) < 5)
+        assertEquals(null, target.updateTimestamp)
     }
 
     @Test
     fun defaultCreateTimes() {
 
         val target = Post.createDefault(
-            "id",
             "title",
             User.createDefault(
                 "id",
                 "name",
-                AttachmentURL.createDefault("avatar"),
-                HTMLContent.createDefault("signature")
+                "name",
+                "avatar",
+                "signature"
             ),
-            HTMLContent.createDefault("content")
+            "content",
+            urlKey = "",
+            parentRegionKey = ""
         )
 
         val n = now
-        assert(abs(target.createTimeStamp - n) < 5)
+        assert(abs(target.createTimestamp - n) < 5)
     }
 
     @Test
@@ -65,17 +68,7 @@ internal class PostInterfaceTest {
 
     @Test
     fun defaultComment() {
-        assert(postDefaultyCreated.comments.isEmpty())
-    }
-
-    @Test
-    fun commentsSpec() {
-        assertEquals(Post.PostJsonKeySpec.comments, "comments")
-    }
-
-    @Test
-    fun idSpec() {
-        assertEquals(Post.PostJsonKeySpec.id, "post_id")
+        assert(postDefaultyCreated.comments.totalSize == 0)
     }
 
 }

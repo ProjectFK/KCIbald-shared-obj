@@ -1,11 +1,12 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.*
-import com.kcibald.serilization.serializeString
-import com.kcibald.serilization.serializeToJson
-import io.vertx.kotlin.core.json.json
-import io.vertx.kotlin.core.json.obj
+import com.kcibald.objects.Attachment
+import com.kcibald.objects.Comment
+import com.kcibald.objects.Post
+import com.kcibald.objects.User
+import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 
 internal class PostImplTest {
@@ -13,33 +14,35 @@ internal class PostImplTest {
     val author = User.createDefault(
         "userId",
         "user name",
-        AttachmentURL.createDefault("avatar"),
-        HTMLContent.createDefault("signature")
+        "user_name",
+        "avatar",
+        "signature"
     )
 
     val id = "post-id"
     val title = "title"
-    val content = HTMLContent.createDefault("content")
+    val content = "content"
     val ts = now
 
-    val attachment1 = AttachmentURL.createDefault("attachment1")
-    val attachment2 = AttachmentURL.createDefault("attachment2")
+    val attachment1 = Attachment.createDefault("attachment1", "attachment_name1")
+    val attachment2 = Attachment.createDefault("attachment2", "attachment_name2")
     val attachments = listOf(
         attachment1,
         attachment2
     )
-
     val comment1 = Comment.createDefault(
+        1,
         author,
-        HTMLContent.createDefault("content1"),
+        "content1",
         ts,
         ts,
         listOf(),
         listOf()
     )
     val comment2 = Comment.createDefault(
+        2,
         author,
-        HTMLContent.createDefault("content2"),
+        "content2",
         ts,
         ts,
         listOf(),
@@ -50,31 +53,19 @@ internal class PostImplTest {
         comment2
     )
 
+    val urlKey = title.toURLKey()
+
     val target = Post.createDefault(
-        id, title, author, content, ts, ts, attachments, comments
+        title,
+        author,
+        content,
+        "",
+        ts,
+        ts,
+        attachments,
+        comments,
+        urlKey
     )
-
-
-    @Test
-    fun asJson() {
-        val json = json {
-            obj(
-                ContentBased.JsonKeySpec.author to author.asJson(),
-                ContentBased.JsonKeySpec.content to content.asString(),
-                ContentBased.JsonKeySpec.createTimeStamp to ts,
-                ContentBased.JsonKeySpec.updateTimestamp to ts,
-                ContentBased.JsonKeySpec.attachments to attachments.serializeString(),
-                Post.PostJsonKeySpec.comments to comments.serializeToJson(),
-                Post.PostJsonKeySpec.id to id
-            )
-        }
-        assertEquals(json, target.asJson())
-    }
-
-    @Test
-    fun getId() {
-        assertEquals(id, target.id)
-    }
 
     @Test
     fun getTitle() {
@@ -93,7 +84,7 @@ internal class PostImplTest {
 
     @Test
     fun getCreateTimeStamp() {
-        assertEquals(ts, target.createTimeStamp)
+        assertEquals(ts, target.createTimestamp)
     }
 
     @Test
@@ -108,7 +99,19 @@ internal class PostImplTest {
 
     @Test
     fun getComments() {
-        assertEquals(comments, target.comments)
+        val comm = target.comments
+        assertFalse(comm.hasNextPage)
+        assertEquals(comments, comm.currentContent)
+    }
+
+    @Test
+    fun getUrlKey() {
+        assertEquals(urlKey, target.urlKey)
+    }
+
+    @Test
+    fun getCommentSize() {
+        assertEquals(comments.size, target.comments.totalSize)
     }
 
 }

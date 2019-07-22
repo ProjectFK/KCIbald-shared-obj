@@ -2,34 +2,36 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.PostImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.serilization.serializeToJson
-import io.vertx.core.json.JsonObject
+import com.kcibald.utils.KnownSizePageableCollection
+import com.kcibald.utils.toURLKey
 
-interface Post : ContentBased {
-    val id: String
-    val title: String
-    val comments: List<Comment>
-
-    override fun asJson(): JsonObject  = super
-        .asJson()
-        .put(PostJsonKeySpec.comments, comments.serializeToJson())
-        .put(PostJsonKeySpec.id, id)
+interface Post : MinimizedPost {
+    val comments: KnownSizePageableCollection<Comment>
+    val attachments: List<Attachment>
 
     companion object {
         fun createDefault(
-            id: String,
             title: String,
             author: User,
-            content: HTMLContent,
+            content: String,
+            parentRegionKey: String,
             createTimeStamp: Timestamp = now,
-            updateTimestamp: Timestamp = now,
-            attachments: List<AttachmentURL> = listOf(),
-            comments: List<Comment> = listOf()
-        ): Post = PostImpl(id, title, author, content, createTimeStamp, updateTimestamp, attachments, comments)
+            updateTimestamp: Timestamp? = null,
+            attachments: List<Attachment> = listOf(),
+            comments: List<Comment> = listOf(),
+            urlKey: String = title.toURLKey()
+        ): Post = PostImpl(
+            title,
+            author,
+            content,
+            createTimeStamp,
+            updateTimestamp,
+            attachments,
+            comments,
+            urlKey,
+            parentRegionKey,
+            comments.size
+        )
     }
 
-    object PostJsonKeySpec {
-        const val comments = "comments"
-        const val id = "post_id"
-    }
 }
