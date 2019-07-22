@@ -16,7 +16,7 @@ class AuthenticationClient(
 
     private val logger = LoggerFactory.getLogger(AuthenticationClient::class.java)
 
-    suspend fun verifyLogin(email: String, password: String): Boolean {
+    suspend fun verifyCredential(email: String, password: String): Boolean {
         logger.debug("verifying user $email though user service")
         val message = vertx
             .eventBus()

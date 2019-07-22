@@ -43,7 +43,7 @@ internal class AuthenticationClientTest {
             it.reply(jsonObjectOf("valid" to true))
         }
         runBlocking {
-            _authenticationClient!!.verifyLogin(trueEmail, truePassword)
+            _authenticationClient!!.verifyCredential(trueEmail, truePassword)
         }
         assertTrue(context.awaitCompletion(2, TimeUnit.SECONDS))
     }
@@ -58,7 +58,7 @@ internal class AuthenticationClientTest {
         }
         assertThrows<AssertionError> {
             runBlocking {
-                _authenticationClient!!.verifyLogin(trueEmail, truePassword)
+                _authenticationClient!!.verifyCredential(trueEmail, truePassword)
             }
         }
     }
@@ -73,7 +73,7 @@ internal class AuthenticationClientTest {
         }
         assertTrue(
             runBlocking {
-                _authenticationClient!!.verifyLogin(trueEmail, truePassword)
+                _authenticationClient!!.verifyCredential(trueEmail, truePassword)
             }
         )
     }
@@ -88,7 +88,7 @@ internal class AuthenticationClientTest {
         }
         assertFalse(
             runBlocking {
-                _authenticationClient!!.verifyLogin(trueEmail, truePassword)
+                _authenticationClient!!.verifyCredential(trueEmail, truePassword)
             }
         )
     }
