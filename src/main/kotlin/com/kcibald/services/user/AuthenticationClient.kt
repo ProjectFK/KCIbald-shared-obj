@@ -4,7 +4,7 @@ import io.vertx.core.Vertx
 import io.vertx.core.eventbus.DeliveryOptions
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
-import io.vertx.kotlin.core.eventbus.sendAwait
+import io.vertx.kotlin.core.eventbus.requestAwait
 import io.vertx.kotlin.core.json.jsonObjectOf
 import java.util.concurrent.TimeUnit
 
@@ -20,7 +20,7 @@ class AuthenticationClient(
         logger.debug("verifying user $email though user service")
         val message = vertx
             .eventBus()
-            .sendAwait<JsonObject>(
+            .requestAwait<JsonObject>(
                 AUTHENTICATION_ENDPOINT,
                 jsonObjectOf(
                     "email" to email,
