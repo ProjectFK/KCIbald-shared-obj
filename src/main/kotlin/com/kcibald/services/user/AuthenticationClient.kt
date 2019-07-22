@@ -1,5 +1,6 @@
 package com.kcibald.services.user
 
+import com.kcibald.utils.d
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.DeliveryOptions
 import io.vertx.core.json.JsonObject
@@ -17,7 +18,7 @@ class AuthenticationClient(
     private val logger = LoggerFactory.getLogger(AuthenticationClient::class.java)
 
     suspend fun verifyCredential(email: String, password: String): Boolean {
-        logger.debug("verifying user $email though user service")
+        logger.d { "verifying user $email though user service" }
         val message = vertx
             .eventBus()
             .requestAwait<JsonObject>(
@@ -30,7 +31,7 @@ class AuthenticationClient(
                     .setSendTimeout(TimeUnit.SECONDS.toMillis(2))
             )
 
-        logger.debug("verify user $email response received, ok")
+        logger.d { "verify user $email response received, ok" }
         val body = message.body()
         val validKey = "valid"
         val value = body.getValue(validKey, null)
