@@ -8,29 +8,33 @@ import com.kcibald.utils.d
 import com.kcibald.utils.w
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.DeliveryOptions
+import io.vertx.core.eventbus.ReplyException
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.kotlin.core.eventbus.requestAwait
 import java.util.concurrent.TimeUnit
 
-const val AUTHENTICATION_ENDPOINT = "kcibald.user.authentication"
-
 class AuthenticationClient(
-    private val vertx: Vertx
+    private val vertx: Vertx,
+    private val authenticationEndpoint: String = "kcibald.user.authentication",
+    private val timeOutInMilliSecond: Long = TimeUnit.SECONDS.toMillis(2)
 ) {
 
     private val logger = LoggerFactory.getLogger(AuthenticationClient::class.java)
 
+    @Throws(ReplyException::class)
     suspend fun verifyCredential(email: String, password: String): AuthenticationResult {
         logger.d { "verifying user $email though user service" }
         val message = try {
             vertx
                 .eventBus()
                 .requestAwait<ByteArray>(
-                    AUTHENTICATION_ENDPOINT,
+                    authenticationEndpoint,
                     AuthenticationRequest(email, password).protoMarshal(),
                     DeliveryOptions()
-                        .setSendTimeout(TimeUnit.SECONDS.toMillis(2))
+                        .setSendTimeout(timeOutInMilliSecond)
                 )
+        } catch (e: ReplyException) {
+            throw e
         } catch (e: Exception) {
             val message = "exception when requesting authentication verification though event bus for user $email"
             logger.warn(message, e)

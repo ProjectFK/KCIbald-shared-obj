@@ -5,16 +5,17 @@ import com.kcibald.services.user.proto.AuthenticationRequest
 import com.kcibald.services.user.proto.AuthenticationResponse
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
+import io.vertx.core.eventbus.ReplyException
 import io.vertx.junit5.VertxExtension
 import io.vertx.junit5.VertxTestContext
 import io.vertx.kotlin.core.closeAwait
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 @ExtendWith(VertxExtension::class)
@@ -183,11 +184,40 @@ internal class AuthenticationClientTest {
         assertEquals(expected, result)
     }
 
-
-    private fun fireRequest(): AuthenticationResult {
-        return runBlocking {
-            _authenticationClient!!.verifyCredential("email", "sureSecurep@ssw0rd!")
+    @Test
+    fun config_endpoint(vertx: Vertx, context: VertxTestContext) {
+        val endpoint = "test.kcibald.com"
+        this._authenticationClient = AuthenticationClient(vertx, authenticationEndpoint = "test.kcibald.com")
+        consumer = vertx.eventBus().consumer(endpoint)
+        consumer.handler {
+            context.completeNow()
+            it.fail(500, "no result for you!")
         }
+        fireRequest()
+        context.awaitCompletion(2, TimeUnit.SECONDS)
+    }
+
+    @Test
+    fun config_timeout(vertx: Vertx) {
+        this._authenticationClient = AuthenticationClient(
+            vertx,
+            timeOutInMilliSecond = 1
+        )
+        consumer.handler { message ->
+            vertx.setTimer(TimeUnit.SECONDS.toMillis(3)) {
+                message.fail(500, "no result for you!")
+            }
+        }
+        assertTimeout(Duration.ofSeconds(1)) {
+            assertThrows(ReplyException::class.java) {
+                fireRequest()
+            }
+        }
+    }
+
+
+    private fun fireRequest() = runBlocking {
+        _authenticationClient!!.verifyCredential("email", "sureSecurep@ssw0rd!")
     }
 
     @AfterEach
