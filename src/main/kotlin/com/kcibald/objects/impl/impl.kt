@@ -61,10 +61,10 @@ internal data class RegionImpl(
     override val parent: Region?,
     override val description: String,
     override val avatar: File,
-    val topPosts_collection: List<Post>,
+    val topPosts_collection: List<MinimizedPost>,
     override val childRegion: List<Region>
 ) : Region {
-    override val topPosts: PageableCollection<Post>
+    override val topPosts: PageableCollection<MinimizedPost>
 
     init {
         topPosts = DirectCollection(topPosts_collection)

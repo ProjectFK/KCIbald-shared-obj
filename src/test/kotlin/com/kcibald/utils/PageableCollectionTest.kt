@@ -12,6 +12,7 @@ class PageableCollectionTest {
         var trap: Int? = null
 
         val target = object : PageableCollection<String>(false, listOf()) {
+            override val queryMark: String? = null
             override val defaultAmount: Int
                 get() = expect
 

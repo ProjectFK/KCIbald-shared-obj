@@ -20,7 +20,7 @@ interface Region {
             avatar: File,
             urlKey: String = name.toURLKey(),
             parent: Region? = null,
-            topPosts: List<Post> = emptyList(),
+            topPosts: List<MinimizedPost> = emptyList(),
             childRegion: List<Region> = emptyList()
         ): Region = RegionImpl(
             name,
