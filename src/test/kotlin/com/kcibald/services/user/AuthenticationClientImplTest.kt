@@ -24,7 +24,7 @@ internal class AuthenticationClientImplTest {
     @BeforeEach
     fun setUp(vertx: Vertx) {
         consumer = vertx.eventBus().consumer("kcibald.user.authentication")
-        this._authenticationClient = AuthenticationClient.createDefault(vertx)
+        this._authenticationClient = AuthenticationClient(vertx)
     }
 
     private lateinit var consumer: MessageConsumer<ByteArray>
