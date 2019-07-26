@@ -5,6 +5,7 @@ abstract class PageableCollection<T>(
     val currentContent: List<T>
 ) {
     protected abstract val defaultAmount: Int
+    abstract val queryMark: String?
 
     abstract suspend fun getNextPage(
         amount: Int = defaultAmount,
@@ -27,6 +28,7 @@ class DirectCollection<T>(content: List<T>) : KnownSizePageableCollection<T>(
     content.size
 ) {
     override val defaultAmount: Int = 0
+    override val queryMark: String? = null
 
     override suspend fun getNextPage(
         amount: Int,

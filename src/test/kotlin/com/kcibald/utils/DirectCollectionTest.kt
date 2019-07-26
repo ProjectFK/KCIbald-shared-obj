@@ -30,4 +30,9 @@ internal class DirectCollectionTest {
     fun getNextPage() = runBlocking {
         assertNull(DirectCollection(listOf("")).getNextPage())
     }
+
+    @Test
+    fun queryMark() {
+        assertNull(DirectCollection(listOf("")).queryMark)
+    }
 }
