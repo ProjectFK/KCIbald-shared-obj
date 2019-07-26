@@ -10,7 +10,7 @@ interface Region {
     val parent: Region?
     val description: String
     val avatar: File
-    val topPosts: PageableCollection<Post>
+    val topPosts: PageableCollection<MinimizedPost>
     val childRegion: List<Region>
 
     companion object {
