@@ -24,7 +24,7 @@ internal class AuthenticationClientImplTest {
     @BeforeEach
     fun setUp(vertx: Vertx) {
         consumer = vertx.eventBus().consumer("kcibald.user.authentication")
-        this._authenticationClient = AuthenticationClient(vertx)
+        this._authenticationClient = AuthenticationClient.createDefault(vertx)
     }
 
     private lateinit var consumer: MessageConsumer<ByteArray>
@@ -205,7 +205,8 @@ internal class AuthenticationClientImplTest {
     @Test
     fun config_endpoint(vertx: Vertx, context: VertxTestContext) {
         val endpoint = "test.kcibald.com"
-        this._authenticationClient = AuthenticationClient(vertx, authenticationEndpoint = "test.kcibald.com")
+        this._authenticationClient =
+            AuthenticationClient.createDefault(vertx, authenticationEndpoint = "test.kcibald.com")
         consumer = vertx.eventBus().consumer(endpoint)
         consumer.handler {
             context.completeNow()
@@ -219,7 +220,7 @@ internal class AuthenticationClientImplTest {
 
     @Test
     fun config_timeout(vertx: Vertx) {
-        this._authenticationClient = AuthenticationClient(
+        this._authenticationClient = AuthenticationClient.createDefault(
             vertx,
             timeOutInMilliSecond = 1
         )
