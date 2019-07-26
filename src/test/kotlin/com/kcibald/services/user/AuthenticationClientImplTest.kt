@@ -19,12 +19,12 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 @ExtendWith(VertxExtension::class)
-internal class AuthenticationClientTest {
+internal class AuthenticationClientImplTest {
 
     @BeforeEach
     fun setUp(vertx: Vertx) {
         consumer = vertx.eventBus().consumer("kcibald.user.authentication")
-        this._authenticationClient = AuthenticationClient(vertx)
+        this._authenticationClient = AuthenticationClient.createDefault(vertx)
     }
 
     private lateinit var consumer: MessageConsumer<ByteArray>
@@ -43,20 +43,38 @@ internal class AuthenticationClientTest {
             }
             it.fail(500, "no result for you!")
         }
-        runBlocking {
-            _authenticationClient!!.verifyCredential(trueEmail, truePassword)
+        assertThrows(ReplyException::class.java) {
+            runBlocking {
+                _authenticationClient!!.verifyCredential(trueEmail, truePassword)
+            }
         }
         assertTrue(context.awaitCompletion(2, TimeUnit.SECONDS))
     }
 
     @Test
-    fun verifyLogin_unexpect_failure() {
+    fun verifyLogin_reply_failure() {
         consumer.handler {
             it.fail(500, "no result for you!")
         }
+        assertThrows(ReplyException::class.java) {
+            fireRequest()
+        }
+    }
+
+    @Test
+    fun verifyLogin_unexpected_failure() {
+        val errorMessage = "error!"
+        consumer.handler {
+            val response = AuthenticationResponse(
+                AuthenticationResponse.Result.SystemErrorMessage(errorMessage)
+            )
+            it.reply(response.protoMarshal())
+        }
         val result = fireRequest()
 
-        assert(result is AuthenticationResult.SystemError) { "result should have a type of System Error" }
+        result as AuthenticationResult.SystemError
+
+        assertEquals(errorMessage, result.message)
     }
 
     @Test
@@ -193,7 +211,9 @@ internal class AuthenticationClientTest {
             context.completeNow()
             it.fail(500, "no result for you!")
         }
-        fireRequest()
+        assertThrows(ReplyException::class.java) {
+            fireRequest()
+        }
         context.awaitCompletion(2, TimeUnit.SECONDS)
     }
 
