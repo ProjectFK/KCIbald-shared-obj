@@ -1,9 +1,10 @@
 package com.kcibald.services.kcibald
 
 import com.kcibald.objects.*
+import com.kcibald.services.PageableFetchConfig
+import com.kcibald.services.Result
+import com.kcibald.services.defaultPageableFetchConfig
 import com.kcibald.utils.PageableCollection
-import com.kcibald.utils.PageableFetchConfig
-import com.kcibald.utils.defaultPageableFetchConfig
 
 typealias URLKey = String
 
@@ -51,10 +52,3 @@ interface KCIBALDClient {
     ): Result<Comment>
 
 }
-
-sealed class Result<T> {
-    data class Success<T>(val result: T): Result<T>()
-    object NotFound: Result<Any>()
-    data class Failure(val message: String): Result<Any>()
-}
-

@@ -1,4 +1,4 @@
-package com.kcibald.utils
+package com.kcibald.services
 
 data class PageableFetchConfig(
     val count: Int = DEFAULT_POST_PER_PAGE,

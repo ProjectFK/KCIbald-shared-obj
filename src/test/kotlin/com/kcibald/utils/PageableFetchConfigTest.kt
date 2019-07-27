@@ -1,5 +1,7 @@
 package com.kcibald.utils
 
+import com.kcibald.services.PageableFetchConfig
+import com.kcibald.services.defaultPageableFetchConfig
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
