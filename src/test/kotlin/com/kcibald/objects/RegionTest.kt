@@ -13,7 +13,6 @@ internal class RegionTest {
         CommentImpl(
             1,
             User.createDefault(
-                "Id",
                 "name",
                 "name",
                 "url",
@@ -30,7 +29,6 @@ internal class RegionTest {
                 Comment.createDefault(
                     2,
                     User.createDefault(
-                        "Id",
                         "name",
                         "name",
                         "url",
@@ -40,7 +38,6 @@ internal class RegionTest {
                 Comment.createDefault(
                     3,
                     User.createDefault(
-                        "Id",
                         "name",
                         "name",
                         "url",
@@ -55,7 +52,6 @@ internal class RegionTest {
         Post.createDefault(
             "title",
             User.createDefault(
-                "Id",
                 "name",
                 "name",
                 "url",

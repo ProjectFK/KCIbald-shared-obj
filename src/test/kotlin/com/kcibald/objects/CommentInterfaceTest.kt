@@ -8,7 +8,6 @@ import kotlin.math.abs
 
 internal class CommentInterfaceTest {
     val author = User.createDefault(
-        "Id",
         "name",
         "name",
         "url",

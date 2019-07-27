@@ -14,7 +14,6 @@ internal class MinimizedPostTest {
         val parentRegionUrlKey = "DP"
         val commentCount = 1
         val author = User.createDefault(
-            "Id",
             "name",
             "name",
             "url",
@@ -56,7 +55,6 @@ internal class MinimizedPostTest {
         val parentRegionUrlKey = "DP"
         val commentCount = 1
         val author = User.createDefault(
-            "Id",
             "name",
             "name",
             "url",
@@ -85,7 +83,6 @@ internal class MinimizedPostTest {
         val parentRegionUrlKey = "DP"
         val commentCount = 1
         val author = User.createDefault(
-            "Id",
             "name",
             "name",
             "url",

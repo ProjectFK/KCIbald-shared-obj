@@ -11,7 +11,6 @@ internal class PostInterfaceTest {
     val postDefaultyCreated = Post.createDefault(
         "title",
         User.createDefault(
-            "id",
             "name",
             "name",
             "avatar",
@@ -27,7 +26,6 @@ internal class PostInterfaceTest {
         val target = Post.createDefault(
             "title",
             User.createDefault(
-                "id",
                 "name",
                 "name",
                 "avatar",
@@ -46,7 +44,6 @@ internal class PostInterfaceTest {
         val target = Post.createDefault(
             "title",
             User.createDefault(
-                "id",
                 "name",
                 "name",
                 "avatar",

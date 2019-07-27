@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 internal class CommentImplTest {
 
     val author = User.createDefault(
-        "Id",
         "name",
         "name",
         "url",

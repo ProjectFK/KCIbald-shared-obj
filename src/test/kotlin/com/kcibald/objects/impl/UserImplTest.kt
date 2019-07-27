@@ -10,12 +10,7 @@ internal class UserImplTest {
     val userId = "user_id"
     val userName = "name"
     val urlKey = "name"
-    val user = UserImpl(userId, userName, urlKey, avatar, signature)
-
-    @Test
-    fun getUserId() {
-        assertEquals(userId, user.userId)
-    }
+    val user = UserImpl(userName, urlKey, avatar, signature)
 
     @Test
     fun getUserName() {
@@ -39,7 +34,7 @@ internal class UserImplTest {
 
     @Test
     fun equals() {
-        assertEquals(user, UserImpl(userId, userName, urlKey, avatar, signature))
+        assertEquals(user, UserImpl(userName, urlKey, avatar, signature))
     }
 
 }

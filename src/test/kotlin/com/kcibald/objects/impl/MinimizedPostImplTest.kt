@@ -12,7 +12,6 @@ internal class MinimizedPostImplTest {
     val parentRegionUrlKey = "DP"
     val commentCount = 1
     val author = User.createDefault(
-        "Id",
         "name",
         "name",
         "url",

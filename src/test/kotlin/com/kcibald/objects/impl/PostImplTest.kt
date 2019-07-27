@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test
 internal class PostImplTest {
 
     val author = User.createDefault(
-        "userId",
         "user name",
         "user_name",
         "avatar",
