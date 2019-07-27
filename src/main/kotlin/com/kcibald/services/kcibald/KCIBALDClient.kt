@@ -2,6 +2,8 @@ package com.kcibald.services.kcibald
 
 import com.kcibald.objects.*
 import com.kcibald.utils.PageableCollection
+import com.kcibald.utils.PageableFetchConfig
+import com.kcibald.utils.defaultPageableFetchConfig
 
 typealias URLKey = String
 
@@ -56,14 +58,3 @@ sealed class Result<T> {
     data class Failure(val message: String): Result<Any>()
 }
 
-data class PageableFetchConfig(
-    val count: Int = DEFAULT_POST_PER_PAGE,
-    val skip: Int = 0,
-    val queryMark: String? = null
-) {
-    companion object {
-        const val DEFAULT_POST_PER_PAGE: Int = 20
-    }
-}
-
-val defaultPageableFetchConfig = PageableFetchConfig()
