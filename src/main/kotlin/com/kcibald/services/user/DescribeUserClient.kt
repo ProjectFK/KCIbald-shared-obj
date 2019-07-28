@@ -6,5 +6,5 @@ import com.kcibald.services.Result
 import com.kcibald.services.ServiceClient
 
 interface DescribeUserClient: Describer<User>, ServiceClient {
-    fun describeUser(urlKey: String): Result<User>
+    suspend fun describeUser(urlKey: String): Result<User>
 }
