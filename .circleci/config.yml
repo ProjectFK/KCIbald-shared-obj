@@ -39,28 +39,6 @@ jobs:
       # run tests!
       - run: gradle test jacocoTestReport
 
-      - save_cache:
-          paths:
-            # prepare for jacoco test report upload
-            - build
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-
-  upload_test_coverage:
-    docker:
-      # there's not really an empty image to do such thing :(
-      - image: circleci/openjdk:11.0.2-jdk-stretch
-
-    working_directory: ~/repo
-
-    environment:
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx1000m
-      TERM: dumb
-
-    steps:
-      - restore_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-
       - codecov/upload:
           flags: objs
           file: "build/reports/jacoco/test/jacocoTestReport.xml"
@@ -70,6 +48,3 @@ workflows:
   build_and_deploy:
     jobs:
       - build_and_test
-      - upload_test_coverage:
-          requires:
-            - build_and_test
