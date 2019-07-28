@@ -33,7 +33,7 @@ internal class DescribeUserClientImplTest {
     }
 
     @Test
-    fun describeUser_request(vertx: Vertx, context: VertxTestContext) {
+    fun describeUser_request(context: VertxTestContext) {
         val expected = "urlKey"
 
         eventBus.handler {
@@ -156,7 +156,7 @@ internal class DescribeUserClientImplTest {
     }
 
     @Test
-    fun describeThoughIdentifier_request(vertx: Vertx, context: VertxTestContext) {
+    fun describeThoughIdentifier_request(context: VertxTestContext) {
         val id = object : SubsetIdentifiable<User>{
             override val sid: String
                 get() = ""
