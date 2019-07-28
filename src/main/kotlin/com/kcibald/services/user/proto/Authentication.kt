@@ -1,5 +1,3 @@
-@file:Suppress("RemoveRedundantQualifierName")
-
 package com.kcibald.services.user.proto
 
 internal data class AuthenticationRequest(
@@ -20,9 +18,12 @@ internal data class AuthenticationResponse(
     val unknownFields: Map<Int, pbandk.UnknownField> = emptyMap()
 ) : pbandk.Message<AuthenticationResponse> {
     sealed class Result {
-        internal data class SuccessUser(val successUser: com.kcibald.services.user.proto.User) : Result()
-        internal data class CommonAuthenticationError(val commonAuthenticationError: com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType = com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType.fromValue(0)) : Result()
-        internal data class BannedInfo(val bannedInfo: com.kcibald.services.user.proto.AuthenticationResponse.BannedInfo) : Result()
+        internal data class SuccessUser(val successUser: User) : Result()
+        internal data class CommonAuthenticationError(val commonAuthenticationError: AuthenticationErrorType = AuthenticationErrorType.fromValue(
+            0
+        )
+        ) : Result()
+        internal data class BannedInfo(val bannedInfo: AuthenticationResponse.BannedInfo) : Result()
         internal data class SystemErrorMessage(val systemErrorMessage: String = "") : Result()
     }
 
@@ -126,9 +127,11 @@ private fun AuthenticationResponse.Companion.protoUnmarshalImpl(protoUnmarshal: 
     var result: AuthenticationResponse.Result? = null
     while (true) when (protoUnmarshal.readTag()) {
         0 -> return AuthenticationResponse(result, protoUnmarshal.unknownFields())
-        10 -> result = AuthenticationResponse.Result.SuccessUser(protoUnmarshal.readMessage(com.kcibald.services.user.proto.User.Companion))
-        16 -> result = AuthenticationResponse.Result.CommonAuthenticationError(protoUnmarshal.readEnum(com.kcibald.services.user.proto.AuthenticationResponse.AuthenticationErrorType.Companion))
-        26 -> result = AuthenticationResponse.Result.BannedInfo(protoUnmarshal.readMessage(com.kcibald.services.user.proto.AuthenticationResponse.BannedInfo.Companion))
+        10 -> result = AuthenticationResponse.Result.SuccessUser(protoUnmarshal.readMessage(User))
+        16 -> result =
+            AuthenticationResponse.Result.CommonAuthenticationError(protoUnmarshal.readEnum(AuthenticationResponse.AuthenticationErrorType))
+        26 -> result =
+            AuthenticationResponse.Result.BannedInfo(protoUnmarshal.readMessage(AuthenticationResponse.BannedInfo))
         34 -> result = AuthenticationResponse.Result.SystemErrorMessage(protoUnmarshal.readString())
         else -> protoUnmarshal.unknownField()
     }
