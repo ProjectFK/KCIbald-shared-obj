@@ -1,11 +1,12 @@
 package com.kcibald.services.user
 
+import com.kcibald.services.ServiceClient
 import com.kcibald.services.user.impl.AuthenticationClientImpl
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.ReplyException
 import java.util.concurrent.TimeUnit
 
-interface AuthenticationClient {
+interface AuthenticationClient: ServiceClient {
     @Throws(ReplyException::class)
     suspend fun verifyCredential(email: String, password: String): AuthenticationResult
 

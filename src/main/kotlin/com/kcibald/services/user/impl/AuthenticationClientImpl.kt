@@ -19,6 +19,9 @@ internal class AuthenticationClientImpl(
     private val timeOutInMilliSecond: Long
 ) : AuthenticationClient {
 
+    override val clientVersion: String = "alpha-1.0.0-preview"
+    override val compatibleServiceVersion: String = "alpha-1.0.0-preview"
+
     private val logger =
         LoggerFactory.getLogger(AuthenticationClientImpl::class.java)
 
