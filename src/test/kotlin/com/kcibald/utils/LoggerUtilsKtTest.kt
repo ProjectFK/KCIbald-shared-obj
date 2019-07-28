@@ -2,18 +2,17 @@ package com.kcibald.utils
 
 import io.vertx.core.logging.Logger
 import io.vertx.core.spi.logging.LogDelegate
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class LoggerUtilsKtTest {
 
-    open class DelegateWarrper: LogDelegate {
+    open class DelegateWarrper : LogDelegate {
         override fun warn(message: Any?): Unit = throw IllegalAccessError()
 
         override fun warn(message: Any?, vararg params: Any?) = throw IllegalAccessError()
 
-        override fun warn(message: Any?, t: Throwable?) = throw IllegalAccessError()
+        override fun warn(message: Any?, t: Throwable?): Unit = throw IllegalAccessError()
 
         override fun warn(message: Any?, t: Throwable?, vararg params: Any?) = throw IllegalAccessError()
 
@@ -25,7 +24,7 @@ internal class LoggerUtilsKtTest {
 
         override fun info(message: Any?, vararg params: Any?) = throw IllegalAccessError()
 
-        override fun info(message: Any?, t: Throwable?) = throw IllegalAccessError()
+        override fun info(message: Any?, t: Throwable?): Unit = throw IllegalAccessError()
 
         override fun info(message: Any?, t: Throwable?, vararg params: Any?) = throw IllegalAccessError()
 
@@ -43,7 +42,7 @@ internal class LoggerUtilsKtTest {
 
         override fun debug(message: Any?, vararg params: Any?) = throw IllegalAccessError()
 
-        override fun debug(message: Any?, t: Throwable?) = throw IllegalAccessError()
+        override fun debug(message: Any?, t: Throwable?): Unit = throw IllegalAccessError()
 
         override fun debug(message: Any?, t: Throwable?, vararg params: Any?) = throw IllegalAccessError()
 
@@ -79,6 +78,32 @@ internal class LoggerUtilsKtTest {
     }
 
     @Test
+    fun debug_enable_throw() {
+        val expect = ":D"
+        val exception = Exception()
+
+        var received: Any? = null
+        var receivedE: Throwable? = null
+
+        val target = Logger(object : DelegateWarrper() {
+            override fun isDebugEnabled(): Boolean = true
+            override fun debug(message: Any?) {
+                fail<Unit>()
+            }
+
+            override fun debug(message: Any?, t: Throwable?) {
+                received = message
+                receivedE = t
+            }
+        })
+        target.d(exception) {
+            expect
+        }
+        assertEquals(expect, received)
+        assertEquals(exception, receivedE)
+    }
+
+    @Test
     fun debug_disable() {
         val expect = ":("
         var received: Any? = null
@@ -111,6 +136,32 @@ internal class LoggerUtilsKtTest {
     }
 
     @Test
+    fun info_enable_throw() {
+        val expect = ":D"
+        val exception = Exception()
+
+        var received: Any? = null
+        var receivedE: Throwable? = null
+
+        val target = Logger(object : DelegateWarrper() {
+            override fun isInfoEnabled(): Boolean = true
+            override fun info(message: Any?) {
+                fail<Unit>()
+            }
+
+            override fun info(message: Any?, t: Throwable?) {
+                received = message
+                receivedE = t
+            }
+        })
+        target.i(exception) {
+            expect
+        }
+        assertEquals(expect, received)
+        assertEquals(exception, receivedE)
+    }
+
+    @Test
     fun info_disable() {
         val expect = ":("
         var received: Any? = null
@@ -140,6 +191,32 @@ internal class LoggerUtilsKtTest {
             expect
         }
         assertEquals(expect, received)
+    }
+
+    @Test
+    fun warn_enable_throw() {
+        val expect = ":D"
+        val exception = Exception()
+
+        var received: Any? = null
+        var receivedE: Throwable? = null
+
+        val target = Logger(object : DelegateWarrper() {
+            override fun isWarnEnabled(): Boolean = true
+            override fun warn(message: Any?) {
+                fail<Unit>()
+            }
+
+            override fun warn(message: Any?, t: Throwable?) {
+                received = message
+                receivedE = t
+            }
+        })
+        target.w(exception) {
+            expect
+        }
+        assertEquals(expect, received)
+        assertEquals(exception, receivedE)
     }
 
     @Test
