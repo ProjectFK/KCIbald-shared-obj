@@ -52,6 +52,12 @@ internal class CommentInterfaceTest {
 
         assertEquals(null, target.updateTimestamp)
     }
+    @Test
+    fun updateTimes_set() {
+        val expected = now
+        val target = Comment.createDefault(1, author, content, updateTimestamp = expected)
+        assertEquals(expected, target.updateTimestamp)
+    }
 
     @Test
     fun defaultCreateTimes() {
@@ -61,15 +67,24 @@ internal class CommentInterfaceTest {
         assert(abs(target.createTimestamp - n) < 5)
     }
 
-    val defaultComment = Comment.createDefault(1, author, content)
+    @Test
+    fun attachment_set() {
+        val attachments = listOf(
+            attachment1
+        )
+        val comment = Comment.createDefault(1, author, content, attachments = attachments)
+        assertEquals(attachments, comment.attachments)
+    }
 
     @Test
-    fun defaultAttachment() {
-        assert(defaultComment.attachments.isEmpty())
+    fun attachment_default() {
+        val comment = Comment.createDefault(1, author, content)
+        assertEquals(listOf<Attachment>(), comment.attachments)
     }
 
     @Test
     fun defaultReplies() {
+        val defaultComment = Comment.createDefault(1, author, content)
         assert(defaultComment.replies.isEmpty())
     }
 

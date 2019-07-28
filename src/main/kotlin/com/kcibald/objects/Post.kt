@@ -2,6 +2,7 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.PostImpl
 import com.kcibald.objects.impl.now
+import com.kcibald.utils.DirectCollection
 import com.kcibald.utils.KnownSizePageableCollection
 import com.kcibald.utils.toURLKey
 
@@ -27,7 +28,7 @@ interface Post : MinimizedPost {
             createTimeStamp,
             updateTimestamp,
             attachments,
-            comments,
+            DirectCollection(comments),
             urlKey,
             parentRegionKey,
             comments.size

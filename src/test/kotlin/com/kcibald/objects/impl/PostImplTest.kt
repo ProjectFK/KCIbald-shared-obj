@@ -54,11 +54,13 @@ internal class PostImplTest {
 
     val urlKey = title.toURLKey()
 
+    val parentRegionKey = ""
+    
     val target = Post.createDefault(
         title,
         author,
         content,
-        "",
+        parentRegionKey,
         ts,
         ts,
         attachments,
@@ -110,7 +112,12 @@ internal class PostImplTest {
 
     @Test
     fun getCommentSize() {
-        assertEquals(comments.size, target.comments.totalSize)
+        assertEquals(comments.size, target.commentCount)
+    }
+
+    @Test
+    fun sourceRegionURLKey() {
+        assertEquals(parentRegionKey, target.sourceRegionURLKey)
     }
 
 }

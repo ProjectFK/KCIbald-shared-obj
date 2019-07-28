@@ -8,8 +8,14 @@ import java.time.LocalDateTime
 internal class TimestampKtTest {
 
     @Test
-    fun toLocalDateTime_negative() {
+    fun toLocalDateTime_smaller_than_threshold() {
         val t: Timestamp = -5
+        assertNull(t.toLocalDateTime())
+    }
+
+    @Test
+    fun toLocalDateTime_impossible() {
+        val t: Timestamp = Long.MAX_VALUE
         assertNull(t.toLocalDateTime())
     }
 

@@ -1,7 +1,6 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.*
-import com.kcibald.utils.DirectCollection
 import com.kcibald.utils.KnownSizePageableCollection
 import com.kcibald.utils.PageableCollection
 import java.time.LocalDateTime
@@ -35,17 +34,11 @@ internal data class PostImpl(
     override val createTimestamp: Timestamp,
     override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
-    val comments_collection: List<Comment>,
+    override val comments: KnownSizePageableCollection<Comment>,
     override val urlKey: String,
     override val sourceRegionURLKey: String,
     override val commentCount: Int
-) : Post {
-    override val comments: KnownSizePageableCollection<Comment>
-
-    init {
-        comments = DirectCollection(comments_collection)
-    }
-}
+) : Post
 
 internal data class UserImpl(
     override val userName: String,
@@ -60,16 +53,9 @@ internal data class RegionImpl(
     override val parent: Region?,
     override val description: String,
     override val avatar: File,
-    val topPosts_collection: List<MinimizedPost>,
+    override val topPosts: PageableCollection<MinimizedPost>,
     override val childRegion: List<Region>
-) : Region {
-    override val topPosts: PageableCollection<MinimizedPost>
-
-    init {
-        topPosts = DirectCollection(topPosts_collection)
-    }
-
-}
+) : Region
 
 internal data class AttachmentImpl(
     override val file: File,

@@ -1,6 +1,7 @@
 package com.kcibald.services.user
 
 import com.kcibald.objects.User
+import com.kcibald.services.user.impl.AuthenticationClientImpl
 import com.kcibald.services.user.proto.AuthenticationRequest
 import com.kcibald.services.user.proto.AuthenticationResponse
 import io.vertx.core.Vertx
@@ -24,11 +25,11 @@ internal class AuthenticationClientImplTest {
     @BeforeEach
     fun setUp(vertx: Vertx) {
         consumer = vertx.eventBus().consumer("kcibald.user.authentication")
-        this._authenticationClient = AuthenticationClient.createDefault(vertx)
+        this.authenticationClient = AuthenticationClient.createDefault(vertx)
     }
 
     private lateinit var consumer: MessageConsumer<ByteArray>
-    private var _authenticationClient: AuthenticationClient? = null
+    private var authenticationClient: AuthenticationClient? = null
 
     @Test
     fun verifyLogin_request(context: VertxTestContext) {
@@ -45,7 +46,7 @@ internal class AuthenticationClientImplTest {
         }
         assertThrows(ReplyException::class.java) {
             runBlocking {
-                _authenticationClient!!.verifyCredential(trueEmail, truePassword)
+                authenticationClient!!.verifyCredential(trueEmail, truePassword)
             }
         }
         assertTrue(context.awaitCompletion(2, TimeUnit.SECONDS))
@@ -173,12 +174,6 @@ internal class AuthenticationClientImplTest {
         val duration = 2124
         val message = "u suck"
 
-        val expected = AuthenticationResult.Banned(
-            timeBanned,
-            duration,
-            message
-        )
-
         consumer.handler {
             val response = AuthenticationResponse(
                 AuthenticationResponse.Result.BannedInfo(
@@ -198,13 +193,15 @@ internal class AuthenticationClientImplTest {
 
         result as AuthenticationResult.Banned
 
-        assertEquals(expected, result)
+        assertEquals(timeBanned, result.timeBanned)
+        assertEquals(duration, result.duration)
+        assertEquals(message, result.message)
     }
 
     @Test
     fun config_endpoint(vertx: Vertx, context: VertxTestContext) {
         val endpoint = "test.kcibald.com"
-        this._authenticationClient =
+        this.authenticationClient =
             AuthenticationClient.createDefault(vertx, authenticationEndpoint = "test.kcibald.com")
         consumer = vertx.eventBus().consumer(endpoint)
         consumer.handler {
@@ -219,7 +216,7 @@ internal class AuthenticationClientImplTest {
 
     @Test
     fun config_timeout(vertx: Vertx) {
-        this._authenticationClient = AuthenticationClient.createDefault(
+        this.authenticationClient = AuthenticationClient.createDefault(
             vertx,
             timeOutInMilliSecond = 1
         )
@@ -235,9 +232,36 @@ internal class AuthenticationClientImplTest {
         }
     }
 
+    @Test
+    fun verifyLogin_unexpected(vertx: Vertx) = runBlocking{
+        val target = AuthenticationClientImpl(
+            vertx,
+            "kcibald.user.authentication",
+            -1
+        )
+        val result = target.verifyCredential("", "")
+
+        assert(result is AuthenticationResult.SystemError)
+        result as AuthenticationResult.SystemError
+        assertEquals(
+            "exception when requesting authentication verification though event bus for user ",
+            result.message
+        )
+    }
+
+    @Test
+    fun clientVersion() {
+        assertEquals("alpha-1.0.0-preview", authenticationClient!!.clientVersion)
+    }
+
+    @Test
+    fun compatibleServiceVersion() {
+        assertEquals("alpha-1.0.0-preview", authenticationClient!!.compatibleServiceVersion)
+    }
+
 
     private fun fireRequest() = runBlocking {
-        _authenticationClient!!.verifyCredential("email", "sureSecurep@ssw0rd!")
+        authenticationClient!!.verifyCredential("email", "sureSecurep@ssw0rd!")
     }
 
     @AfterEach

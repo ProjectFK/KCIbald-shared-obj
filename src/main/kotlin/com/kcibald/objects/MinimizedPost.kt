@@ -13,11 +13,11 @@ interface MinimizedPost : ContentBased {
     companion object {
         fun createDefault(
             title: String,
-            urlKey: String,
             content: String,
             author: User,
             commentCount: Int,
-            parentRegionUrlKey: String = title.toURLKey(),
+            parentRegionUrlKey: String,
+            urlKey: String = title.toURLKey(),
             createTimeStamp: Timestamp = now,
             updateTimestamp: Timestamp? = null
         ): MinimizedPost = MinimizedPostImpl(

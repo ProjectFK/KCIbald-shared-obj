@@ -1,6 +1,7 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.*
+import com.kcibald.utils.DirectCollection
 import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -80,7 +81,7 @@ internal class RegionImplTest {
         parent,
         description,
         avatar,
-        posts,
+        DirectCollection(posts),
         childRegion
     )
 

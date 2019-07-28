@@ -1,6 +1,7 @@
 package com.kcibald.objects
 
 import com.kcibald.objects.impl.RegionImpl
+import com.kcibald.utils.DirectCollection
 import com.kcibald.utils.PageableCollection
 import com.kcibald.utils.toURLKey
 
@@ -28,7 +29,7 @@ interface Region {
             parent,
             description,
             avatar,
-            topPosts,
+            DirectCollection(topPosts),
             childRegion
         )
     }

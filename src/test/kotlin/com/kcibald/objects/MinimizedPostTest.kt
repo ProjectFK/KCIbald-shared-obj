@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class MinimizedPostTest {
 
     @Test
-    fun createDefault() {
+    fun createDefault_without_creation_timestamp() {
         val title = "title"
         val urlKey = "title"
         val parentRegionUrlKey = "DP"
@@ -38,20 +38,18 @@ internal class MinimizedPostTest {
             expected,
             MinimizedPost.createDefault(
                 title,
-                urlKey,
                 content,
                 author,
                 commentCount,
                 parentRegionUrlKey,
-                createTimeStamp
+                createTimeStamp = createTimeStamp
             )
         )
     }
 
     @Test
-    fun createDefault_with_default_para_updateTimeStamp() {
+    fun createDefault_with_default_creationTimeStamp() {
         val title = "title"
-        val urlKey = "title"
         val parentRegionUrlKey = "DP"
         val commentCount = 1
         val author = User.createDefault(
@@ -64,35 +62,6 @@ internal class MinimizedPostTest {
 
         val created = MinimizedPost.createDefault(
             title,
-            urlKey,
-            content,
-            author,
-            commentCount,
-            parentRegionUrlKey
-        )
-
-        assertEquals(
-            null, created.updateTimestamp
-        )
-    }
-
-    @Test
-    fun createDefault_with_default_para_creationTimeStamp() {
-        val title = "title"
-        val urlKey = "title"
-        val parentRegionUrlKey = "DP"
-        val commentCount = 1
-        val author = User.createDefault(
-            "name",
-            "name",
-            "url",
-            "signature"
-        )
-        val content = "blah"
-
-        val created = MinimizedPost.createDefault(
-            title,
-            urlKey,
             content,
             author,
             commentCount,
@@ -101,6 +70,48 @@ internal class MinimizedPostTest {
 
         assert(
             (now.minus(created.createTimestamp)) < 5
+        )
+    }
+
+    @Test
+    fun createDefault_manual() {
+        val title = "title"
+        val urlKey = "title"
+        val parentRegionUrlKey = "DP"
+        val commentCount = 1
+        val author = User.createDefault(
+            "name",
+            "name",
+            "url",
+            "signature"
+        )
+        val createTimeStamp = now
+        val updateTimeStamp: Timestamp? = null
+        val content = "blah"
+
+        val expected = MinimizedPostImpl(
+            title,
+            urlKey,
+            parentRegionUrlKey,
+            commentCount,
+            author,
+            createTimeStamp,
+            updateTimeStamp,
+            content
+        )
+
+        assertEquals(
+            expected,
+            MinimizedPost.createDefault(
+                title,
+                content,
+                author,
+                commentCount,
+                parentRegionUrlKey,
+                urlKey = urlKey,
+                createTimeStamp = createTimeStamp,
+                updateTimestamp = updateTimeStamp
+            )
         )
     }
 

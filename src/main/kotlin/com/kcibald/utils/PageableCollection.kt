@@ -34,4 +34,21 @@ class DirectCollection<T>(content: List<T>) : KnownSizePageableCollection<T>(
         amount: Int,
         skip: Int
     ): PageableCollection<T>? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DirectCollection<*>
+
+        if (other.currentContent != this.currentContent) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = currentContent.hashCode()
+        result = 31 * result + javaClass.hashCode()
+        return result
+    }
 }

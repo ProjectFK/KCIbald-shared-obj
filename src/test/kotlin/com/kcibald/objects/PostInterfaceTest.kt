@@ -39,6 +39,27 @@ internal class PostInterfaceTest {
     }
 
     @Test
+    fun setUpdateTimes() {
+
+        val expected = now
+
+        val target = Post.createDefault(
+            "title",
+            User.createDefault(
+                "name",
+                "name",
+                "avatar",
+                "signature"
+            ),
+            "content",
+            "",
+            updateTimestamp = expected
+        )
+
+        assertEquals(expected, target.updateTimestamp)
+    }
+
+    @Test
     fun defaultCreateTimes() {
 
         val target = Post.createDefault(
@@ -59,8 +80,51 @@ internal class PostInterfaceTest {
     }
 
     @Test
+    fun setCreateTimes() {
+
+        val expected = now
+
+        val target = Post.createDefault(
+            "title",
+            User.createDefault(
+                "name",
+                "name",
+                "avatar",
+                "signature"
+            ),
+            "content",
+            urlKey = "",
+            parentRegionKey = "",
+            createTimeStamp = expected
+        )
+
+        assertEquals(expected, target.createTimestamp)
+    }
+
+    @Test
     fun defaultAttachment() {
         assert(postDefaultyCreated.attachments.isEmpty())
+    }
+
+
+    @Test
+    fun set_attachment() {
+        val attachments = listOf(Attachment.createDefault("", ""))
+        val target = Post.createDefault(
+            "title",
+            User.createDefault(
+                "name",
+                "name",
+                "avatar",
+                "signature"
+            ),
+            "content",
+            urlKey = "",
+            parentRegionKey = "",
+            attachments = attachments
+        )
+
+        assertEquals(attachments, target.attachments)
     }
 
     @Test
