@@ -86,7 +86,6 @@ internal class AuthenticationClientImplTest {
         val avatarKey = "avatarKey"
 
         val expected = User.createDefault(
-            userId,
             userName,
             urlKey,
             avatarKey,

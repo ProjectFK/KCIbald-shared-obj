@@ -49,7 +49,6 @@ internal class AuthenticationClientImpl(
                 val user = result.successUser
                 AuthenticationResult.Success(
                     User.createDefault(
-                        user.userId,
                         user.userName,
                         user.urlKey,
                         user.avatarKey,
