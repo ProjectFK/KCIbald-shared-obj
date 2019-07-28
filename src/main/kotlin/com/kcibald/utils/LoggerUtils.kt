@@ -2,18 +2,29 @@ package com.kcibald.utils
 
 import io.vertx.core.logging.Logger
 
-inline fun Logger.d(messageSupplier: () -> String) {
+inline fun Logger.d(throwable: Throwable? = null, messageSupplier: () -> String) {
     if (this.isDebugEnabled) {
-        this.debug(messageSupplier())
+        if (throwable == null)
+            this.debug(messageSupplier())
+        else
+            this.debug(messageSupplier(), throwable)
     }
 }
-inline fun Logger.i(messageSupplier: () -> String) {
+
+inline fun Logger.i(throwable: Throwable? = null, messageSupplier: () -> String) {
     if (this.isInfoEnabled) {
-        this.info(messageSupplier())
+        if (throwable == null)
+            this.info(messageSupplier())
+        else
+            this.info(messageSupplier(), throwable)
     }
 }
-inline fun Logger.w(messageSupplier: () -> String) {
+
+inline fun Logger.w(throwable: Throwable? = null, messageSupplier: () -> String) {
     if (this.isWarnEnabled) {
-        this.warn(messageSupplier())
+        if (throwable == null)
+            this.warn(messageSupplier())
+        else
+            this.warn(messageSupplier(), throwable)
     }
 }
