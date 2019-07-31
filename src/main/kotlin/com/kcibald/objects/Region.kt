@@ -13,12 +13,19 @@ interface Region {
     val avatar: File
     val topPosts: PageableCollection<MinimizedPost>
     val childRegion: List<Region>
+    val colors: Colors
+
+    data class Colors(
+        val left: String,
+        val right: String
+    )
 
     companion object {
         fun createDefault(
             name: String,
             description: String,
             avatar: File,
+            colors: Colors,
             urlKey: String = name.toURLKey(),
             parent: Region? = null,
             topPosts: List<MinimizedPost> = emptyList(),
@@ -30,7 +37,8 @@ interface Region {
             description,
             avatar,
             DirectCollection(topPosts),
-            childRegion
+            childRegion,
+            colors
         )
     }
 }

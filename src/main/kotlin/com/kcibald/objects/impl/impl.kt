@@ -54,7 +54,8 @@ internal data class RegionImpl(
     override val description: String,
     override val avatar: File,
     override val topPosts: PageableCollection<MinimizedPost>,
-    override val childRegion: List<Region>
+    override val childRegion: List<Region>,
+    override val colors: Region.Colors
 ) : Region
 
 internal data class AttachmentImpl(

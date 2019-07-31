@@ -75,6 +75,7 @@ internal class RegionTest {
     val description = "description"
     val avatar = "avatars.kcibald.com/kadjfkajd"
     val childRegion = emptyList<Region>()
+    val colors = Region.Colors("", "")
 
     val region = RegionImpl(
         name,
@@ -83,7 +84,8 @@ internal class RegionTest {
         description,
         avatar,
         DirectCollection(posts),
-        childRegion
+        childRegion,
+        colors
     )
 
     @Test
@@ -92,6 +94,7 @@ internal class RegionTest {
             name,
             description,
             avatar,
+            colors,
             urlKey,
             parent,
             posts,
@@ -105,7 +108,8 @@ internal class RegionTest {
         val target = Region.createDefault(
             name,
             description,
-            avatar
+            avatar,
+            colors
         )
 
         assertEquals(urlKey, target.urlKey)
