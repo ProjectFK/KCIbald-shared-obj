@@ -48,6 +48,7 @@ interface KCIBALDClient {
         regionUrlKey: URLKey,
         postUrlKey: URLKey,
         content: String,
+        replyTo: String,
         attachments: List<Attachment> = emptyList()
     ): Result<Comment>
 

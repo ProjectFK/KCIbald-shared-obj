@@ -74,6 +74,7 @@ internal class RegionImplTest {
     val description = "description"
     val avatar = "avatars.kcibald.com/kadjfkajd"
     val childRegion = emptyList<Region>()
+    val colors = Region.Colors("", "")
 
     val region = RegionImpl(
         name,
@@ -82,7 +83,8 @@ internal class RegionImplTest {
         description,
         avatar,
         DirectCollection(posts),
-        childRegion
+        childRegion,
+        colors
     )
 
     @Test
@@ -125,6 +127,11 @@ internal class RegionImplTest {
     @Test
     fun getChildRegion() {
         assertEquals(childRegion, region.childRegion)
+    }
+
+    @Test
+    fun getColors() {
+        assertEquals(colors, region.colors)
     }
 
 }
