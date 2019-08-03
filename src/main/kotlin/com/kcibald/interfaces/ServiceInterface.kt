@@ -3,17 +3,13 @@ package com.kcibald.interfaces
 import com.kcibald.utils.i
 import com.kcibald.utils.w
 import io.vertx.core.Vertx
-import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
-import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.kotlin.core.eventbus.unregisterAwait
 import io.vertx.kotlin.coroutines.dispatcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.concurrent.locks.Lock
-import java.util.concurrent.locks.ReentrantLock
 
 abstract class ServiceInterface<MESSAGE_TYPE>(
     protected val vertx: Vertx,
@@ -22,9 +18,8 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
 ) {
 
     protected val logger = LoggerFactory.getLogger(javaClass)
-    protected val consumer: MessageConsumer<*>? = null
+    protected var consumer: MessageConsumer<MESSAGE_TYPE>? = null
 
-    @Synchronized
     suspend fun start() {
         if (consumer != null) return
 
@@ -48,60 +43,23 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
             block = ::handle
         )
 
+        this.consumer = consumer
+
         logger.i { "Service $javaClass binded to address: $eventbusAddress, ready for requests" }
     }
 
-    open suspend fun initialize() {}
+    protected open suspend fun initialize() {}
+    protected open suspend fun stopping() {}
 
     abstract suspend fun handle(message: Message<MESSAGE_TYPE>): EventResult
 
-    @Synchronized
     suspend fun stop() {
-        if (consumer != null) {
-            consumer.unregisterAwait()
+        val currentConsumer = consumer
+        if (currentConsumer != null) {
+            stopping()
+            currentConsumer.unregisterAwait()
+            consumer = null
         }
-    }
-
-}
-
-interface EventResult {
-    fun reply(message: Message<*>)
-}
-
-class RawEventResult(
-    private val buffer: Buffer
-) : EventResult {
-    override fun reply(message: Message<*>) = message.reply(buffer)
-}
-
-object EmptyEventResult : EventResult {
-    override fun reply(message: Message<*>) {}
-}
-
-class FailureEventResult(
-    private val statusCode: Int,
-    private val failureMessage: String
-) : EventResult {
-    override fun reply(message: Message<*>) = message.fail(
-        statusCode,
-        failureMessage
-    )
-}
-
-class JsonEventResult(
-    private val jsonObject: JsonObject
-) : EventResult {
-    override fun reply(message: Message<*>) {
-        message.reply(jsonObject)
-    }
-}
-
-class ProtobufEventResult<T : pbandk.Message<T>>(
-    val message: pbandk.Message<T>
-) : EventResult {
-    override fun reply(message: Message<*>) {
-        val payload = this.message.protoMarshal()
-        message.reply(payload)
     }
 
 }
