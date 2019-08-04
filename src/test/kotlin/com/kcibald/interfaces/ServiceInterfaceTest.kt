@@ -174,5 +174,20 @@ internal class ServiceInterfaceTest {
         Unit
     }
 
+    @Test
+    fun vertx(vertx: Vertx) {
+        val target = object : ServiceInterface<Unit>(vertx, "default") {
+            override suspend fun handle(message: Message<Unit>): EventResult {
+                throw AssertionError()
+            }
+
+            fun exposeVertx(): Vertx {
+                return this.vertx
+            }
+        }
+
+        assertEquals(vertx, target.exposeVertx())
+    }
+
 
 }
