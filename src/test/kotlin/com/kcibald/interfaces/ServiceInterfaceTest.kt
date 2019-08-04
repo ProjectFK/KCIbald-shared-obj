@@ -40,6 +40,10 @@ internal class ServiceInterfaceTest {
         }
 
         assertFalse(tripped, "calling start method when the service is started should not trigger starting")
+
+        runBlocking {
+            target.stop()
+        }
     }
 
     @Test
