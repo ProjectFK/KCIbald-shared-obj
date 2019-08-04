@@ -37,11 +37,20 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
             .eventBus()
             .consumer<MESSAGE_TYPE>(eventbusAddress)
 
-        consumer.coroutineHandler<MESSAGE_TYPE>(
-            vertx,
-            unexpectedFailureMessage = unexpectedFailureMessage,
-            block = ::handle
-        )
+        consumer.handler {
+            GlobalScope.launch(vertx.dispatcher()) {
+                try {
+                    val result = handle(it)
+                    result.reply(it)
+                } catch (e: Exception) {
+                    if (unexpectedFailureMessage != null) {
+                        unexpectedFailureMessage.reply(it)
+                    } else {
+                        it.fail(500, "unexpected")
+                    }
+                }
+            }
+        }
 
         this.consumer = consumer
 
