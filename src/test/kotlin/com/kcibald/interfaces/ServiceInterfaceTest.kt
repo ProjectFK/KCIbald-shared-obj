@@ -2,6 +2,7 @@ package com.kcibald.interfaces
 
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.Message
+import io.vertx.core.eventbus.ReplyException
 import io.vertx.junit5.VertxExtension
 import io.vertx.kotlin.core.eventbus.requestAwait
 import kotlinx.coroutines.runBlocking
@@ -129,6 +130,48 @@ internal class ServiceInterfaceTest {
         }
 
         assertEquals(message, result!!.body())
+    }
+
+    @Test
+    fun exception_handle_default(vertx: Vertx) {
+        val eventbusAddress = "bus"
+        val target = object : ServiceInterface<String>(vertx, eventbusAddress) {
+            override suspend fun handle(message: Message<String>): EventResult {
+                throw RuntimeException(":(")
+            }
+        }
+
+        val message = "hi"
+
+        runBlocking { target.start() }
+
+        val exception = assertThrows(ReplyException::class.java) {
+            runBlocking { vertx.eventBus().requestAwait<String>(eventbusAddress, message) }
+        }
+
+        assertEquals(500, exception.failureCode())
+        assertEquals("unexpected", exception.message)
+
+        Unit
+    }
+
+    @Test
+    fun exception_handle(vertx: Vertx) {
+        val eventbusAddress = "bus"
+        val expected = EmptyEventResult
+
+        val target = object : ServiceInterface<String>(vertx, eventbusAddress, unexpectedFailureMessage = expected) {
+            override suspend fun handle(message: Message<String>): EventResult {
+                throw RuntimeException(":(")
+            }
+        }
+
+        runBlocking { target.start() }
+
+        val m = runBlocking { vertx.eventBus().requestAwait<String>(eventbusAddress, "hi") }
+        assertNull(m.body())
+
+        Unit
     }
 
 
