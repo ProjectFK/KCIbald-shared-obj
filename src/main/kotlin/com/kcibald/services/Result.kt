@@ -13,7 +13,6 @@ sealed class Result<T> {
         @Suppress("UNCHECKED_CAST")
         fun <T> notFound(): Result<T> = notFound as Result<T>
 
-        @Suppress("UNCHECKED_CAST")
-        fun <T> failure(message: String): Result<T> = Failure<T>(message) as Result<T>
+        fun <T> failure(message: String): Result<T> = Failure(message)
     }
 }
