@@ -79,24 +79,3 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
     }
 
 }
-
-internal fun <IN> MessageConsumer<IN>.coroutineHandler(
-    vertx: Vertx,
-    unexpectedFailureMessage: EventResult? = null,
-    block: suspend (Message<IN>) -> EventResult
-) {
-    handler {
-        GlobalScope.launch(vertx.dispatcher()) {
-            try {
-                val result = block(it)
-                result.reply(it)
-            } catch (e: Exception) {
-                if (unexpectedFailureMessage != null) {
-                    unexpectedFailureMessage.reply(it)
-                } else {
-                    it.fail(500, "unexpected")
-                }
-            }
-        }
-    }
-}
