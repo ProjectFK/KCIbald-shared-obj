@@ -24,7 +24,7 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
         if (consumer != null) return
 
         logger.i { "Service $javaClass starting, initializing" }
-        val initResult = runCatching { initialize() }
+        val initResult = runCatching { starting() }
         if (initResult.isFailure) {
             val exception = initResult.exceptionOrNull()!!
             logger.w(exception) { "Service $javaClass start failed at initialization phase $exception" }
@@ -48,7 +48,7 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
         logger.i { "Service $javaClass binded to address: $eventbusAddress, ready for requests" }
     }
 
-    protected open suspend fun initialize() {}
+    protected open suspend fun starting() {}
     protected open suspend fun stopping() {}
 
     abstract suspend fun handle(message: Message<MESSAGE_TYPE>): EventResult

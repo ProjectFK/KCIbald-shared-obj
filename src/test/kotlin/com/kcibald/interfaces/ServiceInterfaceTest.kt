@@ -17,7 +17,7 @@ internal class ServiceInterfaceTest {
         var tripped = false
 
         val target = object : ServiceInterface<Unit>(vertx, "default") {
-            override suspend fun initialize() {
+            override suspend fun starting() {
                 tripped = true
             }
 
@@ -31,14 +31,14 @@ internal class ServiceInterfaceTest {
             target.start()
         }
 
-        assertTrue(tripped, "start method should call initialize")
+        assertTrue(tripped, "start method should call starting")
 
         tripped = false
         runBlocking {
             target.start()
         }
 
-        assertFalse(tripped, "calling start method when the service is started should not trigger initialize")
+        assertFalse(tripped, "calling start method when the service is started should not trigger starting")
     }
 
     @Test
@@ -48,7 +48,7 @@ internal class ServiceInterfaceTest {
                 throw AssertionError()
             }
 
-            override suspend fun initialize() {
+            override suspend fun starting() {
                 throw RuntimeException(":(")
             }
 
