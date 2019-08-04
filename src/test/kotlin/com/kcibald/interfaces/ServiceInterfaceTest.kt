@@ -42,6 +42,24 @@ internal class ServiceInterfaceTest {
     }
 
     @Test
+    fun start_bad(vertx: Vertx) {
+        val target = object : ServiceInterface<Unit>(vertx, "default") {
+            override suspend fun handle(message: Message<Unit>): EventResult {
+                throw AssertionError()
+            }
+
+            override suspend fun initialize() {
+                throw RuntimeException(":(")
+            }
+
+        }
+
+        assertThrows(RuntimeException::class.java) {
+            runBlocking { target.start() }
+        }
+    }
+
+    @Test
     fun stop(vertx: Vertx) {
         var tripped = false
 
@@ -68,6 +86,28 @@ internal class ServiceInterfaceTest {
         }
 
         assertFalse(tripped, "calling start method when the service is stopped should not trigger stopping")
+    }
+
+    @Test
+    fun stop_bad(vertx: Vertx) {
+        val target = object : ServiceInterface<Unit>(vertx, "default") {
+            override suspend fun handle(message: Message<Unit>): EventResult {
+                throw AssertionError()
+            }
+
+            override suspend fun stopping() {
+                throw RuntimeException(":(")
+            }
+
+        }
+
+        runBlocking {
+            target.start()
+        }
+
+        assertThrows(RuntimeException::class.java) {
+            runBlocking { target.stop() }
+        }
     }
 
     @Test

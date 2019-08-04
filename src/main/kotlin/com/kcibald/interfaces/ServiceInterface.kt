@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 
 abstract class ServiceInterface<MESSAGE_TYPE>(
     protected val vertx: Vertx,
-    protected val eventbusAddress: String,
+    private val eventbusAddress: String,
     private val unexpectedFailureMessage: EventResult? = null
 ) {
 
     protected val logger = LoggerFactory.getLogger(javaClass)
-    protected var consumer: MessageConsumer<MESSAGE_TYPE>? = null
+    private var consumer: MessageConsumer<MESSAGE_TYPE>? = null
 
     suspend fun start() {
         if (consumer != null) return
@@ -56,7 +56,14 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
     suspend fun stop() {
         val currentConsumer = consumer
         if (currentConsumer != null) {
-            stopping()
+            logger.i { "Service $javaClass shutting down, calling stopping method" }
+            val stopping = runCatching { stopping() }
+            if (stopping.isFailure) {
+                val exception = stopping.exceptionOrNull()!!
+                logger.w(exception) { "Service $javaClass failed to shut down, exception when calling stopping method" }
+                throw exception
+            }
+            logger.i { "Service $javaClass shutting down, unregistering eventbus" }
             currentConsumer.unregisterAwait()
             consumer = null
         }
