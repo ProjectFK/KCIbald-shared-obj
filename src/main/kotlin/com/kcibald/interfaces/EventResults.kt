@@ -48,4 +48,10 @@ data class ProtobufEventResult<T : pbandk.Message<T>>(
     }
 }
 
+object BadRequestEventResult: EventResult {
+    override fun reply(message: Message<*>) {
+        message.fail(400, "Bad Request")
+    }
+}
+
 fun <T : pbandk.Message<T>> pbandk.Message<T>.toEventResult(): EventResult = ProtobufEventResult(this)

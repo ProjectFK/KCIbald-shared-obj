@@ -141,7 +141,7 @@ class EventResults {
 
     private class TestProtobuf(val byteArray: ByteArray) : pbandk.Message<TestProtobuf> {
         override val protoSize: Int
-            get() = 0
+            get() = byteArray.size
 
         override fun plus(other: TestProtobuf?): TestProtobuf {
             throw AssertionError()
@@ -172,6 +172,31 @@ class EventResults {
         result.reply(message)
 
         assertEquals(expected, message.payload)
+    }
+
+    @Test
+    fun badRequestEventResult() {
+        val target = BadRequestEventResult
+        var code = 0
+        var messageS = ""
+        val message = object : TestMessage() {
+            override fun fail(failureCode: Int, message: String?) {
+                code = failureCode
+                messageS = message!!
+            }
+        }
+        target.reply(message)
+        data class FailureResponse(
+            val code: Int,
+            val message: String
+        )
+        assertEquals(
+            FailureResponse(
+                400,
+                "Bad Request"
+            ),
+            FailureResponse(code, messageS)
+        )
     }
 
 }
