@@ -9,7 +9,7 @@ interface EventResult {
     fun reply(message: Message<*>)
 }
 
-class RawEventResult(
+data class RawEventResult(
     private val buffer: Buffer
 ) : EventResult {
     override fun reply(message: Message<*>) = message.reply(buffer)
@@ -21,7 +21,7 @@ object EmptyEventResult : EventResult {
     }
 }
 
-class FailureEventResult(
+data class FailureEventResult(
     private val statusCode: Int,
     private val failureMessage: String
 ) : EventResult {
@@ -31,7 +31,7 @@ class FailureEventResult(
     )
 }
 
-class JsonEventResult(
+data class JsonEventResult(
     private val jsonObject: JsonObject
 ) : EventResult {
     override fun reply(message: Message<*>) {
@@ -39,12 +39,11 @@ class JsonEventResult(
     }
 }
 
-class ProtobufEventResult<T : pbandk.Message<T>>(
+data class ProtobufEventResult<T : pbandk.Message<T>>(
     val message: pbandk.Message<T>
 ) : EventResult {
     override fun reply(message: Message<*>) {
         val payload = this.message.protoMarshal()
         message.reply(payload)
     }
-
 }
