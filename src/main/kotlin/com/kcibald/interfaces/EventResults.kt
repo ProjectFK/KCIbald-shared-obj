@@ -47,3 +47,5 @@ data class ProtobufEventResult<T : pbandk.Message<T>>(
         message.reply(payload)
     }
 }
+
+fun <T : pbandk.Message<T>> pbandk.Message<T>.toEventResult(): EventResult = ProtobufEventResult(this)
