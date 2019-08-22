@@ -42,7 +42,7 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
                 try {
                     val result = handle(it)
                     result.reply(it)
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                     if (unexpectedFailureMessage != null) {
                         unexpectedFailureMessage.reply(it)
                     } else {

@@ -141,7 +141,7 @@ internal class ServiceInterfaceTest {
         val eventbusAddress = "bus"
         val target = object : ServiceInterface<String>(vertx, eventbusAddress) {
             override suspend fun handle(message: Message<String>): EventResult {
-                throw RuntimeException(":(")
+                throw Throwable(":(")
             }
         }
 
@@ -166,7 +166,7 @@ internal class ServiceInterfaceTest {
 
         val target = object : ServiceInterface<String>(vertx, eventbusAddress, unexpectedFailureMessage = expected) {
             override suspend fun handle(message: Message<String>): EventResult {
-                throw RuntimeException(":(")
+                throw Throwable(":(")
             }
         }
 
