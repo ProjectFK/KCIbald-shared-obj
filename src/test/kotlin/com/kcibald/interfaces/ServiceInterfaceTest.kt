@@ -1,3 +1,5 @@
+@file:Suppress("RedundantUnitExpression")
+
 package com.kcibald.interfaces
 
 import io.vertx.core.Vertx
@@ -164,7 +166,7 @@ internal class ServiceInterfaceTest {
         val eventbusAddress = "bus"
         val expected = EmptyEventResult
 
-        val target = object : ServiceInterface<String>(vertx, eventbusAddress, unexpectedFailureMessage = expected) {
+        val target = object : ServiceInterface<String>(vertx, eventbusAddress, { _, _ -> expected }) {
             override suspend fun handle(message: Message<String>): EventResult {
                 throw Throwable(":(")
             }

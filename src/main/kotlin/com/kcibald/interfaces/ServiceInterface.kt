@@ -14,7 +14,16 @@ import kotlinx.coroutines.launch
 abstract class ServiceInterface<MESSAGE_TYPE>(
     protected val vertx: Vertx,
     private val eventbusAddress: String,
-    private val unexpectedFailureMessage: EventResult? = null
+    private val unexpectedFailureMessageSupplier:
+    suspend ServiceInterface<MESSAGE_TYPE>.(Message<MESSAGE_TYPE>, Throwable) -> EventResult? = { message, e ->
+        // make sure "this" is not lambda
+        val serviceInterface: ServiceInterface<MESSAGE_TYPE> = this
+        logger.w {
+            "unexpected error $e thrown from ${serviceInterface.javaClass} when handling request, " +
+                    "message received $message"
+        }
+        null
+    }
 ) {
 
     protected val logger = LoggerFactory.getLogger(javaClass)
@@ -43,8 +52,9 @@ abstract class ServiceInterface<MESSAGE_TYPE>(
                     val result = handle(it)
                     result.reply(it)
                 } catch (e: Throwable) {
-                    if (unexpectedFailureMessage != null) {
-                        unexpectedFailureMessage.reply(it)
+                    val reply = unexpectedFailureMessageSupplier(it, e)
+                    if (reply != null) {
+                        reply.reply(it)
                     } else {
                         it.fail(500, "unexpected")
                     }
