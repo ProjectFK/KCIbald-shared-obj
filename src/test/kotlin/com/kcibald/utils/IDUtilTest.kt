@@ -21,4 +21,9 @@ internal class IDUtilTest {
         assertEquals("5d09e551f214d44037fb9d20", IDUtil.decodeDBID("XQnlUfIU1EA3-50g"))
         assertEquals("5d09e551f214d44037fb9d24", IDUtil.decodeDBID("XQnlUfIU1EA3-50k"))
     }
+
+    @Test
+    fun invalid() {
+        assertNull(IDUtil.decodeDBID("invalid#$^*&@^&^#%"))
+    }
 }

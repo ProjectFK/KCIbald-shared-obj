@@ -14,9 +14,8 @@ object IDUtil {
 
     private val base64Decoder = Base64.getUrlDecoder()
 
-    fun decodeDBID(target: String): String {
+    fun decodeDBID(target: String): String? = runCatching {
         val bytes = base64Decoder.decode(target)
-        return Hex.toHexString(bytes)
-    }
-
+        Hex.toHexString(bytes)
+    }.getOrNull()
 }
