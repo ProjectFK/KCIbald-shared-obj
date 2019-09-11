@@ -20,7 +20,7 @@ dependencies {
     compile "io.vertx:vertx-lang-kotlin:$vertx_version"
     compile "io.vertx:vertx-lang-kotlin-coroutines:$vertx_version"
 
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.62'
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.63'
 
     compile 'com.github.cretz.pbandk:pbandk-runtime-jvm:0.3.0'
 
