@@ -9,17 +9,22 @@ internal class ImageFileResolverClientImplTest {
 
     @Test
     fun translateImageTokenToURL_wrong_format_version_prefix() = runBlocking {
-        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("23:xxxx"))
+        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("23:d0-xxx"))
     }
 
     @Test
     fun translateImageTokenToURL_wrong_format_semi() = runBlocking {
-        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("v1-xxxx"))
+        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("v1-d0-xxx"))
     }
 
     @Test
     fun translateImageTokenToURL_missing_version() = runBlocking {
-        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("v2:xxxx"))
+        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("v2:d0-xxx"))
+    }
+
+    @Test
+    fun translateImageTokenToURL_malformed_version() = runBlocking {
+        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("vx:d0-xxx"))
     }
 
     @Test
@@ -33,8 +38,13 @@ internal class ImageFileResolverClientImplTest {
     }
 
     @Test
-    fun translateImageTokenToURL_v1_missing_domain() = runBlocking {
+    fun translateImageTokenToURL_v1_domain_not_found() = runBlocking {
         assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("v1:d2-xxx"))
+    }
+
+    @Test
+    fun translateImageTokenToURL_v1_malformed_version_nub() = runBlocking {
+        assertNull(ImageFileResolverClientImpl.translateImageTokenToURL("v1:dx-xxx"))
     }
 
     @Test
