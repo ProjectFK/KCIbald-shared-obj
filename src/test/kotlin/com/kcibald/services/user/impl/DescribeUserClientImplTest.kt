@@ -12,8 +12,10 @@ import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.eventbus.ReplyException
 import io.vertx.junit5.VertxExtension
 import io.vertx.junit5.VertxTestContext
+import io.vertx.kotlin.core.closeAwait
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -25,15 +27,17 @@ internal class DescribeUserClientImplTest {
 
     lateinit var target: DescribeUserClientImpl
     lateinit var eventBus: MessageConsumer<ByteArray>
+    lateinit var vertx: Vertx
 
     @BeforeEach
     fun setUp(vertx: Vertx) {
         target = DescribeUserClientImpl(vertx, DescribeUserClient.DEFAULT_EVENT_BUS_ADDRESS)
         eventBus = vertx.eventBus().consumer(DescribeUserClient.DEFAULT_EVENT_BUS_ADDRESS)
+        this.vertx = vertx
     }
 
     @Test
-    fun describeUser_request(context: VertxTestContext) {
+    fun describeUser_request_replay_fail(context: VertxTestContext) {
         val expected = "urlKey"
 
         eventBus.handler {
@@ -53,6 +57,20 @@ internal class DescribeUserClientImplTest {
 
         context.awaitCompletion(2, TimeUnit.SECONDS)
         Unit
+    }
+
+    @Test
+    fun describeUser_request_exception_fail() {
+        val expected = "urlKey"
+
+        eventBus.handler {
+            it.fail(500, "no result for you!")
+        }
+        val k = runBlocking {
+            vertx.closeAwait()
+            target.describeUser(expected)
+        }
+        assertTrue(k is Result.Failure)
     }
 
     @Test
@@ -157,7 +175,7 @@ internal class DescribeUserClientImplTest {
 
     @Test
     fun describeThoughIdentifier_request(context: VertxTestContext) {
-        val id = object : SubsetIdentifiable<User>{
+        val id = object : SubsetIdentifiable<User> {
             override val sid: String
                 get() = ""
         }
@@ -181,9 +199,10 @@ internal class DescribeUserClientImplTest {
         context.awaitCompletion(2, TimeUnit.SECONDS)
         Unit
     }
+
     @Test
     fun describeThoughIdentifier_request_customized_eventbus_addr(vertx: Vertx, context: VertxTestContext) {
-        val id = object : SubsetIdentifiable<User>{
+        val id = object : SubsetIdentifiable<User> {
             override val sid: String
                 get() = ""
         }
@@ -212,7 +231,6 @@ internal class DescribeUserClientImplTest {
         context.awaitCompletion(2, TimeUnit.SECONDS)
         Unit
     }
-
 
 
     @Test
