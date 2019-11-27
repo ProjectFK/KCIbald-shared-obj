@@ -50,15 +50,73 @@ internal class LoggerUtilsKtTest {
 
         override fun isWarnEnabled(): Boolean = throw IllegalAccessError()
 
-        override fun trace(message: Any?) = throw IllegalAccessError()
+        override fun trace(message: Any?): Unit = throw IllegalAccessError()
 
         override fun trace(message: Any?, vararg params: Any?) = throw IllegalAccessError()
 
-        override fun trace(message: Any?, t: Throwable?) = throw IllegalAccessError()
+        override fun trace(message: Any?, t: Throwable?): Unit = throw IllegalAccessError()
 
         override fun trace(message: Any?, t: Throwable?, vararg params: Any?) = throw IllegalAccessError()
 
         override fun isTraceEnabled(): Boolean = throw IllegalAccessError()
+    }
+
+    @Test
+    fun trace_enable() {
+        val expect = ":D"
+        var received: Any? = null
+        val target = Logger(object : DelegateWarrper() {
+            override fun isTraceEnabled() = true
+            override fun trace(message: Any?) {
+                received = message
+            }
+        })
+        target.t {
+            expect
+        }
+        assertEquals(expect, received)
+    }
+
+    @Test
+    fun trace_enable_throw() {
+        val expect = ":D"
+        val exception = Exception()
+
+        var received: Any? = null
+        var receivedE: Throwable? = null
+
+        val target = Logger(object : DelegateWarrper() {
+            override fun isTraceEnabled(): Boolean = true
+            override fun trace(message: Any?) {
+                fail<Unit>()
+            }
+
+            override fun trace(message: Any?, t: Throwable?) {
+                received = message
+                receivedE = t
+            }
+        })
+        target.t(exception) {
+            expect
+        }
+        assertEquals(expect, received)
+        assertEquals(exception, receivedE)
+    }
+
+    @Test
+    fun trace_disable() {
+        val expect = ":("
+        var received: Any? = null
+        val target = Logger(object : DelegateWarrper() {
+            override fun isTraceEnabled(): Boolean = false
+            override fun trace(message: Any?) {
+                received = message
+            }
+        })
+        target.t {
+            expect
+        }
+        assertNull(received)
     }
 
     @Test

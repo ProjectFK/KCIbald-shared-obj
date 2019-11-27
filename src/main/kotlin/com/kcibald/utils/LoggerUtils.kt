@@ -2,6 +2,15 @@ package com.kcibald.utils
 
 import io.vertx.core.logging.Logger
 
+fun Logger.t(throwable: Throwable? = null, messageSupplier: () -> String) {
+    if (this.isTraceEnabled) {
+        if (throwable == null)
+            this.trace(messageSupplier())
+        else
+            this.trace(messageSupplier(), throwable)
+    }
+}
+
 fun Logger.d(throwable: Throwable? = null, messageSupplier: () -> String) {
     if (this.isDebugEnabled) {
         if (throwable == null)
