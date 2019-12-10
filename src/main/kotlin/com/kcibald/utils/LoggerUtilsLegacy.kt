@@ -1,6 +1,6 @@
 package com.kcibald.utils
 
-import org.slf4j.Logger
+import io.vertx.core.logging.Logger
 
 fun Logger.t(throwable: Throwable? = null, messageSupplier: () -> String) {
     if (this.isTraceEnabled) {
