@@ -3,12 +3,13 @@ package com.kcibald.services.kcibald
 import com.kcibald.objects.*
 import com.kcibald.services.PageableFetchConfig
 import com.kcibald.services.Result
+import com.kcibald.services.ServiceClient
 import com.kcibald.services.defaultPageableFetchConfig
 import com.kcibald.utils.PageableCollection
 
 typealias URLKey = String
 
-interface KCIBALDClient {
+interface KCIBALDClient: ServiceClient {
 
     suspend fun describeRegion(
         regionUrlKey: URLKey,
