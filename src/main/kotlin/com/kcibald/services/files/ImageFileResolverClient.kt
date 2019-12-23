@@ -1,7 +1,11 @@
 package com.kcibald.services.files
 
-import com.kcibald.objects.File
+import com.kcibald.services.files.impl.ImageFileResolverClientImpl
 
 interface ImageFileResolverClient {
-    suspend fun translateImageTokenToURL(file: File): String?
+    fun translateImageTokenToURL(token: String): String?
+
+    companion object {
+        fun getInstance(): ImageFileResolverClient = ImageFileResolverClientImpl
+    }
 }
