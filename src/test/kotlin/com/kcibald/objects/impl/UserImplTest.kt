@@ -1,12 +1,13 @@
 package com.kcibald.objects.impl
 
+import com.kcibald.objects.File
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class UserImplTest {
 
     val signature = "signature"
-    val avatar = "url"
+    val avatar = File.withIdentifier("url")
     val userId = "user_id"
     val userName = "name"
     val urlKey = "name"

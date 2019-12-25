@@ -1,6 +1,7 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.*
+import com.kcibald.services.files.ImageFileResolverClient
 import com.kcibald.utils.KnownSizePageableCollection
 import com.kcibald.utils.PageableCollection
 import java.time.LocalDateTime
@@ -62,6 +63,16 @@ internal data class AttachmentImpl(
     override val file: File,
     override val name: String
 ) : Attachment
+
+internal data class FileImpl(
+    override val identifier: String
+) : File {
+    override fun resolveAsURL(): String =
+        ImageFileResolverClient
+            .getInstance()
+            .translateImageTokenToURL(identifier)
+            ?: throw IllegalStateException("identifier invalid upon convertion")
+}
 
 internal val now: Timestamp
     get() = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)

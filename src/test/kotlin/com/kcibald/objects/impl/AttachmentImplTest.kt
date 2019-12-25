@@ -1,11 +1,12 @@
 package com.kcibald.objects.impl
 
+import com.kcibald.objects.File
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class AttachmentImplTest {
 
-    private val file = "objects.kcibald.com/akjkldfjlkajf"
+    private val file = File.withIdentifier("objects.kcibald.com/akjkldfjlkajf")
     private val name = "name"
 
     val target = AttachmentImpl(file, name)

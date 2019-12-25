@@ -1,6 +1,7 @@
 package com.kcibald.services.user
 
-import com.kcibald.objects.User
+import com.kcibald.objects.File
+import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.services.user.impl.AuthenticationClientImpl
 import com.kcibald.services.user.proto.AuthenticationRequest
 import com.kcibald.services.user.proto.AuthenticationResponse
@@ -86,12 +87,11 @@ internal class AuthenticationClientImplTest {
         val signature = "signature"
         val avatarKey = "avatarKey"
 
-        val expected = User.createDefault(
-            userName,
+        val expected = createDefault(
+        userName,
             urlKey,
-            avatarKey,
-            signature
-        )
+            File.withIdentifier(avatarKey), signature
+    )
 
         consumer.handler {
             val response = AuthenticationResponse(

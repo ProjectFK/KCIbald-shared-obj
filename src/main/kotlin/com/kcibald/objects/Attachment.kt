@@ -2,8 +2,6 @@ package com.kcibald.objects
 
 import com.kcibald.objects.impl.AttachmentImpl
 
-typealias File = String
-
 interface Attachment {
     val file: File
     val name: String
@@ -16,5 +14,6 @@ interface Attachment {
             file,
             name
         )
+
     }
 }

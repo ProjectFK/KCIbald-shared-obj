@@ -1,5 +1,6 @@
 package com.kcibald.services.user.impl
 
+import com.kcibald.objects.File
 import com.kcibald.objects.User
 import com.kcibald.services.user.AuthenticationClient
 import com.kcibald.services.user.AuthenticationResult
@@ -54,7 +55,7 @@ internal class AuthenticationClientImpl(
                     User.createDefault(
                         user.userName,
                         user.urlKey,
-                        user.avatarKey,
+                        File.withIdentifier(user.avatarKey),
                         user.signature
                     )
                 )

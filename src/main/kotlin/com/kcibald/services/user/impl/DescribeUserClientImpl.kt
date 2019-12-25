@@ -1,6 +1,7 @@
 package com.kcibald.services.user.impl
 
 import com.kcibald.interfaces.SubsetIdentifiable
+import com.kcibald.objects.File
 import com.kcibald.objects.User
 import com.kcibald.services.Result
 import com.kcibald.services.user.DescribeUserClient
@@ -30,16 +31,13 @@ class DescribeUserClientImpl(
 
     private suspend fun describeUserInternal(by: By): Result<User> {
         logger.d { "sending request to describe user by $by" }
-        val message = performRequestNullIfFail(by)
-
-        if (message == null)
-            return Result.failure("exception when performing request")
-
-        return parseAndProcessMessage(message)
+         return performRequestNullIfFail(by)
+            ?.let(::parseAndProcessMessage)
+            ?: Result.failure("exception when performing request")
     }
 
-    private fun parseAndProcessMessage(message: Message<ByteArray>): Result<User> {
-        return when (val result = parseResultFromMessage(message)) {
+    private fun parseAndProcessMessage(message: Message<ByteArray>): Result<User> =
+        when (val result = parseResultFromMessage(message)) {
             is DescribeUserResponse.Result.UserNotFound ->
                 Result.notFound()
             is DescribeUserResponse.Result.SystemErrorMessage ->
@@ -49,13 +47,12 @@ class DescribeUserClientImpl(
             else ->
                 throw AssertionError("should not reach here")
         }
-    }
 
     private fun translateDBUser(dbUser: com.kcibald.services.user.proto.User): User =
         User.createDefault(
             dbUser.userName,
             dbUser.urlKey,
-            dbUser.avatarKey,
+            File.withIdentifier(dbUser.avatarKey),
             dbUser.signature
         )
 

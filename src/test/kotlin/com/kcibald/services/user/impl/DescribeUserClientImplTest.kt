@@ -1,7 +1,9 @@
 package com.kcibald.services.user.impl
 
 import com.kcibald.interfaces.SubsetIdentifiable
+import com.kcibald.objects.File
 import com.kcibald.objects.User
+import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.services.Result
 import com.kcibald.services.user.DescribeUserClient
 import com.kcibald.services.user.proto.DescribeUserRequest
@@ -168,7 +170,9 @@ internal class DescribeUserClientImplTest {
 
         assert(result is Result.Success)
         assertEquals(
-            User.createDefault(userName, urlKey, avatarKey, signature),
+            createDefault(
+        userName, urlKey, File.withIdentifier(avatarKey), signature
+    ),
             (result as Result.Success).result
         )
     }
@@ -307,7 +311,9 @@ internal class DescribeUserClientImplTest {
 
         assert(result is Result.Success)
         assertEquals(
-            User.createDefault(userName, urlKey, avatarKey, signature),
+            createDefault(
+        userName, urlKey, File.withIdentifier(avatarKey), signature
+    ),
             (result as Result.Success).result
         )
     }

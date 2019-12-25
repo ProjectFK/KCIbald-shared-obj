@@ -1,9 +1,10 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.Attachment
+import com.kcibald.objects.Attachment.Companion.createDefault
 import com.kcibald.objects.Comment
+import com.kcibald.objects.File
 import com.kcibald.objects.Post
-import com.kcibald.objects.User
+import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -11,11 +12,10 @@ import org.junit.jupiter.api.Test
 
 internal class PostImplTest {
 
-    val author = User.createDefault(
+    val author = createDefault(
         "user name",
         "user_name",
-        "avatar",
-        "signature"
+        File.withIdentifier("avatar"), "signature"
     )
 
     val id = "post-id"
@@ -23,8 +23,8 @@ internal class PostImplTest {
     val content = "content"
     val ts = now
 
-    val attachment1 = Attachment.createDefault("attachment1", "attachment_name1")
-    val attachment2 = Attachment.createDefault("attachment2", "attachment_name2")
+    val attachment1 = createDefault(File.withIdentifier("attachment1"), "attachment_name1")
+    val attachment2 = createDefault(File.withIdentifier("attachment2"), "attachment_name2")
     val attachments = listOf(
         attachment1,
         attachment2

@@ -1,26 +1,26 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.Attachment
+import com.kcibald.objects.Attachment.Companion.createDefault
 import com.kcibald.objects.Comment
-import com.kcibald.objects.User
+import com.kcibald.objects.File
+import com.kcibald.objects.User.Companion.createDefault
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class CommentImplTest {
 
-    val author = User.createDefault(
+    val author = createDefault(
         "name",
         "name",
-        "url",
-        "signature"
+        File.withIdentifier("url"), "signature"
     )
 
     val content = "content"
 
     val ts = now
 
-    val attachment1 = Attachment.createDefault("attachment1", "attachment_name1")
-    val attachment2 = Attachment.createDefault("attachment2", "attachment_name2")
+    val attachment1 = createDefault(File.withIdentifier("attachment1"), "attachment_name1")
+    val attachment2 = createDefault(File.withIdentifier("attachment2"), "attachment_name2")
     val attachments = listOf(
         attachment1,
         attachment2

@@ -1,6 +1,11 @@
 package com.kcibald.objects.impl
 
-import com.kcibald.objects.*
+import com.kcibald.objects.Attachment.Companion.createDefault
+import com.kcibald.objects.Comment
+import com.kcibald.objects.File
+import com.kcibald.objects.Post
+import com.kcibald.objects.Region
+import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.utils.DirectCollection
 import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -12,36 +17,33 @@ internal class RegionImplTest {
     val comment = listOf<Comment>(
         CommentImpl(
             1,
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "url",
-                "signature"
+                File.withIdentifier("url"), "signature"
             ),
             "content",
             now,
             now,
             listOf(
-                Attachment.createDefault("attachment1", "attachment_name1"),
-                Attachment.createDefault("attachment2", "attachment_name2")
+                createDefault(File.withIdentifier("attachment1"), "attachment_name1"),
+                createDefault(File.withIdentifier("attachment2"), "attachment_name2")
             ),
             listOf(
                 Comment.createDefault(
                     2,
-                    User.createDefault(
+                    createDefault(
                         "name",
                         "name",
-                        "url",
-                        "signature"
+                        File.withIdentifier("url"), "signature"
                     ), "reply1", now, now
                 ),
                 Comment.createDefault(
                     3,
-                    User.createDefault(
+                    createDefault(
                         "name",
                         "name",
-                        "url",
-                        "signature"
+                        File.withIdentifier("url"), "signature"
                     ), "reply1", now, now
                 )
             )
@@ -51,11 +53,10 @@ internal class RegionImplTest {
     val posts = listOf(
         Post.createDefault(
             "title",
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "url",
-                "signature"
+                File.withIdentifier("url"), "signature"
             ),
             "content",
             "name",
@@ -72,7 +73,7 @@ internal class RegionImplTest {
     val urlKey = name.toURLKey()
     val parent = null
     val description = "description"
-    val avatar = "avatars.kcibald.com/kadjfkajd"
+    val avatar = File.withIdentifier("avatars.kcibald.com/kadjfkajd")
     val childRegion = emptyList<Region>()
     val colors = Region.Colors("", "")
 

@@ -1,5 +1,6 @@
 package com.kcibald.objects
 
+import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.objects.impl.MinimizedPostImpl
 import com.kcibald.objects.impl.now
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -13,12 +14,11 @@ internal class MinimizedPostTest {
         val urlKey = "title"
         val parentRegionUrlKey = "DP"
         val commentCount = 1
-        val author = User.createDefault(
+        val author = createDefault(
+        "name",
             "name",
-            "name",
-            "url",
-            "signature"
-        )
+            File.withIdentifier("url"), "signature"
+    )
         val createTimeStamp = now
         val updateTimeStamp: Timestamp? = null
         val content = "blah"
@@ -52,11 +52,10 @@ internal class MinimizedPostTest {
         val title = "title"
         val parentRegionUrlKey = "DP"
         val commentCount = 1
-        val author = User.createDefault(
+        val author = createDefault(
             "name",
             "name",
-            "url",
-            "signature"
+            File.withIdentifier("url"), "signature"
         )
         val content = "blah"
 
@@ -79,11 +78,10 @@ internal class MinimizedPostTest {
         val urlKey = "title"
         val parentRegionUrlKey = "DP"
         val commentCount = 1
-        val author = User.createDefault(
+        val author = createDefault(
             "name",
             "name",
-            "url",
-            "signature"
+            File.withIdentifier("url"), "signature"
         )
         val createTimeStamp = now
         val updateTimeStamp: Timestamp? = null

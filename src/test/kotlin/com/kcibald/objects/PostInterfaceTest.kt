@@ -1,5 +1,7 @@
 package com.kcibald.objects
 
+import com.kcibald.objects.Attachment.Companion.createDefault
+import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.objects.impl.now
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -10,11 +12,10 @@ internal class PostInterfaceTest {
 
     val postDefaultyCreated = Post.createDefault(
         "title",
-        User.createDefault(
+        createDefault(
             "name",
             "name",
-            "avatar",
-            "signature"
+            File.withIdentifier("avatar"), "signature"
         ),
         "content",
         ""
@@ -25,11 +26,10 @@ internal class PostInterfaceTest {
 
         val target = Post.createDefault(
             "title",
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "avatar",
-                "signature"
+                File.withIdentifier("avatar"), "signature"
             ),
             "content",
             ""
@@ -45,11 +45,10 @@ internal class PostInterfaceTest {
 
         val target = Post.createDefault(
             "title",
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "avatar",
-                "signature"
+                File.withIdentifier("avatar"), "signature"
             ),
             "content",
             "",
@@ -64,11 +63,10 @@ internal class PostInterfaceTest {
 
         val target = Post.createDefault(
             "title",
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "avatar",
-                "signature"
+                File.withIdentifier("avatar"), "signature"
             ),
             "content",
             urlKey = "",
@@ -86,11 +84,10 @@ internal class PostInterfaceTest {
 
         val target = Post.createDefault(
             "title",
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "avatar",
-                "signature"
+                File.withIdentifier("avatar"), "signature"
             ),
             "content",
             urlKey = "",
@@ -109,14 +106,13 @@ internal class PostInterfaceTest {
 
     @Test
     fun set_attachment() {
-        val attachments = listOf(Attachment.createDefault("", ""))
+        val attachments = listOf(createDefault(File.withIdentifier(""), ""))
         val target = Post.createDefault(
             "title",
-            User.createDefault(
+            createDefault(
                 "name",
                 "name",
-                "avatar",
-                "signature"
+                File.withIdentifier("avatar"), "signature"
             ),
             "content",
             urlKey = "",
