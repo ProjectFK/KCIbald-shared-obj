@@ -4,8 +4,7 @@ import com.kcibald.objects.*
 import com.kcibald.services.files.ImageFileResolverClient
 import com.kcibald.utils.KnownSizePageableCollection
 import com.kcibald.utils.PageableCollection
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.Clock
 
 internal data class CommentImpl(
     override val id: Int,
@@ -75,4 +74,4 @@ internal data class FileImpl(
 }
 
 internal val now: Timestamp
-    get() = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+    get() = Clock.systemUTC().instant().epochSecond
