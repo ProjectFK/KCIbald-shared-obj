@@ -196,7 +196,7 @@ internal class DescribeUserClientImplTest {
 
         assertThrows<ReplyException> {
             runBlocking {
-                target.describeThoughIdentifier(id)
+                target.describeThroughIdentifier(id)
             }
         }
 
@@ -228,7 +228,7 @@ internal class DescribeUserClientImplTest {
 
         assertThrows<ReplyException> {
             runBlocking {
-                target.describeThoughIdentifier(id)
+                target.describeThroughIdentifier(id)
             }
         }
 
@@ -247,7 +247,7 @@ internal class DescribeUserClientImplTest {
         }
 
         val result = runBlocking {
-            target.describeThoughIdentifier(object : SubsetIdentifiable<User> {
+            target.describeThroughIdentifier(object : SubsetIdentifiable<User> {
                 override val sid: String
                     get() = "sid"
             })
@@ -268,7 +268,7 @@ internal class DescribeUserClientImplTest {
         }
 
         val result = runBlocking {
-            target.describeThoughIdentifier(object : SubsetIdentifiable<User> {
+            target.describeThroughIdentifier(object : SubsetIdentifiable<User> {
                 override val sid: String
                     get() = "idididid"
             })
@@ -303,7 +303,7 @@ internal class DescribeUserClientImplTest {
         }
 
         val result = runBlocking {
-            target.describeThoughIdentifier(object : SubsetIdentifiable<User> {
+            target.describeThroughIdentifier(object : SubsetIdentifiable<User> {
                 override val sid: String
                     get() = "idididid"
             })

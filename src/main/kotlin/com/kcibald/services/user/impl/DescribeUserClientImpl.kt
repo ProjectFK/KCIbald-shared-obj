@@ -26,7 +26,7 @@ class DescribeUserClientImpl(
     override suspend fun describeUser(urlKey: String): Result<User> =
         describeUserInternal(By.UrlKey(urlKey))
 
-    override suspend fun describeThoughIdentifier(identifier: SubsetIdentifiable<User>): Result<User> =
+    override suspend fun describeThroughIdentifier(identifier: SubsetIdentifiable<User>): Result<User> =
         describeUserInternal(By.ID(identifier.sid))
 
     private suspend fun describeUserInternal(by: By): Result<User> {
