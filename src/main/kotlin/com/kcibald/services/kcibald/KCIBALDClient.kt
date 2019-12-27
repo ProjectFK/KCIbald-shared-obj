@@ -1,16 +1,19 @@
 package com.kcibald.services.kcibald
 
-import com.kcibald.objects.*
+import com.kcibald.objects.Comment
+import com.kcibald.objects.MinimizedPost
+import com.kcibald.objects.Post
+import com.kcibald.objects.Region
 import com.kcibald.services.PageableFetchConfig
 import com.kcibald.services.Result
-import com.kcibald.services.ServiceClient
 import com.kcibald.services.defaultPageableFetchConfig
 import com.kcibald.utils.PageableCollection
+import io.vertx.core.Vertx
+import io.vertx.core.eventbus.DeliveryOptions
 
 typealias URLKey = String
 
-interface KCIBALDClient: ServiceClient {
-
+interface KCIBALDClient {
     suspend fun describeRegion(
         regionUrlKey: URLKey,
         topPostFetchConfig: PageableFetchConfig = defaultPageableFetchConfig
@@ -27,30 +30,21 @@ interface KCIBALDClient: ServiceClient {
         commentFetchConfig: PageableFetchConfig = defaultPageableFetchConfig
     ): Result<Post>
 
-    suspend fun createPost(
-        regionUrlKey: URLKey,
-        title: String,
-        content: String,
-        attachments: List<Attachment> = emptyList()
-    ): Result<Post>
-
-    suspend fun deletePost(
-        regionUrlKey: URLKey,
-        postUrlKey: URLKey
-    ): Result<Post>
-
     suspend fun listCommentsUnderPost(
         regionUrlKey: URLKey,
         postUrlKey: URLKey,
         fetchConfig: PageableFetchConfig
     ): Result<PageableCollection<Comment>>
 
-    suspend fun createCommentUnderPost(
-        regionUrlKey: URLKey,
-        postUrlKey: URLKey,
-        content: String,
-        replyTo: String,
-        attachments: List<Attachment> = emptyList()
-    ): Result<Comment>
+    companion object {
+        private const val DEFAULT_EVENTBUS_ADDRESS: String = "kcibald.acs.bs1"
 
+        // unfinished
+        @Suppress("UNUSED_PARAMETER")
+        fun createDefault(
+            vertx: Vertx,
+            eventBusAddr: String = DEFAULT_EVENTBUS_ADDRESS,
+            deliveryOptions: DeliveryOptions = DeliveryOptions()
+        ): KCIBALDClient = TODO()
+    }
 }
