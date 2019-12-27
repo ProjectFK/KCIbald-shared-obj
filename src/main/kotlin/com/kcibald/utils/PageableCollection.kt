@@ -17,7 +17,7 @@ abstract class KnownSizePageableCollection<T>(
     hasNextPage: Boolean,
     currentContent: List<T>,
     val totalSize: Int
-): PageableCollection<T>(
+) : PageableCollection<T>(
     hasNextPage,
     currentContent
 )

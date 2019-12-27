@@ -1,5 +1,3 @@
 package com.kcibald.objects
 
-internal class ContentBasedTest {
-
-}
+internal class ContentBasedTest
