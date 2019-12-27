@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.kcibald.utils
 
 import io.vertx.core.logging.Logger

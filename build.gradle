@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 
-def vertx_version = "3.8.4"
+def vertx_version = "4.0.0-milestone4"
 def junit_version = "5.5.1"
 
 dependencies {
@@ -41,7 +41,7 @@ dependencies {
 }
 
 codeGen {
-    vertxVersion = vertx_version
+    vertxVersion = "$vertx_version"
     generatedDirs = "src/main/generated"
     generationPath = ""
 }

@@ -1,7 +1,6 @@
 package com.kcibald.interfaces
 
-import io.vertx.core.AsyncResult
-import io.vertx.core.Handler
+import io.vertx.core.Future
 import io.vertx.core.MultiMap
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.DeliveryOptions
@@ -40,23 +39,15 @@ class EventResults {
             throw AssertionError()
         }
 
-        override fun <R : Any?> reply(message: Any?, replyHandler: Handler<AsyncResult<Message<R>>>?) {
-            throw AssertionError()
-        }
-
         override fun reply(message: Any?, options: DeliveryOptions?) {
             throw AssertionError()
         }
 
-        override fun <R : Any?> reply(
-            message: Any?,
-            options: DeliveryOptions?,
-            replyHandler: Handler<AsyncResult<Message<R>>>?
-        ) {
+        override fun headers(): MultiMap {
             throw AssertionError()
         }
 
-        override fun headers(): MultiMap {
+        override fun <R : Any?> replyAndRequest(message: Any?, options: DeliveryOptions?): Future<Message<R>> {
             throw AssertionError()
         }
 
