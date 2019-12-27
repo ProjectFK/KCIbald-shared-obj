@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.kcibald.services.user.impl
 
 import com.kcibald.objects.File
