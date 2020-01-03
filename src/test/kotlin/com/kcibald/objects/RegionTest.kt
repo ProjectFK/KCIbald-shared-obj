@@ -5,7 +5,7 @@ import com.kcibald.objects.User.Companion.createDefault
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.RegionImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.utils.DirectCollection
+import com.kcibald.utils.PageableCollection
 import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -81,7 +81,7 @@ internal class RegionTest {
         parent,
         description,
         avatar,
-        DirectCollection(posts),
+        PageableCollection.directCollection(posts),
         childRegion,
         colors
     )
@@ -114,6 +114,13 @@ internal class RegionTest {
         assertEquals(null, target.parent)
         assert(target.childRegion.isEmpty())
         assert(target.topPosts.currentContent.isEmpty())
+    }
+
+    @Test
+    fun json() {
+        val json = Region.vertxGenToJson(region)
+        println(json)
+        assertEquals(region, Region.vertxGenFromJson(json))
     }
 
 
