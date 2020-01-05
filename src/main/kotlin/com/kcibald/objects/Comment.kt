@@ -1,8 +1,15 @@
 package com.kcibald.objects
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.module.kotlin.convertValue
 import com.kcibald.objects.impl.CommentImpl
 import com.kcibald.objects.impl.now
+import com.kcibald.objects.impl.sharedMapper
+import io.vertx.codegen.annotations.Mapper
+import io.vertx.core.json.JsonObject
+import java.util.function.Function
 
+@JsonDeserialize(`as` = CommentImpl::class)
 interface Comment : ContentBased {
     val id: Int
     val replies: List<Comment>
@@ -26,6 +33,18 @@ interface Comment : ContentBased {
             attachments,
             replies
         )
+
+        @field:Mapper
+        @JvmField
+        val vertxGenToJson: Function<Comment, JsonObject> = Function {
+            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
+        }
+
+        @field:Mapper
+        @JvmField
+        val vertxGenFromJson: Function<JsonObject, Comment> = Function {
+            sharedMapper.convertValue(it.map)
+        }
 
     }
 

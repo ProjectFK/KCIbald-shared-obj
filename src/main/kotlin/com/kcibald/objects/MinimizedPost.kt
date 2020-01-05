@@ -1,9 +1,16 @@
 package com.kcibald.objects
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.module.kotlin.convertValue
 import com.kcibald.objects.impl.MinimizedPostImpl
 import com.kcibald.objects.impl.now
+import com.kcibald.objects.impl.sharedMapper
 import com.kcibald.utils.toURLKey
+import io.vertx.codegen.annotations.Mapper
+import io.vertx.core.json.JsonObject
+import java.util.function.Function as JFunction
 
+@JsonDeserialize(`as` = MinimizedPostImpl::class)
 interface MinimizedPost : ContentBased {
     val title: String
     val urlKey: String
@@ -30,6 +37,19 @@ interface MinimizedPost : ContentBased {
             updateTimestamp,
             content
         )
+
+        @field:Mapper
+        @JvmField
+        val vertxGenToJson: JFunction<MinimizedPost, JsonObject> = JFunction {
+            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
+        }
+
+        @field:Mapper
+        @JvmField
+        val vertxGenFromJson: JFunction<JsonObject, MinimizedPost> = JFunction {
+            sharedMapper.convertValue(it.map)
+        }
+
     }
 
 }

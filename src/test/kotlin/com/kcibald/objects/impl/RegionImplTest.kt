@@ -6,7 +6,7 @@ import com.kcibald.objects.File
 import com.kcibald.objects.Post
 import com.kcibald.objects.Region
 import com.kcibald.objects.User.Companion.createDefault
-import com.kcibald.utils.DirectCollection
+import com.kcibald.utils.PageableCollection
 import com.kcibald.utils.toURLKey
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -83,7 +83,7 @@ internal class RegionImplTest {
         parent,
         description,
         avatar,
-        DirectCollection(posts),
+        PageableCollection.directCollection(posts),
         childRegion,
         colors
     )

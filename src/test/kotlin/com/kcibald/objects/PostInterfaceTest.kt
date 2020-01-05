@@ -128,4 +128,17 @@ internal class PostInterfaceTest {
         assert(postDefaultyCreated.comments.totalSize == 0)
     }
 
+    @Test
+    fun json() {
+        val target = Post.createDefault(
+            "title",
+            createDefault("username", "username", File.withIdentifier(""), "sig"),
+            "content",
+            "parent-reg"
+        )
+        val json = Post.vertxGenToJson(target)
+        println(json)
+        assertEquals(target, Post.vertxGenFromJson(json))
+    }
+
 }

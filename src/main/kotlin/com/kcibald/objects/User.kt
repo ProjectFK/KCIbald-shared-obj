@@ -1,7 +1,14 @@
 package com.kcibald.objects
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.module.kotlin.convertValue
 import com.kcibald.objects.impl.UserImpl
+import com.kcibald.objects.impl.sharedMapper
+import io.vertx.codegen.annotations.Mapper
+import io.vertx.core.json.JsonObject
+import java.util.function.Function
 
+@JsonDeserialize(`as` = UserImpl::class)
 interface User {
 
     val userName: String
@@ -21,6 +28,20 @@ interface User {
             avatar,
             signature
         )
+
+
+        @field:Mapper
+        @JvmField
+        val vertxGenToJson: Function<User, JsonObject> =
+            Function {
+                JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
+            }
+
+        @field:Mapper
+        @JvmField
+        val vertxGenFromJson: Function<JsonObject, User> = Function {
+            sharedMapper.convertValue(it.map)
+        }
 
     }
 

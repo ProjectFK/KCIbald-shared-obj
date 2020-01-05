@@ -2,7 +2,6 @@ package com.kcibald.objects.impl
 
 import com.kcibald.objects.*
 import com.kcibald.services.files.ImageFileResolverClient
-import com.kcibald.utils.KnownSizePageableCollection
 import com.kcibald.utils.PageableCollection
 import java.time.Clock
 
@@ -34,7 +33,7 @@ internal data class PostImpl(
     override val createTimestamp: Timestamp,
     override val updateTimestamp: Timestamp?,
     override val attachments: List<Attachment>,
-    override val comments: KnownSizePageableCollection<Comment>,
+    override val comments: PageableCollection<Comment>,
     override val urlKey: String,
     override val sourceRegionURLKey: String,
     override val commentCount: Int

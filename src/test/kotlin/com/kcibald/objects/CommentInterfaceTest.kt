@@ -89,4 +89,10 @@ internal class CommentInterfaceTest {
         assert(defaultComment.replies.isEmpty())
     }
 
+    @Test
+    fun json() {
+        val json = Comment.vertxGenToJson(target)
+        assertEquals(target, Comment.vertxGenFromJson(json))
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.kcibald.objects.impl
 
 import com.kcibald.objects.File
+import com.kcibald.objects.User
+import com.kcibald.objects.invoke
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -36,6 +38,11 @@ internal class UserImplTest {
     @Test
     fun equals() {
         assertEquals(user, UserImpl(userName, urlKey, avatar, signature))
+    }
+
+    @Test
+    fun json() {
+        assertEquals(user, User.vertxGenFromJson(User.vertxGenToJson(user)))
     }
 
 }

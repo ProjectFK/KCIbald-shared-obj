@@ -15,10 +15,10 @@ internal class MinimizedPostTest {
         val parentRegionUrlKey = "DP"
         val commentCount = 1
         val author = createDefault(
-        "name",
+            "name",
             "name",
             File.withIdentifier("url"), "signature"
-    )
+        )
         val createTimeStamp = now
         val updateTimeStamp: Timestamp? = null
         val content = "blah"
@@ -111,6 +111,35 @@ internal class MinimizedPostTest {
                 updateTimestamp = updateTimeStamp
             )
         )
+    }
+
+    @Test
+    fun json() {
+        val title = "title"
+        val urlKey = "title"
+        val parentRegionUrlKey = "DP"
+        val commentCount = 1
+        val author = createDefault(
+            "name",
+            "name",
+            File.withIdentifier("url"), "signature"
+        )
+        val createTimeStamp = now
+        val updateTimeStamp: Timestamp? = null
+        val content = "blah"
+
+        val expected = MinimizedPostImpl(
+            title,
+            urlKey,
+            parentRegionUrlKey,
+            commentCount,
+            author,
+            createTimeStamp,
+            updateTimeStamp,
+            content
+        )
+
+        assertEquals(expected, MinimizedPost.vertxGenFromJson(MinimizedPost.vertxGenToJson(expected)))
     }
 
 }

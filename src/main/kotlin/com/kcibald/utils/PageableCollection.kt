@@ -1,5 +1,8 @@
 package com.kcibald.utils
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+
+@JsonDeserialize(`as` = PageableCollectionImpl::class)
 interface PageableCollection<T> {
     val hasNextPage: Boolean
     val currentContent: List<T>

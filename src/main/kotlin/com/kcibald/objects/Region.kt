@@ -1,10 +1,16 @@
 package com.kcibald.objects
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.module.kotlin.convertValue
 import com.kcibald.objects.impl.RegionImpl
-import com.kcibald.utils.DirectCollection
+import com.kcibald.objects.impl.sharedMapper
 import com.kcibald.utils.PageableCollection
 import com.kcibald.utils.toURLKey
+import io.vertx.codegen.annotations.Mapper
+import io.vertx.core.json.JsonObject
+import java.util.function.Function as JFunction
 
+@JsonDeserialize(`as` = RegionImpl::class)
 interface Region {
     val name: String
     val urlKey: String
@@ -36,9 +42,21 @@ interface Region {
             parent,
             description,
             avatar,
-            DirectCollection(topPosts),
+            PageableCollection.directCollection(topPosts),
             childRegion,
             colors
         )
+
+        @field:Mapper
+        @JvmField
+        val vertxGenToJson: JFunction<Region, JsonObject> = JFunction {
+            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
+        }
+
+        @field:Mapper
+        @JvmField
+        val vertxGenFromJson: JFunction<JsonObject, Region> = JFunction {
+            sharedMapper.convertValue(it.map)
+        }
     }
 }

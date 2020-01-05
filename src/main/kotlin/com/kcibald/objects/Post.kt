@@ -1,13 +1,19 @@
 package com.kcibald.objects
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.module.kotlin.convertValue
 import com.kcibald.objects.impl.PostImpl
 import com.kcibald.objects.impl.now
-import com.kcibald.utils.DirectCollection
-import com.kcibald.utils.KnownSizePageableCollection
+import com.kcibald.objects.impl.sharedMapper
+import com.kcibald.utils.PageableCollection
 import com.kcibald.utils.toURLKey
+import io.vertx.codegen.annotations.Mapper
+import io.vertx.core.json.JsonObject
+import java.util.function.Function as JFunction
 
+@JsonDeserialize(`as` = PostImpl::class)
 interface Post : MinimizedPost {
-    val comments: KnownSizePageableCollection<Comment>
+    val comments: PageableCollection<Comment>
     val attachments: List<Attachment>
 
     companion object {
@@ -28,11 +34,24 @@ interface Post : MinimizedPost {
             createTimeStamp,
             updateTimestamp,
             attachments,
-            DirectCollection(comments),
+            PageableCollection.directCollection(comments),
             urlKey,
             parentRegionKey,
             comments.size
         )
+
+        @field:Mapper
+        @JvmField
+        val vertxGenToJson: JFunction<Post, JsonObject> = JFunction {
+            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
+        }
+
+        @field:Mapper
+        @JvmField
+        val vertxGenFromJson: JFunction<JsonObject, Post> = JFunction {
+            sharedMapper.convertValue(it.map)
+        }
+
     }
 
 }

@@ -55,7 +55,7 @@ internal class PostImplTest {
     val urlKey = title.toURLKey()
 
     val parentRegionKey = ""
-    
+
     val target = Post.createDefault(
         title,
         author,
