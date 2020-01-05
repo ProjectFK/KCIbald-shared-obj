@@ -1,5 +1,8 @@
 package com.kcibald.utils
 
+import com.kcibald.objects.invoke
+import com.kcibald.utils.PageableCollectionTypeErased.Companion.vertxGenFromJson
+import com.kcibald.utils.PageableCollectionTypeErased.Companion.vertxGenToJson
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -31,49 +34,61 @@ internal class PageableCollectionTest {
     }
 
     @Test
-    fun equals_null() {
-        @Suppress("ReplaceCallWithBinaryOperator")
-        assertFalse(PageableCollection.directCollection(listOf("")).equals(null))
+    fun eraseType() {
+        val origin = PageableCollection.multiPageCollection(
+            listOf(""),
+            "query",
+            20
+        )
+        val erased = origin.eraseType()
+        assertEquals(origin.currentContent, erased.currentContent)
+        assertEquals(origin.hasNextPage, erased.hasNextPage)
+        assertEquals(origin.queryMark, erased.queryMark)
+        assertEquals(origin.totalSize, erased.totalSize)
     }
 
     @Test
-    fun equals_direct_reference() {
-        val collection = PageableCollection.directCollection(listOf(""))
-        assert(collection == collection)
+    fun eraseTypeJson() {
+        val origin = PageableCollection.multiPageCollection(
+            listOf(""),
+            "query",
+            20
+        ).eraseType()
+
+        val result = vertxGenFromJson(vertxGenToJson(origin))
+        assertEquals(origin.totalSize, result.totalSize)
+        assertEquals(origin.queryMark, result.queryMark)
+        assertEquals(origin.hasNextPage, result.hasNextPage)
+        assertEquals(origin.currentContent, result.currentContent)
     }
 
     @Test
-    fun equals_other_class() {
-        val collection = PageableCollection.directCollection(listOf(""))
-        @Suppress("ReplaceCallWithBinaryOperator")
-        assertFalse(collection.equals(""))
+    fun invalid_size_total_size_too_small() {
+        assertThrows(IllegalArgumentException::class.java) {
+            val listWithSizeOfThree = listOf("", "", "")
+            PageableCollection.multiPageCollection(listWithSizeOfThree, "", 2)
+        }
     }
 
     @Test
-    fun equals_same_class_different_content() {
-        val a = PageableCollection.directCollection(listOf("a"))
-        val b = PageableCollection.directCollection(listOf(""))
-        assertFalse(a == b)
+    fun delegateToString() {
+        val internal = "hi"
+        val testObj = object: PageableCollection<String> {
+            override val hasNextPage: Boolean
+                get() = fail()
+            override val currentContent: List<String>
+                get() = fail()
+            override val queryMark: String?
+                get() = fail()
+            override val totalSize: Int
+                get() = fail()
+
+            override fun toString(): String {
+                return internal
+            }
+        }.eraseType()
+
+        assertEquals("PageableCollectionTypeErasedDelegator(${internal})", testObj.toString())
     }
 
-    @Test
-    fun equals_true() {
-        val a = PageableCollection.directCollection(listOf(""))
-        val b = PageableCollection.directCollection(listOf(""))
-        assertTrue(a == b)
-    }
-
-    @Test
-    fun hashcode_same() {
-        val a = PageableCollection.directCollection(listOf(""))
-        val b = PageableCollection.directCollection(listOf(""))
-        assertEquals(a.hashCode(), b.hashCode())
-    }
-
-    @Test
-    fun hashcode_diff() {
-        val a = PageableCollection.directCollection(listOf("a"))
-        val b = PageableCollection.directCollection(listOf("b"))
-        assertNotEquals(a.hashCode(), b.hashCode())
-    }
 }
