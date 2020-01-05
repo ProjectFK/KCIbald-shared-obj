@@ -1,5 +1,6 @@
 package com.kcibald.utils
 
+import com.kcibald.objects.invoke
 import com.kcibald.services.PageableFetchConfig
 import com.kcibald.services.defaultPageableFetchConfig
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -30,6 +31,12 @@ internal class PageableFetchConfigTest {
     fun testDefault_query_mark() {
         val target = defaultPageableFetchConfig
         assertNull(target.queryMark)
+    }
+
+    @Test
+    fun json() {
+        val target = defaultPageableFetchConfig
+        PageableFetchConfig.vertxGenFromJson(PageableFetchConfig.vertxGenToJson(target))
     }
 
 }
