@@ -44,12 +44,10 @@ interface KCIbaldServiceProxyInterface {
         handler: Handler<AsyncResult<PageableCollectionOfComment>>
     )
 
-    companion object {
-        fun createClient(
-            vertx: Vertx,
-            address: String,
-            deliveryOptions: DeliveryOptions = DeliveryOptions()
-        ): KCIbaldServiceProxyInterface = ServiceProxyInterfaceVertxEBProxy(vertx, address, deliveryOptions)
-    }
-
 }
+
+internal fun createKCIBALDInterfaceClient(
+    vertx: Vertx,
+    address: String,
+    deliveryOptions: DeliveryOptions = DeliveryOptions()
+): KCIbaldServiceProxyInterface = KCIbaldServiceProxyInterfaceVertxEBProxy(vertx, address, deliveryOptions)
