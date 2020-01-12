@@ -83,3 +83,18 @@ internal data class DumbPageableCollectionTypeErasedImpl(
     override val queryMark: String?,
     override val totalSize: Int
 ) : PageableCollectionTypeErased
+
+inline fun <reified T> PageableCollectionTypeErased.cast(): PageableCollection<T> {
+    // cannot check in runtime anyway...
+    @Suppress("UNCHECKED_CAST")
+    val castedList = this.currentContent as List<T>
+    return if (this.hasNextPage) {
+        PageableCollection.directCollection(castedList)
+    } else {
+        PageableCollection.multiPageCollection(
+            castedList,
+            this.queryMark!!,
+            this.totalSize
+        )
+    }
+}
