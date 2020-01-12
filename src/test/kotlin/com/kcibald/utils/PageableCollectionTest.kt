@@ -73,7 +73,7 @@ internal class PageableCollectionTest {
     @Test
     fun delegateToString() {
         val internal = "hi"
-        val testObj = object: PageableCollection<String> {
+        val testObj = object : PageableCollection<String> {
             override val hasNextPage: Boolean
                 get() = fail()
             override val currentContent: List<String>
@@ -89,6 +89,20 @@ internal class PageableCollectionTest {
         }.eraseType()
 
         assertEquals("PageableCollectionTypeErasedDelegator(${internal})", testObj.toString())
+    }
+
+    @Test
+    fun cast_type_erased_pageable_collection_single_page() {
+        val collection = PageableCollection.directCollection(listOf(""))
+        val erased = collection.eraseType()
+        assertEquals(collection, erased.cast<String>())
+    }
+
+    @Test
+    fun cast_type_erased_pageable_collection_multiple_page() {
+        val collection = PageableCollection.multiPageCollection(listOf(""), "query", 20)
+        val erased = collection.eraseType()
+        assertEquals(collection, erased.cast<String>())
     }
 
 }
