@@ -49,14 +49,15 @@ interface Region {
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson: JFunction<Region, JsonObject> = JFunction {
-            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-        }
+        val vertxGenToJson: JFunction<Region, JsonObject> = JFunction(::toJson)
+
+        fun toJson(it: Region) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson: JFunction<JsonObject, Region> = JFunction {
-            sharedMapper.convertValue(it.map)
-        }
+        val vertxGenFromJson: JFunction<JsonObject, Region> = JFunction(::fromJson)
+
+        fun fromJson(it: JsonObject): Region = sharedMapper.convertValue(it.map)
+
     }
 }

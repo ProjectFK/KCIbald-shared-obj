@@ -24,16 +24,16 @@ interface Attachment {
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson = JFunction<Attachment, JsonObject> {
-            @Suppress("UNCHECKED_CAST")
-            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-        }
+        val vertxGenToJson = JFunction(::toJson)
+
+        fun toJson(it: Attachment) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson = JFunction<JsonObject, Attachment> {
+        val vertxGenFromJson = JFunction(::fromJson)
+
+        fun fromJson(it: JsonObject): Attachment =
             sharedMapper.convertValue(it.map)
-        }
 
     }
 }

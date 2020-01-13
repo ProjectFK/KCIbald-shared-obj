@@ -18,12 +18,14 @@ interface File {
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson = JFunction<JsonObject, File> { sharedMapper.convertValue(it.map) }
+        val vertxGenFromJson = JFunction(::fromJson)
+
+        fun fromJson(it: JsonObject): File = sharedMapper.convertValue(it.map)
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson = JFunction<File, JsonObject> {
-            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-        }
+        val vertxGenToJson = JFunction(::toJson)
+
+        fun toJson(it: File) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
     }
 }

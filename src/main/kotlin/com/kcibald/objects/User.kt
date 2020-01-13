@@ -32,16 +32,15 @@ interface User {
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson: Function<User, JsonObject> =
-            Function {
-                JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-            }
+        val vertxGenToJson: Function<User, JsonObject> = Function(::toJson)
+
+        fun toJson(it: User) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson: Function<JsonObject, User> = Function {
-            sharedMapper.convertValue(it.map)
-        }
+        val vertxGenFromJson: Function<JsonObject, User> = Function(::fromJson)
+
+        fun fromJson(it: JsonObject): User = sharedMapper.convertValue(it.map)
 
     }
 

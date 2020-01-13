@@ -36,15 +36,15 @@ interface Comment : ContentBased {
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson: Function<Comment, JsonObject> = Function {
-            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-        }
+        val vertxGenToJson = Function(::toJson)
+
+        fun toJson(it: Comment) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson: Function<JsonObject, Comment> = Function {
-            sharedMapper.convertValue(it.map)
-        }
+        val vertxGenFromJson = Function(::fromJson)
+
+        fun fromJson(it: JsonObject): Comment = sharedMapper.convertValue(it.map)
 
     }
 

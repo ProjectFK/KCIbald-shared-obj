@@ -40,15 +40,15 @@ interface MinimizedPost : ContentBased {
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson: JFunction<MinimizedPost, JsonObject> = JFunction {
-            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-        }
+        val vertxGenToJson: JFunction<MinimizedPost, JsonObject> = JFunction(::toJson)
+
+        fun toJson(it: MinimizedPost) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson: JFunction<JsonObject, MinimizedPost> = JFunction {
-            sharedMapper.convertValue(it.map)
-        }
+        val vertxGenFromJson: JFunction<JsonObject, MinimizedPost> = JFunction(::fromJson)
+
+        fun fromJson(it: JsonObject): MinimizedPost = sharedMapper.convertValue(it.map)
 
     }
 

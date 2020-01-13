@@ -42,15 +42,15 @@ interface Post : MinimizedPost {
 
         @field:Mapper
         @JvmField
-        val vertxGenToJson: JFunction<Post, JsonObject> = JFunction {
-            JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
-        }
+        val vertxGenToJson: JFunction<Post, JsonObject> = JFunction(::toJson)
+
+        fun toJson(it: Post) = JsonObject(sharedMapper.convertValue<Map<String, Any>>(it))
 
         @field:Mapper
         @JvmField
-        val vertxGenFromJson: JFunction<JsonObject, Post> = JFunction {
-            sharedMapper.convertValue(it.map)
-        }
+        val vertxGenFromJson: JFunction<JsonObject, Post> = JFunction(::fromJson)
+
+        fun fromJson(it: JsonObject): Post = sharedMapper.convertValue(it.map)
 
     }
 
