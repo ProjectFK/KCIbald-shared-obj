@@ -42,7 +42,7 @@ dependencies {
 
     compile 'com.github.cretz.pbandk:pbandk-runtime-jvm:0.3.0'
 
-    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.2.2'
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.3.5-native-mt-1.3.71-release-429'
 
     testCompile "io.vertx:vertx-junit5:$vertx_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
