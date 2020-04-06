@@ -38,7 +38,7 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.10.+"
     implementation "org.jetbrains:annotations:15.0"     // see: https://youtrack.jetbrains.com/issue/KT-35721
 
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.64'
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.65'
 
     compile 'com.github.cretz.pbandk:pbandk-runtime-jvm:0.3.0'
 
