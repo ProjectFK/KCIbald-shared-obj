@@ -34,7 +34,7 @@ dependencies {
     compile "io.vertx:vertx-codegen:$vertx_version"
     kapt "io.vertx:vertx-service-proxy:$vertx_version:processor"
     kapt "io.vertx:vertx-codegen:$vertx_version:processor"
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.0'
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.10.+"
     implementation "org.jetbrains:annotations:15.0"     // see: https://youtrack.jetbrains.com/issue/KT-35721
 
