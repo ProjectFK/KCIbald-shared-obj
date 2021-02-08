@@ -14,7 +14,7 @@ repositories {
     jcenter()
 }
 
-def vertx_version = "4.0.0-milestone4"
+def vertx_version = "4.0.2"
 def junit_version = "5.5.2"
 
 dependencies {
